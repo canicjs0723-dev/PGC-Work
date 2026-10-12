@@ -1,0 +1,239 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css");
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&display=swap");
+@import "tailwindcss";
+
+/* Digits only (0-9): the exact Pretendard Variable face used by the room tabs, subset so it can
+   sit first in every font stack and style numbers inside mixed text without touching letters. */
+@font-face {
+  font-family: "PGC Numerals";
+  src: url("./fonts/pretendard-digits.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0030-0039;
+}
+
+:root {
+  --warm-white: #fbfaf7;
+  --ivory: #f5f1ea;
+  --beige: #e8e0d3;
+  --warm-gray: #8a8378;
+  --line: #d9d2c6;
+  --charcoal: #1f1e1c;
+  --navy: #1a2238;
+  --accent: #b39264;
+  --font-cormorant: "Cormorant Garamond";
+}
+
+@theme inline {
+  --color-warm-white: var(--warm-white);
+  --color-ivory: var(--ivory);
+  --color-beige: var(--beige);
+  --color-warm-gray: var(--warm-gray);
+  --color-line: var(--line);
+  --color-charcoal: var(--charcoal);
+  --color-navy: var(--navy);
+  --color-accent: var(--accent);
+  --font-sans: "PGC Numerals", "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+  --font-serif: "PGC Numerals", var(--font-cormorant), "Times New Roman", serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--warm-white);
+  color: var(--charcoal);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  word-break: keep-all;
+}
+
+/* Maintain the editorial headings while normalizing small labels and body copy. */
+main [class~="text-[11px]"],
+main [class~="text-[12px]"] {
+  font-size: 14px !important;
+}
+
+main [class~="text-[13px]"] {
+  font-size: 15px !important;
+}
+
+main :is(p, li, dd)[class~="text-[14px]"] {
+  font-size: 16px !important;
+}
+
+main :is(p, li, dd)[class~="text-[15px]"],
+main :is(p, li, dd)[class~="text-[16px]"] {
+  font-size: 16px !important;
+}
+
+main :is(a, button)[class~="text-[13px]"] {
+  font-size: 14px !important;
+}
+
+main [class~="leading-[1.9]"] {
+  line-height: 1.65 !important;
+}
+
+main h3[class~="text-[15px]"] {
+  font-size: 26px !important;
+  line-height: 1.25 !important;
+  letter-spacing: 0.12em !important;
+}
+
+main h3[class~="text-[32px]"] {
+  font-size: 30px !important;
+}
+
+header nav [class~="text-[11px]"],
+header nav [class~="text-[12px]"],
+header nav [class~="text-[13px]"] {
+  font-size: 14px !important;
+}
+
+header > div > a [class~="text-[13px]"] {
+  font-size: 14px !important;
+}
+
+footer nav ul {
+  font-size: 14px;
+}
+
+footer [class~="text-[11px]"],
+footer [class~="text-[12px]"] {
+  font-size: 14px !important;
+}
+
+footer [class~="text-[13px]"] {
+  font-size: 15px !important;
+}
+
+@media (min-width: 768px) {
+  main [class~="text-[11px]"],
+  main [class~="text-[12px]"] {
+    font-size: 15px !important;
+  }
+
+  main [class~="text-[13px]"] {
+    font-size: 16px !important;
+  }
+
+  main :is(p, li, dd)[class~="text-[14px]"],
+  main :is(p, li, dd)[class~="text-[15px]"],
+  main :is(p, li, dd)[class~="text-[16px]"] {
+    font-size: 17px !important;
+  }
+
+  main :is(a, button)[class~="text-[13px]"] {
+    font-size: 15px !important;
+  }
+
+  main h3[class~="text-[15px]"] {
+    font-size: 28px !important;
+  }
+
+  footer [class~="text-[11px]"],
+  footer [class~="text-[12px]"] {
+    font-size: 15px !important;
+  }
+
+  footer [class~="text-[13px]"] {
+    font-size: 16px !important;
+  }
+}
+
+/* ---------- Reveal motion (subtle only) ---------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 1s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 1s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--delay, 0ms);
+}
+.reveal.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+/* Clip the image, not the observed wrapper — a fully clipped target never reports as intersecting. */
+.reveal-img img {
+  clip-path: inset(0 0 100% 0);
+  transform: scale(1.12);
+  transition:
+    clip-path 1.3s cubic-bezier(0.77, 0, 0.18, 1),
+    transform 1.8s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--delay, 0ms);
+}
+.reveal-img.is-in img {
+  clip-path: inset(0 0 0 0);
+  transform: scale(1);
+}
+
+/* Hero slow zoom */
+@keyframes hero-zoom {
+  from { transform: scale(1.08); }
+  to { transform: scale(1); }
+}
+.hero-zoom {
+  animation: hero-zoom 7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: none; }
+}
+.fade-up {
+  animation: fade-up 1.2s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: var(--delay, 0ms);
+}
+
+/* Scroll-down line */
+@keyframes scroll-line {
+  0% { transform: scaleY(0); transform-origin: top; }
+  45% { transform: scaleY(1); transform-origin: top; }
+  55% { transform: scaleY(1); transform-origin: bottom; }
+  100% { transform: scaleY(0); transform-origin: bottom; }
+}
+.scroll-line {
+  animation: scroll-line 2.4s ease-in-out infinite;
+}
+
+/* Footer marquee */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.marquee-track {
+  animation: marquee 40s linear infinite;
+}
+
+/* Horizontal gallery */
+.no-scrollbar {
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* FAQ accordion */
+details summary::-webkit-details-marker {
+  display: none;
+}
+details[open] .faq-icon {
+  transform: rotate(45deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal, .reveal-img img, .hero-zoom, .fade-up {
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
+    animation: none !important;
+    transition: none !important;
+  }
+  .marquee-track, .scroll-line { animation: none; }
+}
