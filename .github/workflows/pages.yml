@@ -35,7 +35,7 @@ jobs:
         run: npm run build
         env:
           GITHUB_PAGES: "1"
-          PAGES_BASE_PATH: /PGC
+          PAGES_BASE_PATH: /PGC-Work
           GITHUB_REPOSITORY: canicjs0723-dev/PGC-Work
 
       - name: Setup Pages
