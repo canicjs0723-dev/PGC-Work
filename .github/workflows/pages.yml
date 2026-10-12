@@ -36,7 +36,7 @@ jobs:
         env:
           GITHUB_PAGES: "1"
           PAGES_BASE_PATH: /PGC
-          GITHUB_REPOSITORY: canicjs0723-dev/PGC
+          GITHUB_REPOSITORY: canicjs0723-dev/PGC-Work
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
