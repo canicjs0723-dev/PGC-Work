@@ -5,7 +5,7 @@ export default function Hero() {
   return (
     <section className="relative h-svh min-h-[620px] overflow-hidden bg-charcoal text-white">
       <Image
-        src="/images/403-hero.jpg"
+        src="/images/403-hero.png"
         alt="Business Room lounge at Pangyo Global Campus"
         fill
         priority

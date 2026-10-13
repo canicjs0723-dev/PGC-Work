@@ -4,18 +4,18 @@
 
 | 파일명 | 사용 페이지 / 위치 |
 |---|---|
-| `403-attic-rest.jpg` | 객실 403 · Inside 갤러리 · 다락 휴식 공간 |
-| `403-attic-study.jpg` | 객실 403 · Inside 갤러리 · 다락 작업 공간 |
-| `403-dining-lounge.jpg` | 객실 403 · Inside 갤러리 · 다이닝 라운지 |
-| `403-hero.jpg` | 객실 403 대표 이미지, 홈 Two Spaces 슬라이더 |
-| `403-living.jpg` | 객실 403 · Inside 갤러리 · 거실 |
-| `403-pamplona.jpg` | 객실 403 · Inside 갤러리 · Pamplona 침실 |
-| `404-attic.jpg` | 객실 404 · Inside 갤러리 · 다락 |
-| `404-burgos-leon.jpg` | 객실 404 · Inside 갤러리 · Burgos / León 침실 |
-| `404-dining-lounge.jpg` | 객실 404 · Inside 갤러리 · 다이닝 라운지 |
-| `404-hero.jpg` | 객실 404 대표 이미지, 홈 Two Spaces 슬라이더, 문의 페이지 배경 |
-| `404-living.jpg` | 객실 404 · Inside 갤러리 · 거실 |
-| `404-santiago.jpg` | 객실 404 · Inside 갤러리 · Santiago 침실 |
+| `403-attic-rest.png` | 객실 403 · Inside 갤러리 · 다락 휴식 공간 |
+| `403-attic-study.png` | 객실 403 · Inside 갤러리 · 다락 작업 공간 |
+| `403-dining-lounge.png` | 객실 403 · Inside 갤러리 · 다이닝 라운지 |
+| `403-hero.png` | 객실 403 대표 이미지, 홈 Two Spaces 슬라이더 |
+| `403-living.png` | 객실 403 · Inside 갤러리 · 거실 |
+| `403-pamplona.png` | 객실 403 · Inside 갤러리 · Pamplona 침실 |
+| `404-attic.png` | 객실 404 · Inside 갤러리 · 다락 |
+| `404-burgos-leon.png` | 객실 404 · Inside 갤러리 · Burgos / León 침실 |
+| `404-dining-lounge.png` | 객실 404 · Inside 갤러리 · 다이닝 라운지 |
+| `404-hero.png` | 객실 404 대표 이미지, 홈 Two Spaces 슬라이더, 문의 페이지 배경 |
+| `404-living.png` | 객실 404 · Inside 갤러리 · 거실 |
+| `404-santiago.png` | 객실 404 · Inside 갤러리 · Santiago 침실 |
 | `building-205-dusk.jpg` | About 페이지 상단 대표 이미지 |
 | `building-205-entrance.jpg` | Location 페이지 도착 동선 사진 · 3번 Building 205 출입구 |
 | `building-205-street.jpg` | About 페이지 건물 사진, 홈 Two Spaces 슬라이더 |
@@ -33,7 +33,7 @@
 ## 이미지 교체
 
 1. VS Code Explorer에서 `public/images/`를 엽니다.
-2. 교체할 파일과 **동일한 파일명·확장자**로 새 이미지를 덮어씁니다. 예: `403-hero.jpg`.
+2. 교체할 파일과 **동일한 파일명·확장자**로 새 이미지를 덮어씁니다. 예: `403-hero.png`.
 3. 저장 후 로컬 개발 화면을 새로고침합니다. 기존 이미지가 남아 보이면 강력 새로고침(Ctrl+F5)을 합니다.
 4. GitHub Pages 또는 FTP/SFTP에도 새 파일과 새 빌드 결과를 배포합니다. 정적 빌드는 `out/images/`에 사용 이미지를 포함하므로 파일을 교체한 뒤 반드시 다시 빌드해야 합니다.
 5. 파일명을 바꾸려면 `src/content/rooms.ts`, `src/content/site.ts`, `src/content/highlights.ts`, `src/app/about/page.tsx`, `src/app/contact/page.tsx`, `src/app/location/page.tsx`에서 같은 `/images/기존파일명` 참조를 모두 바꾸고 링크를 확인합니다.
