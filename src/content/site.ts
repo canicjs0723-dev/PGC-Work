@@ -36,10 +36,8 @@ export const site = {
   inquiryEmail: "evan.kim@rondakorea.com",
   managementPhone: "031-711-7691",
   managementPhoneTel: "+82317117691",
-  mapQuery: "Pangyo Global Campus TH212",
-  // Korean road address used by external map links: an exact address resolves to the right building,
-  // while "TH212" alone can match a different place.
-  mapAddressKo: "경기도 성남시 분당구 판교대장로2길 25",
+  // Search term for the external map links and the embedded map: the complex's registered name.
+  mapSearchKo: "판교TH212",
 };
 
 export const intro = {
