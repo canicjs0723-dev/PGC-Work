@@ -37,10 +37,6 @@ jobs:
           GITHUB_PAGES: "1"
           PAGES_BASE_PATH: /PGC-Work
           GITHUB_REPOSITORY: canicjs0723-dev/PGC-Work
-          # NAVER map on the Location page (Settings → Secrets and variables → Actions → Variables).
-          # Left unset, the page keeps the Google map.
-          NEXT_PUBLIC_NAVER_MAP_KEY_ID: ${{ vars.NAVER_MAP_KEY_ID }}
-          NEXT_PUBLIC_TH212_LATLNG: ${{ vars.TH212_LATLNG }}
 
       - name: Setup Pages
         uses: actions/configure-pages@v5

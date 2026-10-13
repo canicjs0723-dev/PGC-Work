@@ -38,8 +38,9 @@ export const site = {
   managementPhoneTel: "+82317117691",
   // Search term for the external map links and the embedded map: the complex's registered name.
   mapSearchKo: "판교TH212",
-  // Road address used only to place the NAVER map marker when no verified coordinates are configured.
-  mapAddressKo: "경기도 성남시 분당구 판교대장로2길 25",
+  // Google query (embedded map and Google Maps button): the complex name followed by its registered
+  // road address (판교대장로7길 25, 17160), so Google lands on TH212 rather than another "TH212" match.
+  mapGoogleKo: "판교TH212 경기도 성남시 분당구 판교대장로7길 25",
 };
 
 export const intro = {
