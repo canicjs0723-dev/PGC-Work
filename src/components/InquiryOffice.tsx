@@ -54,7 +54,7 @@ export default function InquiryOffice() {
                 alt="WeChat QR code for PGC inquiries"
                 width={160}
                 height={160}
-                className="size-[140px] shrink-0 bg-white p-2 md:size-[160px]"
+                className="size-[140px] shrink-0 bg-white md:size-[160px]"
               />
               <p className="text-[14px] leading-relaxed text-white/70">Scan with WeChat to send an inquiry.</p>
             </div>
