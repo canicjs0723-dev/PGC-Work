@@ -73,13 +73,10 @@ function HeaderNavigation({ pathname }: { pathname: string }) {
     >
       <div className="mx-auto flex h-[72px] max-w-[1440px] items-center justify-between px-5 md:h-[84px] md:px-10">
         <SiteLink href="/" onClick={closeMenus} className="relative z-10 flex items-center gap-3" aria-label="Pangyo Global Campus home">
-          <span className={`grid size-9 place-items-center border font-serif text-[11px] leading-[1.05] ${solid || mobileOpen ? "border-charcoal/60" : "border-white/70"}`}>
-            <span className="text-center">
-              PG
-              <br />C
-            </span>
+          <span className={`inline-flex h-9 shrink-0 items-center whitespace-nowrap border px-2 font-serif text-[13px] leading-none tracking-[0.08em] ${solid || mobileOpen ? "border-charcoal/60" : "border-white/70"}`}>
+            PGC
           </span>
-          <span className="text-[13px] font-semibold tracking-[0.22em]">PANGYO GLOBAL CAMPUS</span>
+          <span className="whitespace-nowrap text-[13px] font-semibold tracking-[0.22em]">PANGYO GLOBAL CAMPUS</span>
         </SiteLink>
 
         <nav className="hidden lg:block" aria-label="Main">

@@ -31,12 +31,15 @@ export const site = {
     country: "Republic of Korea",
   },
   // Business inquiry line printed in the official brochure (not a personal number).
-  inquiryPhone: "031-613-2320",
-  inquiryPhoneTel: "+82316132320",
-  inquiryEmail: "nana.kim@rondakorea.com",
+  inquiryPhone: "031-613-2360",
+  inquiryPhoneTel: "+82316132360",
+  inquiryEmail: "evan.kim@rondakorea.com",
   managementPhone: "031-711-7691",
   managementPhoneTel: "+82317117691",
   mapQuery: "Pangyo Global Campus TH212",
+  // Korean road address used by external map links: an exact address resolves to the right building,
+  // while "TH212" alone can match a different place.
+  mapAddressKo: "경기도 성남시 분당구 판교대장로2길 25",
 };
 
 export const intro = {

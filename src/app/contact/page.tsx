@@ -58,7 +58,7 @@ export default function ContactPage() {
             <br />
             {site.address.street} ({site.address.lot})
             <br />
-            <a href={`tel:${site.inquiryPhone}`} className="mt-2 inline-block underline underline-offset-4">
+            <a href={`tel:${site.inquiryPhoneTel}`} className="mt-2 inline-block underline underline-offset-4">
               {site.inquiryPhone}
             </a>
           </address>
