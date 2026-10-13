@@ -135,8 +135,8 @@ export default function AboutPage() {
         {/* The map takes the wider column and stays in view beside the list on desktop. */}
         <Container className="mt-12 grid items-start gap-14 md:mt-16 md:grid-cols-12 md:gap-10 lg:gap-14">
           <div className="md:sticky md:top-28 md:col-span-7">
-            <div className="reveal-img relative aspect-[821/689] w-full overflow-hidden border border-line bg-white">
-              <Image src="/images/location-map.jpg" alt="Map showing TH212 Pangyo near Pangyo and Bundang" fill sizes="(min-width: 768px) 58vw, 100vw" className="object-contain" />
+            <div className="reveal-img relative aspect-[2000/1678] w-full overflow-hidden border border-line bg-white">
+              <Image src="/images/location-map.webp" alt="Map showing TH212 Pangyo near Pangyo and Bundang" fill sizes="(min-width: 768px) 58vw, 100vw" className="object-contain" />
             </div>
           </div>
           <div className="md:col-span-5">
