@@ -6,10 +6,13 @@ import { Container, SectionLabel } from "@/components/ui";
 import { directions, parking, site } from "@/content/site";
 
 const fullAddress = `${site.address.street} (${site.address.lot})`;
+const mapAddress = encodeURIComponent(site.mapAddressKo);
+// Google Maps URLs accept an address as the directions origin. Naver and Kakao only take an origin as
+// coordinates, which are not verified here, so they open a search for the exact address instead.
 const mapLinks = [
-  { label: "Naver Map", href: `https://map.naver.com/p/search/${encodeURIComponent(site.mapQuery)}` },
-  { label: "Kakao Map", href: `https://map.kakao.com/?q=${encodeURIComponent(site.mapQuery)}` },
-  { label: "Google Maps", href: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(site.mapQuery)}` },
+  { label: "Naver Map", href: `https://map.naver.com/p/search/${mapAddress}` },
+  { label: "Kakao Map", href: `https://map.kakao.com/link/search/${mapAddress}` },
+  { label: "Google Maps", href: `https://www.google.com/maps/dir/?api=1&origin=${mapAddress}` },
 ];
 
 const arrival = [
@@ -83,7 +86,7 @@ export default function LocationView() {
           <div className="reveal relative aspect-square overflow-hidden bg-beige md:col-span-7 md:aspect-auto md:min-h-[560px]">
             <iframe
               title="Map of Pangyo Global Campus (TH212)"
-              src={`https://maps.google.com/maps?q=${encodeURIComponent(site.mapQuery)}&z=16&output=embed`}
+              src={`https://maps.google.com/maps?q=${mapAddress}&z=15&output=embed`}
               className="absolute inset-0 size-full grayscale-[35%]"
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"

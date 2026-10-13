@@ -14,7 +14,9 @@ export type Room = {
   amenities: string[];
   signature: string[];
   hero: { src: string; alt: string; position?: string };
-  living: { src: string; alt: string };
+  // "Inside the Room" gallery, in display order (living first, then spaces). To use a higher-resolution
+  // photo, add it under public/images/ and point src here; position adjusts the 4:3 crop (e.g. "50% 60%").
+  living: { src: string; alt: string; position?: string };
   spaces: { name: string; src: string; alt: string; position?: string }[];
 };
 

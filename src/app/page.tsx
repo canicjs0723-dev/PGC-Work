@@ -75,9 +75,7 @@ export default function Home() {
           <div className="reveal text-center">
             <SectionLabel>Our Spaces</SectionLabel>
             <h2 className="mt-5 font-serif text-[40px] font-light leading-[1.02] md:text-[68px]">
-              Two Spaces.
-              <br />
-              One Business Experience.
+              <span className="block md:inline">Spaces That</span> <span className="block md:inline">Work for You.</span>
             </h2>
           </div>
 
@@ -119,7 +117,7 @@ export default function Home() {
         <Container className="grid gap-14 md:grid-cols-12 md:gap-10">
           <div className="reveal md:col-span-5">
             <SectionLabel>Location</SectionLabel>
-            <h2 className="mt-6 font-serif text-[44px] font-light leading-[0.98] md:text-[64px]">
+            <h2 className="mt-6 font-serif text-[44px] font-light leading-[1.08] md:text-[64px]">
               Pangyo
               <br />
               Global Campus
@@ -144,6 +142,7 @@ export default function Home() {
             <p className="mt-6 text-[13px] leading-relaxed text-charcoal/65">
               Parking requires pre-registration. Please use the Building 204 side entrance.
             </p>
+            <p className="mt-2 text-[12px] leading-relaxed text-warm-gray">※ Travel times may vary depending on traffic conditions.</p>
             <div className="mt-10">
               <ArrowLink href="/information/location">Directions & Parking</ArrowLink>
             </div>

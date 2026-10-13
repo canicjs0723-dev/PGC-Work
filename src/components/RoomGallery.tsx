@@ -55,13 +55,13 @@ export default function RoomGallery({ room }: { room: Room }) {
               aria-label={`View ${currentImage.name} image larger`}
               className="group block w-full text-left"
             >
-              <span className="relative block aspect-[4/3] overflow-hidden bg-beige">
+              <span className="relative block aspect-[4/3] overflow-hidden">
                 <Image
                   src={currentImage.src}
                   alt={currentImage.alt}
                   fill
                   sizes="(min-width: 768px) 75vw, 100vw"
-                  className="object-contain transition-transform duration-700 group-hover:scale-[1.025]"
+                  className="object-cover transition-transform duration-700 group-hover:scale-[1.025]"
                   style={{ objectPosition: currentImage.position ?? "50% 50%" }}
                 />
               </span>

@@ -22,7 +22,7 @@ function AdvantageIcon({ title }: { title: string }) {
   };
 
   if (title === "Connectivity") {
-    return <svg {...common}><path d="M5 25 25 5M8 8h7v7M17 17h7v7" /><circle cx="7" cy="25" r="2" /><circle cx="25" cy="7" r="2" /></svg>;
+    return <svg {...common}><path d="M12 4 5 28M20 4l7 24M16 6v3m0 5v4m0 5v5" /></svg>;
   }
   if (title === "Local Amenities") {
     return <svg {...common}><path d="M5 13h22v14H5zM3 13l3-7h20l3 7M10 27v-8h6v8m4-9h3v3h-3z" /></svg>;
@@ -30,7 +30,7 @@ function AdvantageIcon({ title }: { title: string }) {
   if (title === "Nearby Attractions") {
     return <svg {...common}><path d="m16 4 3.4 7 7.6 1.1-5.5 5.4 1.3 7.5-6.8-3.6-6.8 3.6 1.3-7.5L5 12.1l7.6-1.1z" /></svg>;
   }
-  return <svg {...common}><path d="M16 27V14m0 5-7-6m7 3 7-7M5 27h22M5 13l4 1 0-4 4 1 3-7 3 7 4-1 0 4 4-1" /></svg>;
+  return <svg {...common}><path d="M3 27h26M4 27l8-14 5 8M23 27v-3m0-18-4.5 7.5h2.5L17 21h12l-4-7.5h2.5z" /></svg>;
 }
 
 export default function AboutPage() {
@@ -123,19 +123,19 @@ export default function AboutPage() {
       {/* Location advantage */}
       <section id="advantage" className="scroll-mt-20 bg-warm-white py-24 md:py-36">
         <Container className="grid items-stretch gap-14 md:grid-cols-12">
-          <div className="reveal flex flex-col md:col-span-5">
+          <div className="reveal flex flex-col md:col-span-6">
             <SectionLabel>Well-Connected Location</SectionLabel>
             <h2 className="mt-6 font-serif text-[44px] font-light leading-none md:text-[60px]">
               PGC Location
               <br />
               Advantage
             </h2>
-            <div className="reveal-img relative mt-12 aspect-[4/5] min-h-[480px] flex-1 overflow-hidden border border-line md:aspect-auto md:min-h-[680px]">
-              <Image src="/images/location-map.jpg" alt="Map showing TH212 Pangyo near Pangyo and Bundang" fill sizes="(min-width: 768px) 40vw, 100vw" className="object-cover" />
+            <div className="reveal-img relative mt-12 aspect-[821/689] w-full overflow-hidden border border-line bg-white">
+              <Image src="/images/location-map.jpg" alt="Map showing TH212 Pangyo near Pangyo and Bundang" fill sizes="(min-width: 768px) 50vw, 100vw" className="object-contain" />
             </div>
           </div>
           <div className="md:col-span-6 md:col-start-7 lg:pt-[208px]">
-            <dl className="grid lg:min-h-[680px] lg:grid-rows-4">
+            <dl className="grid lg:grid-rows-4">
               {advantages.map((a, i) => (
                 <div
                   key={a.title}
