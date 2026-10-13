@@ -36,7 +36,6 @@ export const site = {
   inquiryEmail: "evan.kim@rondakorea.com",
   managementPhone: "031-711-7691",
   managementPhoneTel: "+82317117691",
-  mapQuery: "Pangyo Global Campus TH212",
   // Search term for the external map links and the embedded map: the complex's registered name.
   mapSearchKo: "판교TH212",
 };
