@@ -17,7 +17,7 @@
 | `404-living.png` | 객실 404 · Inside 갤러리 · 거실 |
 | `404-santiago.png` | 객실 404 · Inside 갤러리 · Santiago 침실 |
 | `building-205-dusk.jpg` | About 페이지 상단 대표 이미지 |
-| `building-205-entrance.jpg` | Location 페이지 도착 동선 사진 · 3번 Building 205 출입구 |
+| `building-205-entrance.webp` | Information(Guide) 페이지 상단 배경 · 205동 출입구 |
 | `building-205-street.jpg` | About 페이지 건물 사진, 홈 Two Spaces 슬라이더 |
 | `campus-aerial.jpg` | 홈 위치 섹션, Location 페이지 상단 대표 이미지 |
 | `campus-garden.jpg` | About 페이지 캠퍼스 정원 사진 |
