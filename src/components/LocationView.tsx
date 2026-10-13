@@ -6,19 +6,17 @@ import { Container, SectionLabel } from "@/components/ui";
 import { directions, parking, site } from "@/content/site";
 
 const fullAddress = `${site.address.street} (${site.address.lot})`;
-const mapAddress = encodeURIComponent(site.mapAddressKo);
-// Google Maps URLs accept an address as the directions origin. Naver and Kakao only take an origin as
-// coordinates, which are not verified here, so they open a search for the exact address instead.
+const mapSearch = encodeURIComponent(site.mapSearchKo);
+// Each link opens that service's place search for the complex name.
 const mapLinks = [
-  { label: "Naver Map", href: `https://map.naver.com/p/search/${mapAddress}` },
-  { label: "Kakao Map", href: `https://map.kakao.com/link/search/${mapAddress}` },
-  { label: "Google Maps", href: `https://www.google.com/maps/dir/?api=1&origin=${mapAddress}` },
+  { label: "Naver Map", href: `https://map.naver.com/p/search/${mapSearch}` },
+  { label: "Kakao Map", href: `https://map.kakao.com/link/search/${mapSearch}` },
+  { label: "Google Maps", href: `https://www.google.com/maps/search/?api=1&query=${mapSearch}` },
 ];
 
+// Parking route steps, in order. Steps 02-05 are added here once their photos are supplied.
 const arrival = [
   { src: "/images/parking-204-entrance.jpg", alt: "Building 204 parking entrance", caption: "01 · Building 204 side entrance & parking" },
-  { src: "/images/th212-sign.jpg", alt: "TH212 Pangyo sign near Building 205", caption: "02 · TH212 Pangyo, toward Building 205" },
-  { src: "/images/building-205-entrance.jpg", alt: "Building 205 lobby entrance", caption: "03 · Building 205 entrance" },
 ];
 
 export default function LocationView() {
@@ -82,11 +80,12 @@ export default function LocationView() {
                 </div>
               ))}
             </dl>
+            <p className="mt-4 text-[12px] leading-relaxed text-warm-gray">※ Travel times may vary depending on traffic conditions.</p>
           </div>
           <div className="reveal relative aspect-square overflow-hidden bg-beige md:col-span-7 md:aspect-auto md:min-h-[560px]">
             <iframe
               title="Map of Pangyo Global Campus (TH212)"
-              src={`https://maps.google.com/maps?q=${mapAddress}&z=15&output=embed`}
+              src={`https://maps.google.com/maps?q=${mapSearch}&z=16&output=embed`}
               className="absolute inset-0 size-full grayscale-[35%]"
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
@@ -134,7 +133,7 @@ export default function LocationView() {
         <Container>
           <div className="reveal">
             <SectionLabel>Arrival</SectionLabel>
-            <h2 className="mt-5 font-serif text-[40px] font-light md:text-[56px]">Finding Building 205</h2>
+            <h2 className="mt-5 font-serif text-[40px] font-light md:text-[56px]">Finding Parking for Building 205</h2>
           </div>
           <div className="no-scrollbar -mx-5 mt-12 flex snap-x snap-mandatory scroll-px-5 gap-5 overflow-x-auto px-5 md:mx-0 md:grid md:grid-cols-3 md:gap-8 md:overflow-visible md:px-0">
             {arrival.map((a, i) => (

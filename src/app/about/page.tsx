@@ -122,24 +122,29 @@ export default function AboutPage() {
 
       {/* Location advantage */}
       <section id="advantage" className="scroll-mt-20 bg-warm-white py-24 md:py-36">
-        <Container className="grid items-stretch gap-14 md:grid-cols-12">
-          <div className="reveal flex flex-col md:col-span-6">
+        <Container>
+          <div className="reveal">
             <SectionLabel>Well-Connected Location</SectionLabel>
             <h2 className="mt-6 font-serif text-[44px] font-light leading-none md:text-[60px]">
               PGC Location
               <br />
               Advantage
             </h2>
-            <div className="reveal-img relative mt-12 aspect-[821/689] w-full overflow-hidden border border-line bg-white">
-              <Image src="/images/location-map.jpg" alt="Map showing TH212 Pangyo near Pangyo and Bundang" fill sizes="(min-width: 768px) 50vw, 100vw" className="object-contain" />
+          </div>
+        </Container>
+        {/* The map takes the wider column and stays in view beside the list on desktop. */}
+        <Container className="mt-12 grid items-start gap-14 md:mt-16 md:grid-cols-12 md:gap-10 lg:gap-14">
+          <div className="md:sticky md:top-28 md:col-span-7">
+            <div className="reveal-img relative aspect-[821/689] w-full overflow-hidden border border-line bg-white">
+              <Image src="/images/location-map.jpg" alt="Map showing TH212 Pangyo near Pangyo and Bundang" fill sizes="(min-width: 768px) 58vw, 100vw" className="object-contain" />
             </div>
           </div>
-          <div className="md:col-span-6 md:col-start-7 lg:pt-[208px]">
-            <dl className="grid lg:grid-rows-4">
+          <div className="md:col-span-5">
+            <dl className="grid">
               {advantages.map((a, i) => (
                 <div
                   key={a.title}
-                  className="reveal flex flex-col justify-center border-t border-charcoal/15 py-8 first:border-t-0 first:pt-0 md:py-10 lg:py-4 lg:first:pt-4"
+                  className="reveal flex flex-col justify-center border-t border-charcoal/15 py-8 first:border-t-0 first:pt-0 md:py-7 lg:py-9"
                   style={{ "--delay": `${i * 90}ms` } as React.CSSProperties}
                 >
                   <dt className="flex items-center gap-4">
