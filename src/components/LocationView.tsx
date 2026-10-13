@@ -22,7 +22,7 @@ const arrival = [
   { src: "/images/parking-02-turn-right-204-207.jpg", alt: "Underground parking sign pointing right to Buildings 204–207", caption: "02 · Turn right toward Buildings 204–207" },
   { src: "/images/parking-03-straight-205-207.jpg", alt: "Parking sign pointing straight ahead to Buildings 205–207", caption: "03 · Continue straight toward Buildings 205–207" },
   { src: "/images/parking-04-right-205-entrances-3-6.jpg", alt: "Parking sign pointing right to Building 205, entrances 3–6", caption: "04 · Turn right toward Building 205, entrances 3–6" },
-  { src: "/images/parking-05-205-entrances-3-4.jpg", alt: "Building 205 entrances 3 and 4 in the underground parking", caption: "05 · Building 205 — entrances 3 & 4" },
+  { src: "/images/parking-05-205-entrances-3-4.jpg", alt: "Building 205 entrances 3 and 4 in the underground parking", caption: "05 · Building 205 — entrances 3 & 4", position: "70% 50%" },
 ];
 
 export default function LocationView() {

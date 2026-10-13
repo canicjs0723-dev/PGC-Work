@@ -3,10 +3,11 @@
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
-export type ArrivalStep = { src: string; alt: string; caption: string };
+export type ArrivalStep = { src: string; alt: string; caption: string; position?: string };
 
 // Parking route steps: one row on wide screens, a swipeable strip (scrolling inside this block only)
-// on smaller ones. Photos are shown whole (contain) so the ceiling signs and entrance numbers stay visible.
+// on smaller ones. Photos fill a square frame; `position` keeps each ceiling sign or entrance number in view,
+// and the viewer shows the whole photo.
 export default function ArrivalSteps({ steps }: { steps: ArrivalStep[] }) {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const triggers = useRef<(HTMLButtonElement | null)[]>([]);
@@ -48,9 +49,9 @@ export default function ArrivalSteps({ steps }: { steps: ArrivalStep[] }) {
 
   return (
     <>
-      <ol className="no-scrollbar -mx-5 mt-12 flex snap-x snap-mandatory scroll-px-5 gap-5 overflow-x-auto px-5 md:-mx-10 md:scroll-px-10 md:px-10 lg:mx-0 lg:grid lg:grid-cols-5 lg:gap-6 lg:overflow-visible lg:px-0">
+      <ol className="no-scrollbar -mx-5 mt-12 flex snap-x snap-mandatory scroll-px-5 gap-5 overflow-x-auto px-5 md:-mx-10 md:scroll-px-10 md:px-10 xl:mx-0 xl:grid xl:grid-cols-5 xl:gap-4 xl:overflow-visible xl:px-0">
         {steps.map((step, i) => (
-          <li key={step.src} className="w-[78%] shrink-0 snap-start sm:w-[44%] md:w-[34%] lg:w-auto">
+          <li key={step.src} className="w-[78%] shrink-0 snap-start sm:w-[44%] md:w-[34%] lg:w-[26%] xl:w-auto">
             <figure>
               <button
                 ref={(el) => {
@@ -61,17 +62,18 @@ export default function ArrivalSteps({ steps }: { steps: ArrivalStep[] }) {
                 aria-label={`View step ${i + 1} photo larger`}
                 className="group block w-full"
               >
-                <span className="reveal-img relative block aspect-square overflow-hidden bg-beige/60" style={{ "--delay": `${i * 100}ms` } as React.CSSProperties}>
+                <span className="reveal-img relative block aspect-square overflow-hidden bg-beige" style={{ "--delay": `${i * 100}ms` } as React.CSSProperties}>
                   <Image
                     src={step.src}
                     alt={step.alt}
                     fill
                     sizes="(min-width: 1024px) 20vw, (min-width: 768px) 34vw, 78vw"
-                    className="object-contain transition-transform duration-700 group-hover:scale-[1.025]"
+                    className="object-cover transition-transform duration-700 group-hover:scale-[1.025]"
+                    style={{ objectPosition: step.position ?? "50% 50%" }}
                   />
                 </span>
               </button>
-              <figcaption className="mt-4 text-[13px] uppercase leading-relaxed tracking-[0.16em] text-warm-gray">{step.caption}</figcaption>
+              <figcaption className="mt-4 text-[0.8125rem] uppercase leading-relaxed tracking-[0.06em] text-warm-gray">{step.caption}</figcaption>
             </figure>
           </li>
         ))}
