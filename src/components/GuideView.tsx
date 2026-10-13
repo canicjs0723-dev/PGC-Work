@@ -13,7 +13,7 @@ export default function GuideView() {
         label="Information"
         title="Guide"
         subtitle="Your Stay, Made Simple. Please check before your stay."
-        image="/images/building-205-entrance.jpg"
+        image="/images/building-205-entrance.webp"
         alt="Entrance of Building 205"
         position="50% 40%"
       />
