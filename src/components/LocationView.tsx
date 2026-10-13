@@ -1,7 +1,6 @@
 import Image from "next/image";
 import ArrivalSteps from "@/components/ArrivalSteps";
 import CopyAddressButton from "@/components/CopyAddressButton";
-import NaverMap from "@/components/NaverMap";
 import PageHero from "@/components/PageHero";
 import PageTabs from "@/components/PageTabs";
 import { Container, SectionLabel } from "@/components/ui";
@@ -89,7 +88,13 @@ export default function LocationView() {
             <p className="mt-4 text-[12px] leading-relaxed text-warm-gray">※ Travel times may vary depending on traffic conditions.</p>
           </div>
           <div className="reveal relative aspect-square overflow-hidden bg-beige md:col-span-7 md:aspect-auto md:min-h-[560px]">
-            <NaverMap />
+            <iframe
+              title="Map of Pangyo Global Campus (TH212)"
+              src={`https://maps.google.com/maps?q=${encodeURIComponent(site.mapEmbedKo)}&z=16&output=embed`}
+              className="absolute inset-0 size-full grayscale-[35%]"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
           </div>
         </Container>
       </section>
