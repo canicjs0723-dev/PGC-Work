@@ -87,13 +87,13 @@ export default function LocationView() {
             </dl>
             <p className="mt-4 text-[12px] leading-relaxed text-warm-gray">※ Travel times may vary depending on traffic conditions.</p>
           </div>
-          <div className="reveal relative aspect-[4/5] overflow-hidden bg-beige md:col-span-7 md:aspect-auto md:min-h-[560px]">
-            {/* The embed always opens a place card in its top-left corner; the frame extends 180px above
-                the box so only the red pin shows. Google's logo and attribution stay visible at the bottom. */}
+          <div className="reveal relative aspect-square overflow-hidden bg-beige md:col-span-7 md:aspect-auto md:min-h-[560px]">
+            {/* An empty iwloc keeps the place card closed: the map shows the red pin and Google's
+                compact "open in Maps" button only. */}
             <iframe
               title="Map of Pangyo Global Campus (TH212)"
-              src={`https://maps.google.com/maps?q=${encodeURIComponent(site.mapGoogleKo)}&z=16&output=embed`}
-              className="absolute inset-x-0 bottom-0 h-[calc(100%+180px)] w-full grayscale-[35%]"
+              src={`https://maps.google.com/maps?q=${encodeURIComponent(site.mapGoogleKo)}&t=&z=16&ie=UTF8&iwloc=&output=embed`}
+              className="absolute inset-0 size-full grayscale-[35%]"
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
             />
