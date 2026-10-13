@@ -12,7 +12,7 @@ export const homeHighlights = [
     linkLabel: "View More",
   },
   {
-    image: "/images/403-hero.jpg",
+    image: "/images/403-hero.png",
     alt: "Business Room lounge",
     label: "Business Room",
     title: "Business Room",
@@ -23,7 +23,7 @@ export const homeHighlights = [
     linkLabel: "View More",
   },
   {
-    image: "/images/404-hero.jpg",
+    image: "/images/404-hero.png",
     alt: "Guest Room lounge",
     label: "Guest Room",
     title: "Guest Room",

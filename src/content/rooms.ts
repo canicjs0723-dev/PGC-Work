@@ -57,13 +57,13 @@ export const businessRoom: Room = {
     "Hair Dryer",
   ],
   signature: ["Projector", "Audio Equipment", "Wine Cooler"],
-  hero: { src: "/images/403-hero.jpg", alt: "Business Room living lounge with chandelier and open kitchen", position: "50% 55%" },
-  living: { src: "/images/403-living.jpg", alt: "Business Room lounge sofa facing the terrace windows" },
+  hero: { src: "/images/403-hero.png", alt: "Business Room living lounge with chandelier and open kitchen", position: "50% 55%" },
+  living: { src: "/images/403-living.png", alt: "Business Room lounge sofa facing the terrace windows" },
   spaces: [
-    { name: "Dining Lounge", src: "/images/403-dining-lounge.jpg", alt: "Business Room kitchen island dining lounge" },
-    { name: "Pamplona", src: "/images/403-pamplona.jpg", alt: "Pamplona bedroom in the Business Room" },
-    { name: "Attic", src: "/images/403-attic-study.jpg", alt: "Business Room attic with low desks" },
-    { name: "Attic", src: "/images/403-attic-rest.jpg", alt: "Business Room attic rest area with two beds" },
+    { name: "Dining Lounge", src: "/images/403-dining-lounge.png", alt: "Business Room kitchen island dining lounge" },
+    { name: "Pamplona", src: "/images/403-pamplona.png", alt: "Pamplona bedroom in the Business Room" },
+    { name: "Attic", src: "/images/403-attic-study.png", alt: "Business Room attic with low desks" },
+    { name: "Attic", src: "/images/403-attic-rest.png", alt: "Business Room attic rest area with two beds" },
   ],
 };
 
@@ -104,13 +104,13 @@ export const guestRoom: Room = {
     "Hair Dryer",
   ],
   signature: ["Massage Chair", "Dryer", "Microwave"],
-  hero: { src: "/images/404-hero.jpg", alt: "Guest Room living room with leather sofas and wood slat wall", position: "50% 60%" },
-  living: { src: "/images/404-living.jpg", alt: "Guest Room living room with two sofa sets" },
+  hero: { src: "/images/404-hero.png", alt: "Guest Room living room with leather sofas and wood slat wall", position: "50% 60%" },
+  living: { src: "/images/404-living.png", alt: "Guest Room living room with two sofa sets" },
   spaces: [
-    { name: "Dining Lounge", src: "/images/404-dining-lounge.jpg", alt: "Guest Room dining table and kitchen island" },
-    { name: "Santiago", src: "/images/404-santiago.jpg", alt: "Santiago bedroom in the Guest Room", position: "50% 60%" },
-    { name: "Burgos / León", src: "/images/404-burgos-leon.jpg", alt: "Burgos / León bedroom in the Guest Room" },
-    { name: "Attic", src: "/images/404-attic.jpg", alt: "Guest Room attic with desks and beds" },
+    { name: "Dining Lounge", src: "/images/404-dining-lounge.png", alt: "Guest Room dining table and kitchen island" },
+    { name: "Santiago", src: "/images/404-santiago.png", alt: "Santiago bedroom in the Guest Room", position: "50% 60%" },
+    { name: "Burgos / León", src: "/images/404-burgos-leon.png", alt: "Burgos / León bedroom in the Guest Room" },
+    { name: "Attic", src: "/images/404-attic.png", alt: "Guest Room attic with desks and beds" },
   ],
 };
 

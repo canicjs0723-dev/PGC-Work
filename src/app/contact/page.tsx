@@ -19,7 +19,7 @@ export default function ContactPage() {
           <div className="sticky top-0 h-svh">
             <div className="relative h-full">
               <Image
-                src="/images/404-hero.jpg"
+                src="/images/404-hero.png"
                 alt="Guest Room living room"
                 fill
                 priority
@@ -33,7 +33,7 @@ export default function ContactPage() {
 
         <div className="relative h-[48svh] min-h-[340px] bg-charcoal text-white lg:hidden">
           <Image
-            src="/images/404-hero.jpg"
+            src="/images/404-hero.png"
             alt="Guest Room living room"
             fill
             priority
