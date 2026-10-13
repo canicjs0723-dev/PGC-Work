@@ -1,5 +1,7 @@
 import Image from "next/image";
+import ArrivalSteps from "@/components/ArrivalSteps";
 import CopyAddressButton from "@/components/CopyAddressButton";
+import NaverMap from "@/components/NaverMap";
 import PageHero from "@/components/PageHero";
 import PageTabs from "@/components/PageTabs";
 import { Container, SectionLabel } from "@/components/ui";
@@ -14,9 +16,13 @@ const mapLinks = [
   { label: "Google Maps", href: `https://www.google.com/maps/search/?api=1&query=${mapSearch}` },
 ];
 
-// Parking route steps, in order. Steps 02-05 are added here once their photos are supplied.
+// Parking route steps, in order.
 const arrival = [
   { src: "/images/parking-204-entrance.jpg", alt: "Building 204 parking entrance", caption: "01 · Building 204 side entrance & parking" },
+  { src: "/images/parking-02-turn-right-204-207.jpg", alt: "Underground parking sign pointing right to Buildings 204–207", caption: "02 · Turn right toward Buildings 204–207" },
+  { src: "/images/parking-03-straight-205-207.jpg", alt: "Parking sign pointing straight ahead to Buildings 205–207", caption: "03 · Continue straight toward Buildings 205–207" },
+  { src: "/images/parking-04-right-205-entrances-3-6.jpg", alt: "Parking sign pointing right to Building 205, entrances 3–6", caption: "04 · Turn right toward Building 205, entrances 3–6" },
+  { src: "/images/parking-05-205-entrances-3-4.jpg", alt: "Building 205 entrances 3 and 4 in the underground parking", caption: "05 · Building 205 — entrances 3 & 4" },
 ];
 
 export default function LocationView() {
@@ -83,13 +89,7 @@ export default function LocationView() {
             <p className="mt-4 text-[12px] leading-relaxed text-warm-gray">※ Travel times may vary depending on traffic conditions.</p>
           </div>
           <div className="reveal relative aspect-square overflow-hidden bg-beige md:col-span-7 md:aspect-auto md:min-h-[560px]">
-            <iframe
-              title="Map of Pangyo Global Campus (TH212)"
-              src={`https://maps.google.com/maps?q=${mapSearch}&z=16&output=embed`}
-              className="absolute inset-0 size-full grayscale-[35%]"
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-            />
+            <NaverMap />
           </div>
         </Container>
       </section>
@@ -135,16 +135,7 @@ export default function LocationView() {
             <SectionLabel>Arrival</SectionLabel>
             <h2 className="mt-5 font-serif text-[40px] font-light md:text-[56px]">Finding Parking for Building 205</h2>
           </div>
-          <div className="no-scrollbar -mx-5 mt-12 flex snap-x snap-mandatory scroll-px-5 gap-5 overflow-x-auto px-5 md:mx-0 md:grid md:grid-cols-3 md:gap-8 md:overflow-visible md:px-0">
-            {arrival.map((a, i) => (
-              <figure key={a.src} className="w-[80%] shrink-0 snap-start md:w-auto">
-                <div className="reveal-img relative aspect-[4/3] overflow-hidden bg-beige" style={{ "--delay": `${i * 120}ms` } as React.CSSProperties}>
-                  <Image src={a.src} alt={a.alt} fill sizes="(min-width: 768px) 33vw, 80vw" className="object-cover" />
-                </div>
-                <figcaption className="mt-4 text-[13px] uppercase tracking-[0.16em] text-warm-gray">{a.caption}</figcaption>
-              </figure>
-            ))}
-          </div>
+          <ArrivalSteps steps={arrival} />
         </Container>
       </section>
 
