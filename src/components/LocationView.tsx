@@ -140,7 +140,7 @@ export default function LocationView() {
         <Container>
           <div className="reveal">
             <SectionLabel>Arrival</SectionLabel>
-            <h2 className="mt-5 font-serif text-[40px] font-light md:text-[56px]">Finding Parking for Building 205</h2>
+            <h2 className="mt-5 font-serif text-[40px] font-light md:text-[56px]">From Parking to Building 205</h2>
           </div>
           <ArrivalSteps steps={arrival} />
         </Container>
