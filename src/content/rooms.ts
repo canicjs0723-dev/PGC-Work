@@ -6,7 +6,9 @@ export type Room = {
   number: "403" | "404";
   name: string;
   tagline: string;
-  purpose: string[];
+  // Overview column: either a list of uses, or a two-line headline with a supporting line.
+  purpose?: string[];
+  overview?: { headline: string[]; sub: string };
   description: string[];
   experience: string;
   keywords: { title: string; body: string }[];
@@ -25,7 +27,10 @@ export const businessRoom: Room = {
   number: "403",
   name: "Business Room",
   tagline: "Meet, gather, and stay—with five beds for overnight visits.",
-  purpose: ["Corporate Workshop", "Partner Meeting", "Team Offsite", "Overnight Stay"],
+  overview: {
+    headline: ["Your Space to", "Meet & Stay."],
+    sub: "Corporate Workshops · Meetings · Accommodation",
+  },
   description: [
     "The Business Room is an event and business space for workshops, private partner meetings, and team offsites. Five beds are available for overnight stays, so it can support both meetings and lodging.",
     "The dining lounge, projector, and audio equipment make it easy to bring focused work, shared meals, and a comfortable stay together.",

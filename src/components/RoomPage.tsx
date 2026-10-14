@@ -54,14 +54,28 @@ export default function RoomPage({ room, other }: { room: Room; other: Room }) {
       <section className={`${warm ? "bg-ivory" : "bg-warm-white"} py-24 md:py-36`}>
         <Container className="grid gap-14 md:grid-cols-12">
           <div className="reveal md:col-span-5">
-            <SectionLabel>Overview</SectionLabel>
-            <ul className="mt-8 space-y-1">
-              {room.purpose.map((p) => (
-                <li key={p} className="font-serif text-[30px] font-light leading-tight md:text-[40px]">
-                  {p}
-                </li>
-              ))}
-            </ul>
+            <SectionLabel tight>Overview</SectionLabel>
+            {room.overview ? (
+              <>
+                <h2 className="mt-8 font-serif text-[30px] font-light leading-tight md:text-[40px]">
+                  {room.overview.headline.map((line, i) => (
+                    <span key={line} className="block">
+                      {line}
+                      {i < room.overview!.headline.length - 1 && " "}
+                    </span>
+                  ))}
+                </h2>
+                <p className="mt-6 text-[15px] leading-relaxed text-charcoal/70">{room.overview.sub}</p>
+              </>
+            ) : (
+              <ul className="mt-8 space-y-1">
+                {room.purpose?.map((p) => (
+                  <li key={p} className="font-serif text-[30px] font-light leading-tight md:text-[40px]">
+                    {p}
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
           <div className="reveal md:col-span-6 md:col-start-7" style={{ "--delay": "120ms" } as React.CSSProperties}>
             {room.description.map((d) => (
@@ -87,7 +101,7 @@ export default function RoomPage({ room, other }: { room: Room; other: Room }) {
       <section className={`${warm ? "bg-ivory" : "bg-warm-white"} py-20 md:py-28`}>
         <Container className="grid gap-10 md:grid-cols-12">
           <div className="reveal md:col-span-4">
-            <SectionLabel>Ways to Use PGC</SectionLabel>
+            <SectionLabel tight>Ways to Use PGC</SectionLabel>
             <h2 className="mt-5 font-serif text-[40px] font-light leading-none md:text-[56px]">
               {room.name}
             </h2>
@@ -119,7 +133,7 @@ export default function RoomPage({ room, other }: { room: Room; other: Room }) {
       <section className={`${warm ? "bg-ivory" : "bg-warm-white"} py-24 md:py-36`}>
         <Container className="grid items-start gap-10 md:grid-cols-12 md:gap-12">
           <div className="reveal md:col-span-3">
-            <SectionLabel>Spaces</SectionLabel>
+            <SectionLabel tight>Spaces</SectionLabel>
             <h2 className="mt-5 font-serif text-[40px] font-light md:text-[56px]">Inside the Room</h2>
             <p className="mt-4 text-[14px] text-charcoal/65">Click an image to view it larger.</p>
           </div>
