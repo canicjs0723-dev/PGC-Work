@@ -12,7 +12,7 @@ export type ArrivalStep = {
   height: number;
   /** Crop focus in the square frame, as percentages of the photo (default centre). */
   focus?: [number, number];
-  /** Route arrow as an SVG path using M / L / Q with coordinates in percent of the photo. */
+  /** Route arrow as an SVG path using M / L / Q with coordinates in percent of the photo, before the floor tilt. */
   route?: string;
 };
 
@@ -22,12 +22,17 @@ function toPixels(route: string, width: number, height: number) {
   return route.replace(/-?\d+(\.\d+)?/g, (n) => String(((axis++ % 2 === 0 ? width : height) * Number(n)) / 100));
 }
 
+// Vertical squash applied around the arrow's starting point so it reads as lying on the floor.
+const TILT = 0.55;
+
 // The photo with its direction arrow drawn on top (white outline + amber stroke), sharing one coordinate box.
 function RouteOverlay({ step }: { step: ArrivalStep }) {
   const id = useId();
   if (!step.route) return null;
   const d = toPixels(step.route, step.width, step.height);
-  const stroke = Math.min(step.width, step.height) * 0.032;
+  const originY = Number(d.match(/-?\d+(\.\d+)?/g)?.[1] ?? 0);
+  // Thicker stroke offsets part of the squash so the flattened arrow keeps its weight.
+  const stroke = (Math.min(step.width, step.height) * 0.032) / Math.sqrt(TILT);
   return (
     <svg viewBox={`0 0 ${step.width} ${step.height}`} className="route-overlay pointer-events-none absolute inset-0 size-full" aria-hidden>
       <defs>
@@ -38,8 +43,10 @@ function RouteOverlay({ step }: { step: ArrivalStep }) {
           <path d="M0 0 L4 2 L0 4 Z" fill="#ffffff" />
         </marker>
       </defs>
-      <path d={d} fill="none" stroke="#ffffff" strokeWidth={stroke * 1.6} strokeLinecap="round" strokeLinejoin="round" markerEnd={`url(#${id}-edge)`} />
-      <path d={d} fill="none" stroke="#f5a800" strokeWidth={stroke} strokeLinecap="round" strokeLinejoin="round" markerEnd={`url(#${id}-head)`} />
+      <g transform={`translate(0 ${originY}) scale(1 ${TILT}) translate(0 ${-originY})`}>
+        <path d={d} fill="none" stroke="#ffffff" strokeWidth={stroke * 1.6} strokeLinecap="round" strokeLinejoin="round" markerEnd={`url(#${id}-edge)`} />
+        <path d={d} fill="none" stroke="#f5a800" strokeWidth={stroke} strokeLinecap="round" strokeLinejoin="round" markerEnd={`url(#${id}-head)`} />
+      </g>
     </svg>
   );
 }
