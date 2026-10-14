@@ -89,7 +89,7 @@ function HeaderNavigation({ pathname }: { pathname: string }) {
           <ul className="flex items-center gap-6 xl:gap-8">
             {nav.map((item) => {
               const expanded = openMenu === item.label;
-              const active = normalizedPathname.endsWith(item.href) || (item.href === "/information" && (normalizedPathname.includes("/information") || normalizedPathname.endsWith("/guide") || normalizedPathname.endsWith("/location"))) || (item.href === "/business-room" && normalizedPathname.endsWith("/guest-room")) || Boolean(item.children?.some((child) => normalizedPathname.endsWith(child.href.split("#")[0])));
+              const active = normalizedPathname.endsWith(item.href) || (item.href.startsWith("/information") && (normalizedPathname.includes("/information") || normalizedPathname.endsWith("/guide") || normalizedPathname.endsWith("/location"))) || (item.href === "/business-room" && normalizedPathname.endsWith("/guest-room")) || Boolean(item.children?.some((child) => normalizedPathname.endsWith(child.href.split("#")[0])));
               return (
                 <li key={item.label} className="relative">
                   {item.children ? (

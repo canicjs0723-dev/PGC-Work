@@ -14,7 +14,8 @@ export const nav: NavItem[] = [
     label: "Rooms",
     href: "/business-room",
   },
-  { label: "Information", href: "/information" },
+  // Opens on Location; the Guide tab stays at /information.
+  { label: "Information", href: "/information/location" },
   { label: "Contact", href: "/contact" },
 ];
 
