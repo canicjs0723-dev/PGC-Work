@@ -40,8 +40,8 @@ export default function LocationView() {
       <PageTabs
         label="Information"
         items={[
-          { label: "Guide", href: "/information", active: false },
           { label: "Location", href: "/information/location", active: true },
+          { label: "Guide", href: "/information", active: false },
         ]}
       />
 

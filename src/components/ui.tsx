@@ -1,10 +1,10 @@
 import SiteLink from "@/components/SiteLink";
 import type { ReactNode } from "react";
 
-export function SectionLabel({ children, light = false }: { children: ReactNode; light?: boolean }) {
+export function SectionLabel({ children, light = false, tight = false }: { children: ReactNode; light?: boolean; tight?: boolean }) {
   return (
     <p
-      className={`text-[11px] font-medium uppercase tracking-[0.32em] ${
+      className={`text-[11px] font-medium uppercase ${tight ? "tracking-[0.01em]" : "tracking-[0.32em]"} ${
         light ? "text-white/70" : "text-warm-gray"
       }`}
     >

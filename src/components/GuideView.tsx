@@ -3,7 +3,6 @@ import PageHero from "@/components/PageHero";
 import PageTabs from "@/components/PageTabs";
 import { ArrowLink, Container, SectionLabel } from "@/components/ui";
 import { faq, guidelines, stayGuide } from "@/content/guide";
-import { parking } from "@/content/site";
 
 export default function GuideView() {
   return (
@@ -21,8 +20,8 @@ export default function GuideView() {
       <PageTabs
         label="Information"
         items={[
-          { label: "Guide", href: "/information", active: true },
           { label: "Location", href: "/information/location", active: false },
+          { label: "Guide", href: "/information", active: true },
         ]}
       />
 
@@ -46,7 +45,7 @@ export default function GuideView() {
             {stayGuide.map((s, i) => (
               <li
                 key={s.title}
-                id={s.title.toLowerCase().replace(/\s+/g, "-")}
+                id={s.title.toLowerCase().replace(/&/g, "and").replace(/[^a-z0-9]+/g, "-")}
                 className="reveal grid scroll-mt-24 grid-cols-[48px_1fr] gap-4 border-t border-charcoal/15 py-9 last:border-b md:grid-cols-[96px_1fr] md:py-11"
                 style={{ "--delay": `${(i % 3) * 70}ms` } as React.CSSProperties}
               >
@@ -55,15 +54,7 @@ export default function GuideView() {
                 </span>
                 <div>
                   <h3 className="text-[15px] font-semibold uppercase tracking-[0.22em]">{s.title}</h3>
-                  <p className="mt-3 max-w-2xl text-[15px] leading-[1.85] text-charcoal/80">{s.lead}</p>
-                  {(s.details || s.parking) && (
-                    <ul className="mt-4 max-w-2xl space-y-2 border-l border-charcoal/15 pl-5 text-[14px] leading-relaxed text-charcoal/65">
-                      {s.parking && parking.required.map((p) => <li key={p}>{p}</li>)}
-                      {s.details?.map((d) => (
-                        <li key={d}>{d}</li>
-                      ))}
-                    </ul>
-                  )}
+                  <p className="mt-3 max-w-2xl text-[15px] leading-[1.85] text-charcoal/80">{s.body}</p>
                 </div>
               </li>
             ))}

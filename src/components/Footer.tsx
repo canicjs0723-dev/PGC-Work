@@ -49,7 +49,7 @@ export default function Footer() {
             </address>
 
             <nav aria-label="Footer" className="md:col-span-3 md:col-start-10">
-              <ul className="space-y-3 text-[13px] uppercase tracking-[0.2em]">
+              <ul className="space-y-3 text-[13px] uppercase tracking-[0.02em]">
                 {nav.map((n) => (
                   <li key={n.href}>
                     <SiteLink href={n.href} className="text-white/80 hover:text-white">

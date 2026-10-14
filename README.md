@@ -15,11 +15,14 @@ Open `http://localhost:3000`.
 
 The contact form uses Formspree because GitHub Pages does not provide server-side email delivery.
 
-1. The project form endpoint is `https://formspree.io/f/xoejwjdk`.
-2. Add and verify `rondakorea@rondakorea.com` under **Formspree Account → Linked Emails**.
-3. Open the form's **Workflow → Email → Settings** and select the verified business email as **Send to**.
-4. For local testing, copy `.env.example` to `.env.local` and restart the development server.
-5. Submit a test inquiry and confirm receipt in the verified inbox.
+The recipient is set in the Formspree form, not in this code. Inquiries should arrive at `evan.kim@rondakorea.com`.
+
+1. Sign in to Formspree and open a form you own (or create one). Its URL looks like `https://formspree.io/f/xxxxxxxx`.
+2. Add and verify `evan.kim@rondakorea.com` under **Account → Linked Emails**.
+3. In that form, open **Workflow → Email → Settings** and select `evan.kim@rondakorea.com` as **Send to**.
+4. In GitHub, add the form URL as the repository variable `FORMSPREE_ENDPOINT` (**Settings → Secrets and variables → Actions → Variables**). The Pages workflow passes it to the build as `NEXT_PUBLIC_FORMSPREE_ENDPOINT`; redeploy after setting it. Without it the form shows a fallback with the inquiry email and phone.
+5. For local testing, set `NEXT_PUBLIC_FORMSPREE_ENDPOINT` in `.env.local` and restart the development server.
+6. Submit a test inquiry on the live site and confirm receipt in the inbox (check spam too).
 
 The endpoint identifier is public by design for static browser forms and is not a credential. The website validates required fields and email format, requires privacy consent, and includes Formspree's `_gotcha` honeypot field. Review Formspree's processing and retention terms for your privacy policy before production use.
 

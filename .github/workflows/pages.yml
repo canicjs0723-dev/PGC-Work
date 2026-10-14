@@ -37,6 +37,8 @@ jobs:
           GITHUB_PAGES: "1"
           PAGES_BASE_PATH: /PGC-Work
           GITHUB_REPOSITORY: canicjs0723-dev/PGC-Work
+          # Contact form: the public Formspree form URL (Settings → Secrets and variables → Actions → Variables).
+          NEXT_PUBLIC_FORMSPREE_ENDPOINT: ${{ vars.FORMSPREE_ENDPOINT }}
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
