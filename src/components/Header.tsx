@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import SiteLink from "@/components/SiteLink";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
@@ -72,11 +73,16 @@ function HeaderNavigation({ pathname }: { pathname: string }) {
       }`}
     >
       <div className="mx-auto flex h-[72px] max-w-[1440px] items-center justify-between px-5 md:h-[84px] md:px-10">
-        <SiteLink href="/" onClick={closeMenus} className="relative z-10 flex items-center gap-3" aria-label="Pangyo Global Campus home">
-          <span className={`inline-flex h-9 shrink-0 items-center whitespace-nowrap border px-2 font-serif text-[13px] leading-none tracking-[0.08em] ${solid || mobileOpen ? "border-charcoal/60" : "border-white/70"}`}>
-            PGC
-          </span>
-          <span className="whitespace-nowrap text-[13px] font-semibold tracking-[0.22em]">PANGYO GLOBAL CAMPUS</span>
+        <SiteLink href="/" onClick={closeMenus} className="relative z-10 flex items-center" aria-label="Pangyo Global Campus home">
+          {/* White logo over the hero; shown dark on the light (scrolled / menu-open) header. */}
+          <Image
+            src="/images/pgc-logo-white.png"
+            alt="Pangyo Global Campus"
+            width={1935}
+            height={146}
+            priority
+            className={`h-[18px] w-auto transition-[filter] duration-500 sm:h-5 md:h-6 ${solid || mobileOpen ? "brightness-0" : ""}`}
+          />
         </SiteLink>
 
         <nav className="hidden lg:block" aria-label="Main">
