@@ -1,13 +1,59 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 
-export type ArrivalStep = { src: string; alt: string; caption: string; position?: string };
+export type ArrivalStep = {
+  src: string;
+  alt: string;
+  caption: string;
+  /** Natural size of the photo, used to keep the route overlay aligned with it. */
+  width: number;
+  height: number;
+  /** Crop focus in the square frame, as percentages of the photo (default centre). */
+  focus?: [number, number];
+  /** Route arrow as an SVG path using M / L / Q with coordinates in percent of the photo. */
+  route?: string;
+};
+
+// Converts a percent-based path ("M 40 90 L 40 70") into the photo's pixel space.
+function toPixels(route: string, width: number, height: number) {
+  let axis = 0;
+  return route.replace(/-?\d+(\.\d+)?/g, (n) => String(((axis++ % 2 === 0 ? width : height) * Number(n)) / 100));
+}
+
+// The photo with its direction arrow drawn on top (white outline + amber stroke), sharing one coordinate box.
+function RouteOverlay({ step }: { step: ArrivalStep }) {
+  const id = useId();
+  if (!step.route) return null;
+  const d = toPixels(step.route, step.width, step.height);
+  const stroke = Math.min(step.width, step.height) * 0.032;
+  return (
+    <svg viewBox={`0 0 ${step.width} ${step.height}`} className="route-overlay pointer-events-none absolute inset-0 size-full" aria-hidden>
+      <defs>
+        <marker id={`${id}-head`} viewBox="0 0 4 4" refX="1.4" refY="2" markerWidth="2.6" markerHeight="2.6" orient="auto">
+          <path d="M0 0 L4 2 L0 4 Z" fill="#f5a800" />
+        </marker>
+        <marker id={`${id}-edge`} viewBox="0 0 4 4" refX="1.4" refY="2" markerWidth="2.6" markerHeight="2.6" orient="auto">
+          <path d="M0 0 L4 2 L0 4 Z" fill="#ffffff" />
+        </marker>
+      </defs>
+      <path d={d} fill="none" stroke="#ffffff" strokeWidth={stroke * 1.6} strokeLinecap="round" strokeLinejoin="round" markerEnd={`url(#${id}-edge)`} />
+      <path d={d} fill="none" stroke="#f5a800" strokeWidth={stroke} strokeLinecap="round" strokeLinejoin="round" markerEnd={`url(#${id}-head)`} />
+    </svg>
+  );
+}
+
+// Positions the photo-sized box inside a square frame the way object-fit: cover would, honouring `focus`.
+function coverBox({ width, height, focus = [50, 50] }: ArrivalStep): React.CSSProperties {
+  const ratio = width / height;
+  return ratio >= 1
+    ? { top: 0, height: "100%", width: `${ratio * 100}%`, left: `${-(ratio - 1) * focus[0]}%` }
+    : { left: 0, width: "100%", height: `${100 / ratio}%`, top: `${-(1 / ratio - 1) * focus[1]}%` };
+}
 
 // Parking route steps: one row on wide screens, a swipeable strip (scrolling inside this block only)
-// on smaller ones. Photos fill a square frame; `position` keeps each ceiling sign or entrance number in view,
-// and the viewer shows the whole photo.
+// on smaller ones. Each photo fills a square frame with its direction arrow; the viewer shows the whole photo.
 export default function ArrivalSteps({ steps }: { steps: ArrivalStep[] }) {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const triggers = useRef<(HTMLButtonElement | null)[]>([]);
@@ -63,14 +109,10 @@ export default function ArrivalSteps({ steps }: { steps: ArrivalStep[] }) {
                 className="group block w-full"
               >
                 <span className="reveal-img relative block aspect-square overflow-hidden bg-beige" style={{ "--delay": `${i * 100}ms` } as React.CSSProperties}>
-                  <Image
-                    src={step.src}
-                    alt={step.alt}
-                    fill
-                    sizes="(min-width: 1024px) 20vw, (min-width: 768px) 34vw, 78vw"
-                    className="object-cover transition-transform duration-700 group-hover:scale-[1.025]"
-                    style={{ objectPosition: step.position ?? "50% 50%" }}
-                  />
+                  <span className="absolute block transition-transform duration-700 group-hover:scale-[1.025]" style={coverBox(step)}>
+                    <Image src={step.src} alt={step.alt} fill sizes="(min-width: 1024px) 34vw, (min-width: 768px) 50vw, 100vw" className="object-cover" />
+                    <RouteOverlay step={step} />
+                  </span>
                 </span>
               </button>
               <figcaption className="mt-4 text-[0.8125rem] uppercase leading-relaxed tracking-[0.06em] text-warm-gray">{step.caption}</figcaption>
@@ -89,8 +131,14 @@ export default function ArrivalSteps({ steps }: { steps: ArrivalStep[] }) {
                 ×
               </button>
             </div>
-            <div className="relative min-h-0 flex-1">
-              <Image src={active.src} alt={active.alt} fill sizes="95vw" className="object-contain" priority />
+            <div className="flex min-h-0 flex-1 items-center justify-center" style={{ containerType: "size" }}>
+              <div
+                className="relative"
+                style={{ width: `min(100cqw, ${(active.width / active.height) * 100}cqh)`, aspectRatio: `${active.width} / ${active.height}` }}
+              >
+                <Image src={active.src} alt={active.alt} fill sizes="95vw" className="object-cover" priority />
+                <RouteOverlay step={active} />
+              </div>
             </div>
             <p className="py-3 text-center text-[12px] text-white/70">
               {activeIndex + 1} / {steps.length}
