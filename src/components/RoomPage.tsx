@@ -147,7 +147,7 @@ export default function RoomPage({ room, other }: { room: Room; other: Room }) {
       <section className="bg-beige/60 py-24 md:py-32">
         <Container className="grid gap-12 md:grid-cols-12">
           <div className="reveal md:col-span-4">
-            <SectionLabel>In-Room Amenities</SectionLabel>
+            <SectionLabel tight>In-Room Amenities</SectionLabel>
             <h2 className="mt-5 font-serif text-[40px] font-light leading-none md:text-[52px]">
               Everything
               <br />
