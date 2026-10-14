@@ -22,9 +22,9 @@
 | `campus-aerial.jpg` | 홈 위치 섹션, Location 페이지 상단 대표 이미지 |
 | `campus-garden.jpg` | About 페이지 캠퍼스 정원 사진 |
 | `campus-walkway.jpg` | About 페이지 캠퍼스 산책로 사진 |
-| `identity-connect.jpg` | About 페이지 Identity · CONNECT |
-| `identity-stay.jpg` | About 페이지 Identity · STAY |
-| `identity-work.jpg` | About 페이지 Identity · WORK |
+| `identity-connect-2026.jpg` | About 페이지 Identity · CONNECT |
+| `identity-stay-2026.jpg` | About 페이지 Identity · STAY |
+| `identity-work-2026.jpg` | About 페이지 Identity · WORK |
 | `location-map.webp` | About 페이지 위치 안내 지도 |
 | `parking-204-entrance.jpg` | Location 페이지 도착 동선 사진 · 1번 주차장 입구 |
 | `site-map.png` | Location 페이지 주차 안내 배치도 |
