@@ -15,13 +15,13 @@ const mapLinks = [
   { label: "Google Maps", href: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(site.mapGoogleKo)}` },
 ];
 
-// Parking route steps, in order.
+// Parking route steps, in order. `route` draws the direction arrow on each photo (percent coordinates).
 const arrival = [
-  { src: "/images/parking-204-entrance.jpg", alt: "Building 204 parking entrance", caption: "01 · Building 204 side entrance & parking" },
-  { src: "/images/parking-02-turn-right-204-207.jpg", alt: "Underground parking sign pointing right to Buildings 204–207", caption: "02 · Turn right toward Buildings 204–207" },
-  { src: "/images/parking-03-straight-205-207.jpg", alt: "Parking sign pointing straight ahead to Buildings 205–207", caption: "03 · Continue straight toward Buildings 205–207" },
-  { src: "/images/parking-04-right-205-entrances-3-6.jpg", alt: "Parking sign pointing right to Building 205, entrances 3–6", caption: "04 · Turn right toward Building 205, entrances 3–6" },
-  { src: "/images/parking-05-205-entrances-3-4.jpg", alt: "Building 205 entrances 3 and 4 in the underground parking", caption: "05 · Building 205 — entrances 3 & 4", position: "70% 50%" },
+  { src: "/images/parking-204-entrance.jpg", width: 657, height: 438, route: "M 30 93 Q 50 92 51 76", alt: "Building 204 parking entrance", caption: "01 · Building 204 side entrance & parking" },
+  { src: "/images/parking-02-turn-right-204-207.jpg", width: 2000, height: 1500, route: "M 40 99 L 40 93 Q 40 87 47 87 L 79 87", alt: "Underground parking sign pointing right to Buildings 204–207", caption: "02 · Turn right toward Buildings 204–207" },
+  { src: "/images/parking-03-straight-205-207.jpg", width: 1500, height: 2000, route: "M 62 87 L 62 67", alt: "Parking sign pointing straight ahead to Buildings 205–207", caption: "03 · Continue straight toward Buildings 205–207" },
+  { src: "/images/parking-04-right-205-entrances-3-6.jpg", width: 1500, height: 2000, route: "M 38 87 L 38 77 Q 38 71 45 71 L 74 71", alt: "Parking sign pointing right to Building 205, entrances 3–6", caption: "04 · Turn right toward Building 205, entrances 3–6" },
+  { src: "/images/parking-05-205-entrances-3-4.jpg", width: 2000, height: 1500, focus: [70, 50] as [number, number], route: "M 38 93 Q 41 74 51 67", alt: "Building 205 entrances 3 and 4 in the underground parking", caption: "05 · Building 205 — entrances 3 & 4" },
 ];
 
 export default function LocationView() {

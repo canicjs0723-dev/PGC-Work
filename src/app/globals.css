@@ -171,6 +171,14 @@ footer [class~="text-[13px]"] {
   clip-path: inset(0 0 0 0);
   transform: scale(1);
 }
+/* Route arrows on parking photos appear once the photo has revealed. */
+.reveal-img .route-overlay {
+  opacity: 0;
+  transition: opacity 0.6s ease calc(var(--delay, 0ms) + 900ms);
+}
+.reveal-img.is-in .route-overlay {
+  opacity: 1;
+}
 
 /* Hero slow zoom */
 @keyframes hero-zoom {
@@ -228,7 +236,7 @@ details[open] .faq-icon {
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .reveal, .reveal-img img, .hero-zoom, .fade-up {
+  .reveal, .reveal-img img, .reveal-img .route-overlay, .hero-zoom, .fade-up {
     opacity: 1 !important;
     transform: none !important;
     clip-path: none !important;
