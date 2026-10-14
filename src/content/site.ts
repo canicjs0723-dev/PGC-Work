@@ -66,7 +66,7 @@ export const identity = [
     line: "Premium living designed for comfort and privacy.",
     detail: "A space designed for comfortable rest and privacy.",
     image: "/images/identity-stay.jpg",
-    alt: "A quiet table with a laptop and coffee",
+    alt: "A sunlit bedroom with a made bed and an armchair",
   },
   {
     key: "CONNECT",
