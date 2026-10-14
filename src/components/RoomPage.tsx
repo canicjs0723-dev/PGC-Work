@@ -51,7 +51,7 @@ export default function RoomPage({ room, other }: { room: Room; other: Room }) {
       />
 
       {/* Intro + key facts */}
-      <section className={`${warm ? "bg-ivory" : "bg-warm-white"} py-24 md:py-36`}>
+      <section className={`${warm ? "bg-ivory" : "bg-warm-white"} pt-24 pb-[59px] md:pt-36 md:pb-[86px]`}>
         <Container className="grid gap-14 md:grid-cols-12">
           <div className="reveal md:col-span-5">
             <SectionLabel tight>Overview</SectionLabel>
@@ -98,7 +98,7 @@ export default function RoomPage({ room, other }: { room: Room; other: Room }) {
         </Container>
       </section>
 
-      <section className={`${warm ? "bg-ivory" : "bg-warm-white"} py-20 md:py-28`}>
+      <section className={`${warm ? "bg-ivory" : "bg-warm-white"} pt-[58px] pb-20 md:pt-[85px] md:pb-28`}>
         <Container className="grid gap-10 md:grid-cols-12">
           <div className="reveal md:col-span-4">
             <SectionLabel tight>Ways to Use PGC</SectionLabel>
