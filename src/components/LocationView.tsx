@@ -147,12 +147,6 @@ export default function LocationView() {
         <Container>
           <div className="reveal">
             <SectionLabel>Arrival</SectionLabel>
-            <h2 className="mt-5 font-serif text-[40px] font-light md:text-[56px]">From Parking to Building 205</h2>
-          </div>
-          <ArrivalSteps steps={arrival} />
-
-          <div className="reveal mt-24 md:mt-32">
-            <SectionLabel>Arrival</SectionLabel>
             <h2 className="mt-5 font-serif text-[40px] font-light md:text-[56px]">Finding Building 205</h2>
           </div>
           <div className="no-scrollbar -mx-5 mt-12 flex snap-x snap-mandatory scroll-px-5 gap-5 overflow-x-auto px-5 md:mx-0 md:grid md:grid-cols-3 md:gap-8 md:overflow-visible md:px-0">
@@ -165,6 +159,12 @@ export default function LocationView() {
               </figure>
             ))}
           </div>
+
+          <div className="reveal mt-24 md:mt-32">
+            <SectionLabel>Arrival</SectionLabel>
+            <h2 className="mt-5 font-serif text-[40px] font-light md:text-[56px]">From Parking to Building 205</h2>
+          </div>
+          <ArrivalSteps steps={arrival} />
         </Container>
       </section>
 
