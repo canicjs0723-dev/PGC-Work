@@ -24,6 +24,13 @@ const arrival = [
   { src: "/images/parking-05-205-entrances-3-4.jpg", width: 2000, height: 1500, focus: [70, 50] as [number, number], route: "M 38 93 Q 41 60 51 46", alt: "Building 205 entrances 3 and 4 in the underground parking", caption: "05 · Building 205 — entrances 3 & 4" },
 ];
 
+// Street-level photos from the Building 204 side entrance to the Building 205 lobby.
+const toBuilding = [
+  { src: "/images/parking-204-entrance.jpg", alt: "Building 204 parking entrance", caption: "01 · Building 204 side entrance & parking" },
+  { src: "/images/th212-sign.jpg", alt: "TH212 Pangyo sign near Building 205", caption: "02 · TH212 Pangyo, toward Building 205" },
+  { src: "/images/building-205-entrance.webp", alt: "Building 205 lobby entrance", caption: "03 · Building 205 entrance" },
+];
+
 export default function LocationView() {
   return (
     <>
@@ -143,6 +150,21 @@ export default function LocationView() {
             <h2 className="mt-5 font-serif text-[40px] font-light md:text-[56px]">From Parking to Building 205</h2>
           </div>
           <ArrivalSteps steps={arrival} />
+
+          <div className="reveal mt-24 md:mt-32">
+            <SectionLabel>Arrival</SectionLabel>
+            <h2 className="mt-5 font-serif text-[40px] font-light md:text-[56px]">Finding Building 205</h2>
+          </div>
+          <div className="no-scrollbar -mx-5 mt-12 flex snap-x snap-mandatory scroll-px-5 gap-5 overflow-x-auto px-5 md:mx-0 md:grid md:grid-cols-3 md:gap-8 md:overflow-visible md:px-0">
+            {toBuilding.map((a, i) => (
+              <figure key={a.src} className="w-[80%] shrink-0 snap-start md:w-auto">
+                <div className="reveal-img relative aspect-[4/3] overflow-hidden bg-beige" style={{ "--delay": `${i * 120}ms` } as React.CSSProperties}>
+                  <Image src={a.src} alt={a.alt} fill sizes="(min-width: 768px) 33vw, 80vw" className="object-cover" />
+                </div>
+                <figcaption className="mt-4 text-[13px] uppercase tracking-[0.16em] text-warm-gray">{a.caption}</figcaption>
+              </figure>
+            ))}
+          </div>
         </Container>
       </section>
 
