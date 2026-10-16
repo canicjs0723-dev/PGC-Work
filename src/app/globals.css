@@ -184,13 +184,15 @@ footer [class~="text-[13px]"] {
   opacity: 1;
 }
 
-/* Hero slow zoom */
+/* Hero Ken Burns: a slow zoom-in with a gentle left-right drift, then back, on a loop.
+   The scale always stays above the pan so the photo never shows its edges. */
 @keyframes hero-zoom {
-  from { transform: scale(1.08); }
-  to { transform: scale(1); }
+  from { transform: scale(1.06) translate3d(-2%, 0, 0); }
+  to { transform: scale(1.18) translate3d(2%, -1%, 0); }
 }
 .hero-zoom {
-  animation: hero-zoom 7s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: hero-zoom 22s ease-in-out infinite alternate both;
+  will-change: transform;
 }
 
 @keyframes fade-up {
