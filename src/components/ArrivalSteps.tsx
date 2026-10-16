@@ -14,6 +14,8 @@ export type ArrivalStep = {
   focus?: [number, number];
   /** Route arrow as an SVG path using M / L / Q with coordinates in percent of the photo, before the floor tilt. */
   route?: string;
+  /** Destination marker: a diamond with a label, centred at x / y percent of the photo (drawn upright, not tilted). */
+  marker?: { x: number; y: number; label: string };
 };
 
 // Converts a percent-based path ("M 40 90 L 40 70") into the photo's pixel space.
@@ -28,11 +30,13 @@ const TILT = 0.55;
 // The photo with its direction arrow drawn on top (white outline + amber stroke), sharing one coordinate box.
 function RouteOverlay({ step }: { step: ArrivalStep }) {
   const id = useId();
-  if (!step.route) return null;
-  const d = toPixels(step.route, step.width, step.height);
+  if (!step.route && !step.marker) return null;
+  const d = step.route ? toPixels(step.route, step.width, step.height) : "";
   const originY = Number(d.match(/-?\d+(\.\d+)?/g)?.[1] ?? 0);
+  const unit = Math.min(step.width, step.height);
   // Thicker stroke offsets part of the squash so the flattened arrow keeps its weight.
-  const stroke = (Math.min(step.width, step.height) * 0.032) / Math.sqrt(TILT);
+  const stroke = (unit * 0.032) / Math.sqrt(TILT);
+  const m = step.marker && { cx: (step.width * step.marker.x) / 100, cy: (step.height * step.marker.y) / 100, rx: unit * 0.045, ry: unit * 0.075 };
   return (
     <svg viewBox={`0 0 ${step.width} ${step.height}`} className="route-overlay pointer-events-none absolute inset-0 size-full" aria-hidden>
       <defs>
@@ -43,10 +47,43 @@ function RouteOverlay({ step }: { step: ArrivalStep }) {
           <path d="M0 0 L4 2 L0 4 Z" fill="#ffffff" />
         </marker>
       </defs>
-      <g transform={`translate(0 ${originY}) scale(1 ${TILT}) translate(0 ${-originY})`}>
-        <path d={d} fill="none" stroke="#ffffff" strokeWidth={stroke * 1.6} strokeLinecap="round" strokeLinejoin="round" markerEnd={`url(#${id}-edge)`} />
-        <path d={d} fill="none" stroke="#f5a800" strokeWidth={stroke} strokeLinecap="round" strokeLinejoin="round" markerEnd={`url(#${id}-head)`} />
-      </g>
+      {d && (
+        <g transform={`translate(0 ${originY}) scale(1 ${TILT}) translate(0 ${-originY})`}>
+          <path d={d} fill="none" stroke="#ffffff" strokeWidth={stroke * 1.6} strokeLinecap="round" strokeLinejoin="round" markerEnd={`url(#${id}-edge)`} />
+          <path d={d} fill="none" stroke="#f5a800" strokeWidth={stroke} strokeLinecap="round" strokeLinejoin="round" markerEnd={`url(#${id}-head)`} />
+        </g>
+      )}
+      {m && step.marker && (
+        <g>
+          <path
+            d={`M ${m.cx} ${m.cy - m.ry} L ${m.cx + m.rx} ${m.cy} L ${m.cx} ${m.cy + m.ry} L ${m.cx - m.rx} ${m.cy} Z`}
+            fill="rgba(245,168,0,0.18)"
+            stroke="#ffffff"
+            strokeWidth={unit * 0.016}
+            strokeLinejoin="round"
+          />
+          <path
+            d={`M ${m.cx} ${m.cy - m.ry} L ${m.cx + m.rx} ${m.cy} L ${m.cx} ${m.cy + m.ry} L ${m.cx - m.rx} ${m.cy} Z`}
+            fill="none"
+            stroke="#f5a800"
+            strokeWidth={unit * 0.008}
+            strokeLinejoin="round"
+          />
+          <rect x={m.cx - unit * 0.07} y={m.cy - m.ry - unit * 0.095} width={unit * 0.14} height={unit * 0.075} rx={unit * 0.012} fill="#1f1e1c" />
+          <text
+            x={m.cx}
+            y={m.cy - m.ry - unit * 0.057}
+            textAnchor="middle"
+            dominantBaseline="central"
+            fill="#ffffff"
+            fontSize={unit * 0.05}
+            fontWeight={700}
+            fontFamily="'Pretendard Variable', Pretendard, sans-serif"
+          >
+            {step.marker.label}
+          </text>
+        </g>
+      )}
     </svg>
   );
 }
