@@ -28,6 +28,9 @@ function RoomFactIcon({ label }: { label: string }) {
   return <svg {...common}><path d="M4 7h16v13H4zM4 11h16M8 7V4m8 3V4m-8 7v2m8-2v2" /></svg>;
 }
 
+// Literal class names so Tailwind generates them; one column per fact.
+const factColumns: Record<number, string> = { 1: "grid-cols-1", 2: "grid-cols-2", 3: "grid-cols-3" };
+
 export default function RoomPage({ room, other }: { room: Room; other: Room }) {
   const warm = room.slug === "guest-room";
   const title = room.name.replace(/^PGC \d+\s*/, "");
@@ -85,7 +88,7 @@ export default function RoomPage({ room, other }: { room: Room; other: Room }) {
                 {d}
               </p>
             ))}
-            <dl className="mt-10 grid grid-cols-3 border-y border-charcoal/15">
+            <dl className={`mt-10 grid border-y border-charcoal/15 ${factColumns[room.facts.length] ?? "grid-cols-3"}`}>
               {room.facts.map((f) => (
                 <div key={f.label} className="flex flex-col items-center justify-center py-6">
                   <div className="flex items-center justify-center gap-3">

@@ -43,8 +43,6 @@ export const businessRoom: Room = {
   ],
   facts: [
     { label: "Guests", value: "5" },
-    { label: "Beds", value: "5" },
-    { label: "Bathroom", value: "1" },
   ],
   amenities: [
     "TV",

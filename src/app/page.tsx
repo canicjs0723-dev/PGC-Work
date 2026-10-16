@@ -99,12 +99,9 @@ export default function Home() {
                 className="reveal group border-t border-charcoal/20 py-7 md:py-9"
                 style={{ "--delay": `${index * 80}ms` } as React.CSSProperties}
               >
-                <div className="flex items-baseline justify-between gap-4">
-                  <div className="flex items-center gap-3">
-                    <UseCaseIcon title={useCase.title} />
-                    <h3 className="font-serif text-[27px] font-light md:text-[32px]">{useCase.title}</h3>
-                  </div>
-                  <span className="shrink-0 text-[11px] uppercase tracking-[0.18em] text-warm-gray">{useCase.room}</span>
+                <div className="flex items-center gap-3">
+                  <UseCaseIcon title={useCase.title} />
+                  <h3 className="font-serif text-[27px] font-light md:text-[32px]">{useCase.title}</h3>
                 </div>
                 <p className="mt-4 max-w-xl text-[15px] leading-[1.85] text-charcoal/70">{useCase.body}</p>
               </SiteLink>
