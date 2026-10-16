@@ -96,10 +96,10 @@ export default function LocationView() {
           </div>
           <div className="reveal relative aspect-square overflow-hidden bg-beige md:col-span-7 md:aspect-auto md:min-h-[560px]">
             {/* An empty iwloc keeps the place card closed: the map shows the red pin and Google's
-                compact "open in Maps" button only. */}
+                compact "open in Maps" button only. www.google.com is the current host; maps.google.com only redirects there. */}
             <iframe
               title="Map of Pangyo Global Campus (TH212)"
-              src={`https://maps.google.com/maps?q=${encodeURIComponent(site.mapGoogleKo)}&t=&z=16&ie=UTF8&iwloc=&output=embed`}
+              src={`https://www.google.com/maps?q=${encodeURIComponent(site.mapGoogleKo)}&t=&z=16&ie=UTF8&iwloc=&output=embed`}
               className="absolute inset-0 size-full grayscale-[35%]"
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
