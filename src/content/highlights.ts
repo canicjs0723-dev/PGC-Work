@@ -29,7 +29,7 @@ export const homeHighlights = [
     title: "Guest Room",
     headline: "Designed for comfort, rest and privacy.",
     description: "A welcoming residence for visiting executives, employees, and guests, with room to relax and recharge between plans.",
-    facts: "10 guests max · 9 beds · 2 bathrooms",
+    facts: "9 guests · 9 beds · 2 bathrooms",
     href: "/guest-room",
     linkLabel: "View More",
   },

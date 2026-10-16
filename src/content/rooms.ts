@@ -79,17 +79,17 @@ export const guestRoom: Room = {
   tagline: "Comfort for your stay. Privacy for your rest.",
   purpose: ["Executive Stay", "Business Stay", "Extended Visit", "Rest"],
   description: [
-    "The Guest Room is designed for visiting executives, employees, and guests, with nine beds, two bathrooms, and capacity for up to ten guests.",
+    "The Guest Room is designed for visiting executives, employees, and guests, with nine beds, two bathrooms, and capacity for nine guests.",
     "Created for both short- and long-term visits, the space offers a comfortable place to rest and recharge between schedules.",
   ],
-  experience: "A calm guest residence for executive and team stays, with sleeping capacity for up to ten guests and amenities designed for a comfortable visit.",
+  experience: "A calm guest residence for executive and team stays, with sleeping capacity for nine guests and amenities designed for a comfortable visit.",
   keywords: [
     { title: "Executive Stay", body: "A comfortable base for domestic and international executives visiting Pangyo." },
-    { title: "Guest Accommodation", body: "Nine beds and two bathrooms serve a group of up to ten guests." },
+    { title: "Guest Accommodation", body: "Nine beds and two bathrooms serve a group of up to nine guests." },
     { title: "Extended Visit", body: "A quiet place to rest and recharge during short- or long-term visits." },
   ],
   facts: [
-    { label: "Guests (Max)", value: "10" },
+    { label: "Guests", value: "9" },
     { label: "Beds", value: "9" },
     { label: "Bathrooms", value: "2" },
   ],

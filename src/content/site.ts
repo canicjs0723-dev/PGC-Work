@@ -117,7 +117,7 @@ export const parking = {
 export const roomUseCases = [
   {
     title: "Executive Stay",
-    body: "A comfortable base for visiting domestic and international executives, including extended stays. The Guest Room accommodates up to 10 guests with 9 beds and 2 bathrooms.",
+    body: "A comfortable base for visiting domestic and international executives, including extended stays. The Guest Room accommodates up to 9 guests with 9 beds and 2 bathrooms.",
     room: "Guest Room",
     href: "/guest-room",
   },

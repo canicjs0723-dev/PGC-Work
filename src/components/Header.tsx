@@ -85,7 +85,7 @@ function HeaderNavigation({ pathname }: { pathname: string }) {
               width={1422}
               height={296}
               priority
-              className={`h-7 w-auto transition-opacity duration-500 md:h-8 ${darkLogo ? "opacity-0" : "opacity-100"}`}
+              className={`h-[1.4rem] w-auto transition-opacity duration-500 md:h-[1.6rem] ${darkLogo ? "opacity-0" : "opacity-100"}`}
             />
             <Image
               src="/images/pgc-logo-2026.png"
@@ -94,7 +94,7 @@ function HeaderNavigation({ pathname }: { pathname: string }) {
               width={1422}
               height={296}
               priority
-              className={`absolute inset-0 h-7 w-auto transition-opacity duration-500 md:h-8 ${darkLogo ? "opacity-100" : "opacity-0"}`}
+              className={`absolute inset-0 h-[1.4rem] w-auto transition-opacity duration-500 md:h-[1.6rem] ${darkLogo ? "opacity-100" : "opacity-0"}`}
             />
           </span>
         </SiteLink>
