@@ -1,5 +1,10 @@
-@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css");
-@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&display=swap");
+/* Fonts ship with the site (no external font CDN), so every phone, tablet and laptop renders the same faces.
+   Pretendard: sans-serif body text, split into unicode-range chunks so only the characters on a page load.
+   Tinos: the serif for headings, drawn to Times New Roman's design and metrics, available on every platform. */
+@import "pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css";
+@import "@fontsource/tinos/latin-400.css";
+@import "@fontsource/tinos/latin-400-italic.css";
+@import "@fontsource/tinos/latin-700.css";
 @import "tailwindcss";
 
 /* Digits only (0-9): the exact Pretendard Variable face used by the room tabs, subset so it can
@@ -22,7 +27,6 @@
   --charcoal: #1f1e1c;
   --navy: #1a2238;
   --accent: #b39264;
-  --font-cormorant: "Cormorant Garamond";
 }
 
 @theme inline {
@@ -35,7 +39,7 @@
   --color-navy: var(--navy);
   --color-accent: var(--accent);
   --font-sans: "PGC Numerals", "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
-  --font-serif: "PGC Numerals", var(--font-cormorant), "Times New Roman", serif;
+  --font-serif: "PGC Numerals", "Tinos", "Times New Roman", serif;
 }
 
 html {
