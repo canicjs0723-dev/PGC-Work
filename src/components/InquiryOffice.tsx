@@ -2,23 +2,20 @@ import Image from "next/image";
 import { Container, SectionLabel } from "./ui";
 import { site } from "@/content/site";
 
-// Inquiry & Management Office — three clearly separated contact blocks.
+// Contact & Support — three clearly separated contact blocks.
 export default function InquiryOffice() {
   return (
     <section id="inquiry-office" aria-labelledby="inquiry-office-title" className="bg-charcoal text-white">
       <Container className="py-20 md:py-28">
         <div className="reveal grid gap-6 border-b border-white/15 pb-12 md:grid-cols-12 md:items-end md:pb-16">
           <div className="md:col-span-7">
-            <SectionLabel light>Contact Information</SectionLabel>
+            <SectionLabel light>Guest Assistance</SectionLabel>
             <h2 id="inquiry-office-title" className="mt-5 font-serif text-[40px] font-light leading-[1.02] md:text-[64px]">
-              Inquiry &amp;
+              Contact &amp;
               <br />
-              <span className="italic text-accent">Management Office</span>
+              <span className="italic text-accent">Support</span>
             </h2>
           </div>
-          <p className="text-[15px] leading-relaxed text-white/70 md:col-span-4 md:col-start-9">
-            For inquiries, contact the person in charge.
-          </p>
         </div>
 
         <div className="reveal grid gap-12 pt-12 md:grid-cols-3 md:gap-0 md:divide-x md:divide-white/15 md:pt-16">
