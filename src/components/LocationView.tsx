@@ -24,6 +24,15 @@ const arrival = [
   { src: "/images/parking-05-205-entrances-3-4.jpg", width: 2000, height: 1500, focus: [70, 50] as [number, number], route: "M 38 93 Q 41 60 51 46", alt: "Building 205 entrances 3 and 4 in the underground parking", caption: "05 · Building 205 — entrances 3 & 4" },
 ];
 
+// Walking route from the main road, in order. Access codes are given to guests directly, not published here.
+const walking = [
+  { src: "/images/walk-01-main-road.webp", width: 1561, height: 1008, route: "M 46 99 Q 50 82 58 66", alt: "Main road with the TH212 complex on the left", caption: "01 · Follow the main road to the TH212 complex" },
+  { src: "/images/walk-02-building-201-gate.webp", width: 1549, height: 1015, route: "M 52 99 Q 54 82 60 64", alt: "Building 201 main gate of TH212", caption: "02 · Go straight past the Building 201 main gate" },
+  { src: "/images/walk-03-building-204-left.webp", width: 1524, height: 1032, route: "M 62 99 L 62 93 Q 62 87 55 87 L 22 87", alt: "Building 204 at the TH212 back gate", caption: "03 · Turn left at the Building 204 back gate toward Building 205" },
+  { src: "/images/walk-04-building-205-entrance.webp", width: 1524, height: 1032, focus: [40, 50] as [number, number], route: "M 62 97 Q 46 94 40 66", alt: "Building 205 entrance at TH212 Pangyo", caption: "04 · Building 205 entrance: enter 403 and the access code" },
+  { src: "/images/walk-05-entrance-panel.webp", width: 1559, height: 1009, focus: [70, 50] as [number, number], route: "M 86 99 Q 81 80 74 52", alt: "Walkway to the Building 205 lines 3–4 entrance with its entry panel", caption: "05 · Lines 3–4 entrance panel: enter 403 and the access code" },
+];
+
 export default function LocationView() {
   return (
     <>
@@ -143,6 +152,12 @@ export default function LocationView() {
             <h2 className="mt-5 font-serif text-[40px] font-light md:text-[56px]">From Parking to Building <span className="font-bold">205</span></h2>
           </div>
           <ArrivalSteps steps={arrival} />
+
+          <div className="reveal mt-24 md:mt-32">
+            <SectionLabel>Arrival</SectionLabel>
+            <h2 className="mt-5 font-serif text-[40px] font-light md:text-[56px]">On Foot to Building <span className="font-bold">205</span></h2>
+          </div>
+          <ArrivalSteps steps={walking} />
         </Container>
       </section>
 
