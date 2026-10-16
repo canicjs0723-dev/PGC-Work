@@ -28,7 +28,6 @@ export default function Footer() {
               <SiteLink href="/" aria-label="Pangyo Global Campus, home" className="inline-block">
                 <Image src="/images/pgc-logo-2026-white.png" alt="Pangyo Global Campus" width={1422} height={296} className="h-auto w-[150px] md:w-[168px]" />
               </SiteLink>
-              <p className="mt-6 max-w-[220px] text-[14px] leading-relaxed text-white/60">{site.tagline}</p>
             </div>
 
             <address className="space-y-2 text-[14px] not-italic leading-relaxed text-white/70 md:col-span-5">
