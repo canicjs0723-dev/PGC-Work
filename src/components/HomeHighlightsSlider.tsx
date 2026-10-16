@@ -37,8 +37,7 @@ export default function HomeHighlightsSlider() {
 
       <div className="relative flex min-h-[420px] flex-col justify-center bg-charcoal px-7 py-12 sm:px-12 lg:min-h-[640px] lg:px-14 xl:px-20">
         <div className="max-w-xl" aria-live="off">
-          <p className="text-[11px] uppercase tracking-[0.4em] text-white/60">{activeSlide.label}</p>
-          <h3 className="mt-6 font-serif text-[48px] font-light leading-[0.95] sm:text-[64px] xl:text-[76px]">
+          <h3 className="font-serif text-[48px] font-light leading-[0.95] sm:text-[64px] xl:text-[76px]">
             {activeSlide.title}
           </h3>
           <p className="mt-8 text-[18px] font-medium leading-snug sm:text-[21px]">{activeSlide.headline}</p>
