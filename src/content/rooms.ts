@@ -26,23 +26,25 @@ export const businessRoom: Room = {
   slug: "business-room",
   number: "403",
   name: "Business Room",
-  tagline: "Meet, gather, and stay—with five beds for overnight visits.",
+  tagline: "Meet, gather, and stay—with six beds for overnight visits.",
   overview: {
     headline: ["Your Space to", "Meet & Stay."],
     sub: "Corporate Workshops · Meetings · Accommodation",
   },
   description: [
-    "The Business Room is an event and business space for workshops, private partner meetings, and team offsites. Five beds are available for overnight stays, so it can support both meetings and lodging.",
+    "The Business Room is an event and business space for workshops, private partner meetings, and team offsites. Six beds are available for overnight stays, so it can support both meetings and lodging.",
     "The dining lounge, projector, and audio equipment make it easy to bring focused work, shared meals, and a comfortable stay together.",
   ],
-  experience: "With five beds as well as meeting space, the Business Room brings meetings, meals, and overnight stays together in one private space.",
+  experience: "With six beds as well as meeting space, the Business Room brings meetings, meals, and overnight stays together in one private space.",
   keywords: [
-    { title: "Corporate Workshop", body: "A projector, audio equipment, dining lounge, and five beds support small workshops with an overnight stay." },
+    { title: "Corporate Workshop", body: "A projector, audio equipment, dining lounge, and six beds support small workshops with an overnight stay." },
     { title: "Partner Meeting", body: "A private setting for client and global partner meetings, with presentation equipment close at hand." },
     { title: "Team Offsite", body: "Bring focused sessions, meals, networking, and accommodation together in one space." },
   ],
   facts: [
     { label: "Guests", value: "5" },
+    { label: "Beds", value: "6" },
+    { label: "Bathrooms", value: "2" },
   ],
   amenities: [
     "TV",

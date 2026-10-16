@@ -18,7 +18,7 @@ export const homeHighlights = [
     title: "Business Room",
     headline: "Designed for meetings, work and networking.",
     description: "A refined setting for business meetings, private gatherings, and meaningful connections, bringing work and relaxation together.",
-    facts: "5 guests · 5 beds · 1 bathroom",
+    facts: "5 guests · 6 beds · 2 bathrooms",
     href: "/business-room",
     linkLabel: "View More",
   },
