@@ -77,7 +77,7 @@ export const guestRoom: Room = {
   number: "404",
   name: "Guest Room",
   tagline: "Comfort for your stay. Privacy for your rest.",
-  purpose: ["Executive Stay", "Business Stay", "Extended Visit", "Rest"],
+  purpose: ["A Place to Stay", "A Space to Unwind"],
   description: [
     "The Guest Room is designed for visiting executives, employees, and guests, with nine beds, two bathrooms, and capacity for nine guests.",
     "Created for both short- and long-term visits, the space offers a comfortable place to rest and recharge between schedules.",
