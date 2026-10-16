@@ -51,25 +51,17 @@ function RouteOverlay({ step }: { step: ArrivalStep }) {
   );
 }
 
-// Positions the photo-sized box inside a frame of `frameRatio` (width / height) the way object-fit: cover
-// would, honouring `focus`.
-function coverBox({ width, height, focus = [50, 50] }: ArrivalStep, frameRatio: number): React.CSSProperties {
-  const ratio = width / height / frameRatio;
+// Positions the photo-sized box inside a square frame the way object-fit: cover would, honouring `focus`.
+function coverBox({ width, height, focus = [50, 50] }: ArrivalStep): React.CSSProperties {
+  const ratio = width / height;
   return ratio >= 1
     ? { top: 0, height: "100%", width: `${ratio * 100}%`, left: `${-(ratio - 1) * focus[0]}%` }
     : { left: 0, width: "100%", height: `${100 / ratio}%`, top: `${-(1 / ratio - 1) * focus[1]}%` };
 }
 
-// "square" crops each photo to a square tile; "landscape" uses a 3:2 tile so landscape photos show almost whole.
-const frames = {
-  square: { ratio: 1, className: "aspect-square" },
-  landscape: { ratio: 3 / 2, className: "aspect-[3/2]" },
-};
-
 // Parking route steps: one row on wide screens, a swipeable strip (scrolling inside this block only)
 // on smaller ones. Each photo fills a square frame with its direction arrow; the viewer shows the whole photo.
-export default function ArrivalSteps({ steps, frame = "square" }: { steps: ArrivalStep[]; frame?: keyof typeof frames }) {
-  const tile = frames[frame];
+export default function ArrivalSteps({ steps }: { steps: ArrivalStep[] }) {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const triggers = useRef<(HTMLButtonElement | null)[]>([]);
   const lastIndex = useRef(0);
@@ -123,8 +115,8 @@ export default function ArrivalSteps({ steps, frame = "square" }: { steps: Arriv
                 aria-label={`View step ${i + 1} photo larger`}
                 className="group block w-full"
               >
-                <span className={`reveal-img relative block overflow-hidden bg-beige ${tile.className}`} style={{ "--delay": `${i * 100}ms` } as React.CSSProperties}>
-                  <span className="absolute block transition-transform duration-700 group-hover:scale-[1.025]" style={coverBox(step, tile.ratio)}>
+                <span className="reveal-img relative block aspect-square overflow-hidden bg-beige" style={{ "--delay": `${i * 100}ms` } as React.CSSProperties}>
+                  <span className="absolute block transition-transform duration-700 group-hover:scale-[1.025]" style={coverBox(step)}>
                     <Image src={step.src} alt={step.alt} fill sizes="(min-width: 1024px) 34vw, (min-width: 768px) 50vw, 100vw" className="object-cover" />
                     <RouteOverlay step={step} />
                   </span>
