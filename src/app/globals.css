@@ -87,8 +87,12 @@ main h3[class~="text-[32px]"] {
   font-size: 30px !important;
 }
 
+/* Top-level menu categories: 2pt larger than the 14px dropdown items. */
 header nav [class~="text-[11px]"],
-header nav [class~="text-[12px]"],
+header nav [class~="text-[12px]"] {
+  font-size: calc(14px + 2pt) !important;
+}
+
 header nav [class~="text-[13px]"] {
   font-size: 14px !important;
 }
