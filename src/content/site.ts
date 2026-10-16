@@ -123,7 +123,7 @@ export const roomUseCases = [
   },
   {
     title: "Corporate Workshop",
-    body: "Bring a small workshop and overnight stay together in the Business Room, with a projector, audio equipment, dining lounge and five beds.",
+    body: "Bring a small workshop and overnight stay together in the Business Room, with a projector, audio equipment, dining lounge and six beds.",
     room: "Business Room",
     href: "/business-room",
   },
