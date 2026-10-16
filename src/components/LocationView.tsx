@@ -28,7 +28,7 @@ const arrival = [
 const walking = [
   { src: "/images/walk-01-main-road.webp", width: 1561, height: 1008, focus: [40, 50] as [number, number], route: "M 46 99 Q 50 82 58 66", alt: "Main road with the TH212 complex on the left", caption: "01 · Follow the main road to TH212" },
   { src: "/images/walk-02-building-201-gate.webp", width: 1549, height: 1015, focus: [30, 50] as [number, number], route: "M 52 99 Q 54 82 60 64", alt: "Building 201 main gate of TH212", caption: "02 · Go straight past the 201 main gate" },
-  { src: "/images/walk-03-building-204-left.webp", width: 1524, height: 1032, focus: [69, 50] as [number, number], route: "M 62 99 L 62 93 Q 62 87 55 87 L 28 87", alt: "Building 204 on the left and the CU convenience store on the right", caption: "03 · Turn left at 204, opposite the CU store" },
+  { src: "/images/walk-03-building-204-left.webp", width: 1524, height: 1032, focus: [69, 50] as [number, number], route: "M 63 99 Q 62 72 61 42", marker: { x: 60, y: 55, label: "PGC" }, alt: "Building 204 on the left and the CU convenience store on the right", caption: "03 · Past 204 and the CU store, PGC is ahead" },
   { src: "/images/walk-04-building-205-entrance.webp", width: 1524, height: 1032, focus: [40, 50] as [number, number], route: "M 62 97 Q 46 94 40 66", alt: "Building 205 entrance at TH212 Pangyo", caption: "04 · 205 entrance: enter 403 + Code(0401)" },
   { src: "/images/walk-05-entrance-panel.webp", width: 1559, height: 1009, focus: [62, 50] as [number, number], route: "M 79 99 Q 76 80 72 57", alt: "Walkway to the Building 205 lines 3–4 entrance with its entry panel", caption: "05 · Lines 3–4 entrance: enter 403 + Code(0401)" },
 ];
