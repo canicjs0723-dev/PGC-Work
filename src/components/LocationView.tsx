@@ -7,11 +7,8 @@ import { Container, SectionLabel } from "@/components/ui";
 import { directions, parking, site } from "@/content/site";
 
 const fullAddress = `${site.address.street} (${site.address.lot})`;
-const mapSearch = encodeURIComponent(site.mapSearchKo);
-// Each link opens that service's place search for the complex name.
+// Opens Google Maps' place search for the complex, matching the embedded map.
 const mapLinks = [
-  { label: "Naver Map", href: `https://map.naver.com/p/search/${mapSearch}` },
-  { label: "Kakao Map", href: `https://map.kakao.com/link/search/${mapSearch}` },
   { label: "Google Maps", href: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(site.mapGoogleKo)}` },
 ];
 
