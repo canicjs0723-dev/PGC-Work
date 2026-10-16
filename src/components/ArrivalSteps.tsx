@@ -104,8 +104,8 @@ export default function ArrivalSteps({ steps }: { steps: ArrivalStep[] }) {
     <>
       <ol className="no-scrollbar -mx-5 mt-12 flex snap-x snap-mandatory scroll-px-5 gap-5 overflow-x-auto px-5 md:-mx-10 md:scroll-px-10 md:px-10 xl:mx-0 xl:grid xl:grid-cols-5 xl:gap-4 xl:overflow-visible xl:px-0">
         {steps.map((step, i) => (
-          <li key={step.src} className="w-[78%] shrink-0 snap-start sm:w-[44%] md:w-[34%] lg:w-[26%] xl:w-auto">
-            <figure>
+          <li key={step.src} className="flex w-[78%] shrink-0 snap-start sm:w-[44%] md:w-[34%] lg:w-[26%] xl:w-auto">
+            <figure className="flex w-full flex-col">
               <button
                 ref={(el) => {
                   triggers.current[i] = el;
@@ -122,7 +122,7 @@ export default function ArrivalSteps({ steps }: { steps: ArrivalStep[] }) {
                   </span>
                 </span>
               </button>
-              <figcaption className="mt-4 text-[0.8125rem] uppercase leading-relaxed tracking-[0.06em] text-warm-gray">{step.caption}</figcaption>
+              <figcaption className="flex-1 bg-charcoal px-3 py-3 text-[0.78rem] uppercase leading-relaxed tracking-[0.03em] text-white/90">{step.caption}</figcaption>
             </figure>
           </li>
         ))}
