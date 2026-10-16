@@ -3,6 +3,7 @@ import SiteLink from "@/components/SiteLink";
 import PageHero from "./PageHero";
 import PageTabs from "./PageTabs";
 import RoomGallery from "./RoomGallery";
+import SpaceOverview from "./SpaceOverview";
 import { ArrowIcon, Container, SectionLabel } from "./ui";
 import type { Room } from "@/content/rooms";
 
@@ -76,6 +77,7 @@ export default function RoomPage({ room, other }: { room: Room; other: Room }) {
                 ))}
               </ul>
             )}
+            <SpaceOverview />
           </div>
           <div className="reveal md:col-span-6 md:col-start-7" style={{ "--delay": "120ms" } as React.CSSProperties}>
             {room.description.map((d) => (
