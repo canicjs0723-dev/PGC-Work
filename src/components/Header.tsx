@@ -59,7 +59,10 @@ function HeaderNavigation({ pathname }: { pathname: string }) {
     };
   }, []);
 
-  const solid = lightPage || (scrolled && !menuOpen);
+  // Light pages keep the solid bar, except while the mobile menu is open: the bar's backdrop blur
+  // would otherwise trap the full-screen menu inside the 72px header.
+  const solid = lightPage ? !mobileOpen : scrolled && !menuOpen;
+  const darkLogo = solid || mobileOpen;
   const closeMenus = () => {
     setOpenMenu(null);
     setMobileOpen(false);
@@ -74,15 +77,26 @@ function HeaderNavigation({ pathname }: { pathname: string }) {
     >
       <div className="mx-auto flex h-[72px] max-w-[1440px] items-center justify-between px-5 md:h-[84px] md:px-10">
         <SiteLink href="/" onClick={closeMenus} className="relative z-10 flex items-center" aria-label="Pangyo Global Campus home">
-          {/* White logo over the hero; shown dark on the light (scrolled / menu-open) header. */}
-          <Image
-            src="/images/pgc-logo-white.png"
-            alt="Pangyo Global Campus"
-            width={1935}
-            height={146}
-            priority
-            className={`h-[18px] w-auto transition-[filter] duration-500 sm:h-5 md:h-6 ${solid || mobileOpen ? "brightness-0" : ""}`}
-          />
+          {/* White logo over the hero; the brand-colour logo on the light (scrolled / menu-open) header. */}
+          <span className="relative block">
+            <Image
+              src="/images/pgc-logo-2026-white.png"
+              alt="Pangyo Global Campus"
+              width={1422}
+              height={296}
+              priority
+              className={`h-7 w-auto transition-opacity duration-500 md:h-8 ${darkLogo ? "opacity-0" : "opacity-100"}`}
+            />
+            <Image
+              src="/images/pgc-logo-2026.png"
+              alt=""
+              aria-hidden
+              width={1422}
+              height={296}
+              priority
+              className={`absolute inset-0 h-7 w-auto transition-opacity duration-500 md:h-8 ${darkLogo ? "opacity-100" : "opacity-0"}`}
+            />
+          </span>
         </SiteLink>
 
         <nav className="hidden lg:block" aria-label="Main">

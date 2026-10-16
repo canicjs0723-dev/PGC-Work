@@ -26,7 +26,7 @@ export default function Footer() {
           <div className="grid gap-12 md:grid-cols-12 md:gap-10">
             <div className="md:col-span-3">
               <SiteLink href="/" aria-label="Pangyo Global Campus, home" className="inline-block">
-                <Image src="/images/logo-ronda-white.png" alt="RONDA" width={168} height={28} className="h-auto w-[150px] md:w-[168px]" />
+                <Image src="/images/pgc-logo-2026-white.png" alt="Pangyo Global Campus" width={1422} height={296} className="h-auto w-[150px] md:w-[168px]" />
               </SiteLink>
               <p className="mt-6 max-w-[220px] text-[14px] leading-relaxed text-white/60">{site.tagline}</p>
             </div>
