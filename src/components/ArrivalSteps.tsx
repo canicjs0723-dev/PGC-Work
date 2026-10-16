@@ -122,7 +122,7 @@ export default function ArrivalSteps({ steps }: { steps: ArrivalStep[] }) {
                   </span>
                 </span>
               </button>
-              <figcaption className="flex-1 bg-charcoal px-3 py-3 text-[0.78rem] uppercase leading-relaxed tracking-[0.03em] text-white/90">{step.caption}</figcaption>
+              <figcaption className="flex-1 bg-charcoal px-3 py-3 text-[calc(0.78rem+2pt)] uppercase leading-relaxed tracking-[0.03em] text-white/90">{step.caption}</figcaption>
             </figure>
           </li>
         ))}

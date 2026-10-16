@@ -7,11 +7,8 @@ import { Container, SectionLabel } from "@/components/ui";
 import { directions, parking, site } from "@/content/site";
 
 const fullAddress = `${site.address.street} (${site.address.lot})`;
-const mapSearch = encodeURIComponent(site.mapSearchKo);
-// Each link opens that service's place search for the complex name.
+// Opens Google Maps' place search for the complex, matching the embedded map.
 const mapLinks = [
-  { label: "Naver Map", href: `https://map.naver.com/p/search/${mapSearch}` },
-  { label: "Kakao Map", href: `https://map.kakao.com/link/search/${mapSearch}` },
   { label: "Google Maps", href: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(site.mapGoogleKo)}` },
 ];
 
@@ -58,7 +55,7 @@ export default function LocationView() {
           <div className="reveal md:col-span-5">
             <SectionLabel>Address</SectionLabel>
             <address className="mt-6 not-italic">
-              <p className="font-serif text-[30px] font-light leading-tight md:text-[36px]">Pangyo Global Campus (TH212)</p>
+              <p className="font-serif text-[30px] font-light leading-tight md:text-[36px]">Pangyo Global Campus (TH<span className="font-bold">212</span>)</p>
               <p className="mt-4 text-[16px] font-medium">{site.address.rooms}</p>
               <p className="mt-1 text-[15px] leading-relaxed text-charcoal/70">
                 {fullAddress}
@@ -147,7 +144,7 @@ export default function LocationView() {
         <Container>
           <div className="reveal">
             <SectionLabel>Arrival</SectionLabel>
-            <h2 className="mt-5 font-serif text-[40px] font-light md:text-[56px]">Finding Building 205</h2>
+            <h2 className="mt-5 font-serif text-[40px] font-light md:text-[56px]">Finding Building <span className="font-bold">205</span></h2>
           </div>
           <div className="no-scrollbar -mx-5 mt-12 flex snap-x snap-mandatory scroll-px-5 gap-5 overflow-x-auto px-5 md:mx-0 md:grid md:grid-cols-3 md:gap-8 md:overflow-visible md:px-0">
             {toBuilding.map((a, i) => (
@@ -162,7 +159,7 @@ export default function LocationView() {
 
           <div className="reveal mt-24 md:mt-32">
             <SectionLabel>Arrival</SectionLabel>
-            <h2 className="mt-5 font-serif text-[40px] font-light md:text-[56px]">From Parking to Building 205</h2>
+            <h2 className="mt-5 font-serif text-[40px] font-light md:text-[56px]">From Parking to Building <span className="font-bold">205</span></h2>
           </div>
           <ArrivalSteps steps={arrival} />
         </Container>
