@@ -94,7 +94,6 @@ GitHub Pages 빌드는 GitHub Actions에서 실행하는 것이 가장 안전합
 ```powershell
 $env:GITHUB_PAGES = "1"
 $env:PAGES_BASE_PATH = "/rk_pgc"
-$env:NEXT_PUBLIC_FORMSPREE_ENDPOINT = "https://formspree.io/f/xoejwjdk"
 npm run build -- --webpack
 ```
 
@@ -122,7 +121,6 @@ PowerShell 빌드 예시:
 ```powershell
 $env:GITHUB_PAGES = "1"
 $env:PAGES_BASE_PATH = ""
-$env:NEXT_PUBLIC_FORMSPREE_ENDPOINT = "https://formspree.io/f/xoejwjdk"
 npm ci
 npm run lint
 npm run build -- --webpack
@@ -134,7 +132,7 @@ npm run build -- --webpack
 4. 업로드 후 홈과 모든 하위 페이지, 이미지, 모바일 레이아웃, 문의 양식을 확인합니다.
 5. 새 배포는 `out/` 전체를 최신 결과로 교체합니다. 기존 웹 루트에서 사이트와 무관한 파일을 삭제하지 않도록 업로드 대상 경로를 확인하세요.
 
-호스팅이 Node.js 서버 실행을 지원하는 경우에는 정적 업로드와 별도로 서버 배포 구성을 마련해야 합니다. 위 절차는 FTP/SFTP만 제공하는 정적 호스팅 기준입니다. 문의 양식은 Formspree를 사용하므로 해당 서비스가 계속 활성화되어 있어야 합니다.
+호스팅이 Node.js 서버 실행을 지원하는 경우에는 정적 업로드와 별도로 서버 배포 구성을 마련해야 합니다. 위 절차는 FTP/SFTP만 제공하는 정적 호스팅 기준입니다. 문의 양식은 FormSubmit을 통해 evan.kim@rondakorea.com으로 전송되므로, 최초 1회 수신함에서 활성화(Activate Form)가 되어 있어야 합니다.
 
 ## 9. 관리자 로그인 CMS 검토
 

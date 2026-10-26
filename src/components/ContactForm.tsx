@@ -8,10 +8,10 @@ import { site } from "@/content/site";
 type Status = "idle" | "sending" | "sent" | "error";
 type FieldErrors = Partial<Record<"name" | "email" | "message" | "consent", string>>;
 
-// Formspree form URL, set at build time from the repository variable FORMSPREE_ENDPOINT.
-// Which inbox receives submissions is configured in that Formspree form, not here.
-const endpoint = process.env.NEXT_PUBLIC_FORMSPREE_ENDPOINT;
-const endpointReady = Boolean(endpoint && /^https:\/\/formspree\.io\/f\/[a-zA-Z0-9]+$/.test(endpoint));
+// Submissions are emailed to the inquiry inbox through FormSubmit (GitHub Pages has no server to send mail).
+// The first submission sends FormSubmit's one-time activation email to that inbox; once it is activated,
+// every inquiry arrives there directly.
+const endpoint = `https://formsubmit.co/ajax/${site.inquiryEmail}`;
 
 const field =
   "w-full border-0 border-b border-charcoal/25 bg-transparent px-0 py-3 text-[16px] outline-none transition-colors placeholder:text-charcoal/35 focus:border-charcoal";
@@ -48,25 +48,20 @@ export default function ContactForm() {
     formData.set("email", email);
     formData.set("message", inquiry);
 
-    if (!endpointReady) {
-      setStatus("error");
-      setMessage("unconfigured");
-      return;
-    }
-
     setStatus("sending");
     setMessage("");
     try {
       formData.set("_subject", `[PGC Inquiry] ${name}`);
       formData.set("_replyto", email);
-      const res = await fetch(endpoint!, {
+      formData.set("_template", "table");
+      const res = await fetch(endpoint, {
         method: "POST",
         headers: { Accept: "application/json", "content-type": "application/json" },
         body: JSON.stringify(Object.fromEntries(formData)),
       });
-      const data = (await res.json().catch(() => ({}))) as { error?: string; message?: string };
-      if (!res.ok) {
-        throw new Error(data.error || data.message || "We could not send your inquiry.");
+      const data = (await res.json().catch(() => ({}))) as { success?: string | boolean; message?: string };
+      if (!res.ok || String(data.success) !== "true") {
+        throw new Error(data.message || "We could not send your inquiry.");
       }
       setStatus("sent");
       form.reset();
@@ -117,7 +112,7 @@ export default function ContactForm() {
         {errors.message && <span id="message-error" className="mt-2 block text-[13px] text-red-700">{errors.message}</span>}
       </label>
 
-      <input type="text" name="_gotcha" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden />
+      <input type="text" name="_honey" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden />
 
       <div className="space-y-3 text-[13px] leading-relaxed text-charcoal/75">
         <p className="font-medium text-charcoal">Consent to collection and use of personal information</p>
@@ -140,17 +135,7 @@ export default function ContactForm() {
 
       {status === "error" && (
         <p className="text-[14px] text-red-700" role="alert">
-          {message === "unconfigured" ? (
-            <>
-              Online inquiries are temporarily unavailable. Please email{" "}
-              <a href={`mailto:${site.inquiryEmail}`} className="underline underline-offset-2">
-                {site.inquiryEmail}
-              </a>{" "}
-              or call {site.inquiryPhone}.
-            </>
-          ) : (
-            message
-          )}
+          {message}
         </p>
       )}
 

@@ -1,4 +1,4 @@
-// Contact form content. Submissions are delivered through Formspree.
+// Contact form content. Submissions are delivered through FormSubmit.
 // TODO(operator): confirm the retention period before launch.
 
 export const inquiryTypes = [

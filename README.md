@@ -13,28 +13,22 @@ Open `http://localhost:3000`.
 
 ## Contact form delivery
 
-The contact form uses Formspree because GitHub Pages does not provide server-side email delivery.
+GitHub Pages cannot send email, so the contact form posts to [FormSubmit](https://formsubmit.co), which emails each inquiry to `inquiryEmail` in `src/content/site.ts` (`evan.kim@rondakorea.com`). No account, key or repository variable is needed.
 
-The recipient is set in the Formspree form, not in this code. Inquiries should arrive at `evan.kim@rondakorea.com`.
+1. After deploying, submit one test inquiry on the live site.
+2. FormSubmit sends a one-time **Activate Form** email to `evan.kim@rondakorea.com` (check spam too). Click the button in it.
+3. From then on every inquiry arrives in that inbox as a table, with the visitor's email as Reply-To. Submit a second test to confirm.
 
-1. Sign in to Formspree and open a form you own (or create one). Its URL looks like `https://formspree.io/f/xxxxxxxx`.
-2. Add and verify `evan.kim@rondakorea.com` under **Account → Linked Emails**.
-3. In that form, open **Workflow → Email → Settings** and select `evan.kim@rondakorea.com` as **Send to**.
-4. In GitHub, add the form URL as the repository variable `FORMSPREE_ENDPOINT` (**Settings → Secrets and variables → Actions → Variables**). The Pages workflow passes it to the build as `NEXT_PUBLIC_FORMSPREE_ENDPOINT`; redeploy after setting it. Without it the form shows a fallback with the inquiry email and phone.
-5. For local testing, set `NEXT_PUBLIC_FORMSPREE_ENDPOINT` in `.env.local` and restart the development server.
-6. Submit a test inquiry on the live site and confirm receipt in the inbox (check spam too).
-
-The endpoint identifier is public by design for static browser forms and is not a credential. The website validates required fields and email format, requires privacy consent, and includes Formspree's `_gotcha` honeypot field. Review Formspree's processing and retention terms for your privacy policy before production use.
+To change the recipient, edit `inquiryEmail` in `src/content/site.ts`; the new address needs the same one-time activation. The form validates required fields and email format, requires privacy consent, and includes FormSubmit's `_honey` spam trap.
 
 ## Deploy to GitHub Pages
 
 The `Deploy GitHub Pages` workflow builds the static export at `/rk_pgc/` and publishes it when commits are pushed to `main`.
 
 1. In repository **Settings → Pages**, set the build and deployment source to **GitHub Actions**.
-2. Verify the Formspree recipient and select it in the form's Email workflow.
-3. Push or merge changes to `main`; check **Actions → Deploy GitHub Pages** for build and deployment status.
+2. Push or merge changes to `main`; check **Actions → Deploy GitHub Pages** for build and deployment status.
 
-The public project URL is `https://jihyun37.github.io/rk_pgc/`. The standard site pages are statically exported; Formspree handles submissions independently of the Pages host.
+The public project URL is `https://jihyun37.github.io/rk_pgc/`. The standard site pages are statically exported; FormSubmit handles inquiry emails independently of the Pages host.
 
 ## Project structure
 
@@ -56,6 +50,5 @@ npm run lint
 npx tsc --noEmit
 $env:GITHUB_PAGES = "1"
 $env:PAGES_BASE_PATH = "/rk_pgc"
-$env:NEXT_PUBLIC_FORMSPREE_ENDPOINT = "https://formspree.io/f/xoejwjdk"
 npm run build -- --webpack
 ```
