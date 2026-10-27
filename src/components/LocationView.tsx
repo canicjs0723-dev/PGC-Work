@@ -24,13 +24,39 @@ const arrival = [
   { src: "/images/parking-05-205-entrances-3-4.jpg", width: 2000, height: 1500, focus: [70, 50] as [number, number], route: "M 38 93 Q 41 60 51 46", alt: "Building 205 entrances 3 and 4 in the underground parking", caption: "05 · Building 205 — entrances 3 & 4" },
 ];
 
-// Walking route from the main road, in order. `focus` keeps the key landmark of each photo inside the square tile.
+// Walking route from the main road, in order, laid out like the PGC arrival guide: a place tag on each photo,
+// boxes on the landmarks to look for, and the route arrow. Coordinates are percent of each photo.
 const walking = [
-  { src: "/images/walk-01-main-road.webp", width: 1561, height: 1008, focus: [40, 50] as [number, number], route: "M 46 99 Q 50 82 58 66", alt: "Main road with the TH212 complex on the left", caption: "01 · Follow the main road to TH212" },
-  { src: "/images/walk-02-building-201-gate.webp", width: 1549, height: 1015, focus: [30, 50] as [number, number], route: "M 52 99 Q 54 82 60 64", alt: "Building 201 main gate of TH212", caption: "02 · Go straight past the 201 main gate" },
-  { src: "/images/walk-03-building-204-left.webp", width: 1524, height: 1032, focus: [69, 50] as [number, number], route: "M 63 99 Q 62 72 61 42", marker: { x: 60, y: 55, label: "PGC" }, alt: "Building 204 on the left and the CU convenience store on the right", caption: "03 · Past 204 and the CU store, PGC is ahead" },
-  { src: "/images/walk-04-building-205-entrance.webp", width: 1524, height: 1032, focus: [40, 50] as [number, number], route: "M 62 97 Q 46 94 40 66", alt: "Building 205 entrance at TH212 Pangyo", caption: "04 · 205 entrance: enter 403 + Code(0401)" },
-  { src: "/images/walk-05-entrance-panel.webp", width: 1559, height: 1009, focus: [62, 50] as [number, number], route: "M 79 99 Q 76 80 72 57", alt: "Walkway to the Building 205 lines 3–4 entrance with its entry panel", caption: "05 · Lines 3–4 entrance: enter 403 + Code(0401)" },
+  {
+    src: "/images/walk-01-main-road.webp", width: 1561, height: 1008,
+    tag: "MAIN ROAD", route: "M 46 99 Q 50 82 58 66", boxes: [{ x: 24, y: 27, w: 31, h: 42, label: "TH212" }],
+    alt: "Main road with the TH212 complex on the left",
+    caption: "01 · Follow the main road until the TH212 complex appears on your left",
+  },
+  {
+    src: "/images/walk-02-building-201-gate.webp", width: 1549, height: 1015,
+    tag: "MAIN GATE", route: "M 52 99 Q 54 82 60 64", boxes: [{ x: 1, y: 36, w: 33, h: 26, label: "201" }],
+    alt: "Building 201 main gate of TH212",
+    caption: "02 · Pass the Building 201 main gate and keep going straight",
+  },
+  {
+    src: "/images/walk-03-building-204-left.webp", width: 1524, height: 1032,
+    tag: "BACK GATE", route: "M 63 99 Q 62 72 61 42", marker: { x: 60, y: 55, label: "PGC" }, boxes: [{ x: 78, y: 45, w: 19, h: 17, label: "CU" }],
+    alt: "Building 204 back gate with the CU convenience store on the right",
+    caption: "03 · At the Building 204 back gate, opposite the CU store, continue to PGC (Building 205)",
+  },
+  {
+    src: "/images/walk-04-building-205-entrance.webp", width: 1524, height: 1032,
+    tag: "PGC ENTRANCE", route: "M 62 97 Q 46 94 40 66", boxes: [{ x: 34, y: 61, w: 8, h: 23 }],
+    alt: "Building 205 entrance at TH212 Pangyo",
+    caption: "04 · Building 205 entrance: enter 403, then Code (0401), and take the stairs",
+  },
+  {
+    src: "/images/walk-05-entrance-panel.webp", width: 1559, height: 1009,
+    tag: "ENTRY", route: "M 79 99 Q 76 80 72 57", boxes: [{ x: 66, y: 50, w: 10, h: 21, label: "Lines 3–4" }],
+    alt: "Walkway to the Building 205 lines 3–4 entrance with its entry panel",
+    caption: "05 · At the lines 3–4 entrance panel, enter unit 403 and Code (0401)",
+  },
 ];
 
 export default function LocationView() {
@@ -157,7 +183,23 @@ export default function LocationView() {
             <SectionLabel>Arrival</SectionLabel>
             <h2 className="mt-5 font-serif text-[40px] font-light md:text-[56px]">On Foot to Building <span className="font-bold">205</span></h2>
           </div>
-          <ArrivalSteps steps={walking} />
+          <ArrivalSteps
+            steps={walking}
+            frame="landscape"
+            layout="grid"
+            extra={
+              <div className="flex w-full flex-col items-center justify-center gap-4 bg-[#5b8fd6] px-6 py-10 text-center text-white">
+                <svg viewBox="0 0 48 48" className="size-14" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+                  <path d="M10 30 L13 19 Q14 16 17 16 L31 16 Q34 16 35 19 L38 30" />
+                  <rect x="7" y="30" width="34" height="9" rx="2" />
+                  <path d="M12 39 v3 M36 39 v3 M19 12 h10 v4 h-10z M13 34.5 h3 M32 34.5 h3" />
+                </svg>
+                <p className="text-[0.9rem] uppercase tracking-[0.18em] text-white/85">By Taxi</p>
+                <p className="font-serif text-[30px] leading-tight">Incheon Airport → PGC</p>
+                <p className="text-[1rem] font-medium">About 80 km · 1 h 30 min</p>
+              </div>
+            }
+          />
         </Container>
       </section>
 
