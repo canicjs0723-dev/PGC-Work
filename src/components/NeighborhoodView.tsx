@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useSyncExternalStore } from "react";
 import PageHero from "@/components/PageHero";
 import PageTabs from "@/components/PageTabs";
@@ -35,10 +36,14 @@ const pad = (n: number) => String(n).padStart(2, "0");
 function PlaceCard({ place, index, showMap }: { place: Place; index: number; showMap: boolean }) {
   return (
     <li className="flex flex-col border border-line bg-white">
-      {/* Photo slot: an icon tile until a real photo is supplied. */}
-      <div className="relative grid aspect-[4/3] place-items-center bg-beige/70 text-accent">
-        <span className="absolute left-3 top-3 bg-charcoal px-2 py-1 text-[0.6875rem] font-medium text-white">{pad(index + 1)}</span>
-        <PlaceIcon icon={place.icon} className="size-10" />
+      {/* Photo slot: the place's photo when one is set, otherwise an icon tile. */}
+      <div className="relative grid aspect-[4/3] place-items-center overflow-hidden bg-beige/70 text-accent">
+        {place.photo ? (
+          <Image src={place.photo} alt={place.name} fill sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw" className="object-cover" />
+        ) : (
+          <PlaceIcon icon={place.icon} className="size-10" />
+        )}
+        <span className="absolute left-3 top-3 z-10 bg-charcoal px-2 py-1 text-[0.6875rem] font-medium text-white">{pad(index + 1)}</span>
       </div>
       <div className="flex flex-1 flex-col p-5">
         <h3 className="font-serif text-[1.375rem] leading-tight">{place.name}</h3>
