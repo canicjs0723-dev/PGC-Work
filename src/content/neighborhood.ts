@@ -1,6 +1,7 @@
 // Neighborhood tab (Information → Neighborhood). DRAFT CONTENT: names, distances, times and hours below were
 // read from the design mock-up and must be checked against Naver Map before publishing. Edit here only.
 // `query` is the Naver Map search used by the Map button (Korean name where known).
+// To add a photo, put the file in public/images/neighborhood/ and set `photo` on that place.
 
 export type CategoryKey = "dining" | "visit" | "essentials";
 
@@ -16,6 +17,8 @@ export type Place = {
   hours?: string;
   note?: string;
   query: string;
+  /** Card photo in public/images/neighborhood/, e.g. "/images/neighborhood/visit-01.jpg". Leave out to show the icon tile. */
+  photo?: string;
 };
 
 export type Category = {
