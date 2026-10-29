@@ -25,7 +25,7 @@
 | `identity-connect-2026.jpg` | About 페이지 Identity · CONNECT |
 | `identity-stay-2026.jpg` | About 페이지 Identity · STAY |
 | `identity-work-2026.jpg` | About 페이지 Identity · WORK |
-| `location-map.webp` | About 페이지 위치 안내 지도 |
+| `location-map-en.webp` | About 페이지 위치 안내 지도 (영문) |
 | `parking-204-entrance.jpg` | Location 페이지 도착 동선 사진 · 1번 주차장 입구 |
 | `site-map.png` | Location 페이지 주차 안내 배치도 |
 | `th212-sign.jpg` | Location 페이지 도착 동선 사진 · 2번 TH212 표지 |
