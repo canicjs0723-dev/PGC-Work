@@ -51,7 +51,8 @@ export default function RoomPage({ room, other }: { room: Room; other: Room }) {
         label="Rooms"
         items={[room, other]
           .sort((a, b) => (a.slug < b.slug ? -1 : 1))
-          .map((r) => ({ label: r.name.replace(/^PGC \d+\s*/, ""), href: `/${r.slug}`, active: r.slug === room.slug }))}
+          .map((r) => ({ label: r.name.replace(/^PGC \d+\s*/, ""), href: `/${r.slug}`, active: r.slug === room.slug }))
+          .concat({ label: "Guide", href: "/guide", active: false })}
       />
 
       {/* Intro + key facts */}

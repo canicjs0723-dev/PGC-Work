@@ -76,7 +76,6 @@ export default function LocationView() {
         label="Information"
         items={[
           { label: "Location", href: "/information/location", active: true },
-          { label: "Guide", href: "/information", active: false },
         ]}
       />
 

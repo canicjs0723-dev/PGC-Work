@@ -9,7 +9,7 @@ export default function GuideView() {
     <>
       <PageHero
         tall
-        label="Information"
+        label="Rooms"
         title="Guide"
         subtitle="Your Stay, Made Simple. Please check before your stay."
         image="/images/building-205-entrance.webp"
@@ -18,10 +18,11 @@ export default function GuideView() {
       />
 
       <PageTabs
-        label="Information"
+        label="Rooms"
         items={[
-          { label: "Location", href: "/information/location", active: false },
-          { label: "Guide", href: "/information", active: true },
+          { label: "Business Room", href: "/business-room", active: false },
+          { label: "Guest Room", href: "/guest-room", active: false },
+          { label: "Guide", href: "/guide", active: true },
         ]}
       />
 

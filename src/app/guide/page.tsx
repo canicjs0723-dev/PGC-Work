@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import GuideView from "@/components/GuideView";
 
-// Legacy URL kept working; canonical is /information.
+// The stay guide, shown as the last tab under Rooms.
 export const metadata: Metadata = {
-  title: "Information · Visitor Guide",
-  alternates: { canonical: "/information/" },
+  title: "Guide",
+  description: "Arrival, check-in, guest guidelines and FAQ for your stay at Pangyo Global Campus.",
 };
 
 export default function GuidePage() {
