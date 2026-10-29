@@ -49,13 +49,13 @@ const walking = [
     src: "/images/walk-04-building-205-entrance.webp", width: 1524, height: 1032,
     tag: "PGC ENTRANCE", route: "M 62 97 Q 46 94 40 66", boxes: [{ x: 34, y: 61, w: 8, h: 23 }],
     alt: "Building 205 entrance at TH212 Pangyo",
-    caption: "04 · Building 205 entrance: enter 403, then Code (0401), and take the stairs",
+    caption: "04 · Building 205 entrance: enter 403, then the code, and take the stairs",
   },
   {
     src: "/images/walk-05-entrance-panel.webp", width: 1559, height: 1009,
     tag: "ENTRY", route: "M 79 99 Q 76 80 72 57", boxes: [{ x: 66, y: 50, w: 10, h: 21, label: "Lines 3–4" }],
     alt: "Walkway to the Building 205 lines 3–4 entrance with its entry panel",
-    caption: "05 · At the lines 3–4 entrance panel, enter unit 403 and Code (0401)",
+    caption: "05 · At the lines 3–4 entrance panel, enter unit 403 and the code",
   },
 ];
 
