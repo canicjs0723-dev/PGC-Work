@@ -77,6 +77,7 @@ export default function LocationView() {
         label="Information"
         items={[
           { label: "Location", href: "/information/location", active: true },
+          { label: "Neighborhood", href: "/information/neighborhood", active: false },
         ]}
       />
 
