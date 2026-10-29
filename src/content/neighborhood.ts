@@ -72,13 +72,13 @@ export const categories: Category[] = [
     intro: "For a free afternoon between meetings, or a weekend in and around Seoul — seven places within about forty minutes by car.",
     footnote: "Travel times are approximate and vary with traffic. Hours may change; please check before visiting.",
     places: [
-      { name: "Pangyo Station Area", kind: "Shopping", icon: "shopping", time: "~6 min by car", distance: "~3 km", note: "Cafés, dining and shopping around Pangyo's business district.", query: "판교역" },
-      { name: "The Hyundai Pangyo", kind: "Shopping", icon: "shopping", time: "~8 min by car", distance: "~3.2 km", note: "Shopping, dining and culture under one roof.", query: "현대백화점 판교점" },
+      { name: "Pangyo Station Area", kind: "Shopping", icon: "shopping", time: "~6 min by car", distance: "~3 km", note: "Cafés, dining and shopping around Pangyo's business district.", query: "판교역", photo: "/images/neighborhood/visit-01-pangyo-station.webp" },
+      { name: "The Hyundai Pangyo", kind: "Shopping", icon: "shopping", time: "~8 min by car", distance: "~3.2 km", note: "Shopping, dining and culture under one roof.", query: "현대백화점 판교점", photo: "/images/neighborhood/visit-02-the-hyundai-pangyo.webp" },
       { name: "Gogi Valley, Yongin", kind: "Nature", icon: "nature", time: "~20 min by car", distance: "~12 km", note: "Relaxed meals and cafés along a wooded valley stream.", query: "용인 고기리계곡" },
-      { name: "Starfield Suwon", kind: "Shopping", icon: "shopping", time: "~30 min by car", distance: "~22 km", note: "Shopping, dining and a cinema in one large complex.", query: "스타필드 수원" },
+      { name: "Starfield Suwon", kind: "Shopping", icon: "shopping", time: "~30 min by car", distance: "~22 km", note: "Shopping, dining and a cinema in one large complex.", query: "스타필드 수원", photo: "/images/neighborhood/visit-04-starfield-suwon.webp" },
       { name: "Gwanghwamun & Gyeongbokgung", kind: "Culture", icon: "culture", time: "~45 min by car", distance: "~25 km", note: "Seoul's principal royal palace, at the historic heart of the city.", query: "경복궁" },
-      { name: "Korean Folk Village, Yongin", kind: "Culture", icon: "culture", time: "~35 min by car", distance: "~27 km", note: "Traditional houses, hands-on experiences and seasonal festivals.", query: "한국민속촌" },
-      { name: "Myeongdong", kind: "Shopping", icon: "shopping", time: "~50 min by car", distance: "~27 km", note: "Seoul's best-known shopping street, with beauty brands and street food.", query: "명동" },
+      { name: "Korean Folk Village, Yongin", kind: "Culture", icon: "culture", time: "~35 min by car", distance: "~27 km", note: "Traditional houses, hands-on experiences and seasonal festivals.", query: "한국민속촌", photo: "/images/neighborhood/visit-06-korean-folk-village.webp" },
+      { name: "Myeongdong", kind: "Shopping", icon: "shopping", time: "~50 min by car", distance: "~27 km", note: "Seoul's best-known shopping street, with beauty brands and street food.", query: "명동", photo: "/images/neighborhood/visit-07-myeongdong.webp" },
     ],
   },
   {
