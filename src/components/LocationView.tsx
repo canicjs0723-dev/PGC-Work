@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { Fragment } from "react";
 import ArrivalSteps from "@/components/ArrivalSteps";
 import CopyAddressButton from "@/components/CopyAddressButton";
 import PageHero from "@/components/PageHero";
@@ -195,6 +196,19 @@ export default function LocationView() {
                 </svg>
                 <p className="text-[0.9rem] uppercase tracking-[0.18em] text-white/85">By Taxi</p>
                 <p className="font-serif text-[30px] leading-tight">Incheon Airport → PGC</p>
+                {/* Address to show the taxi driver, in English and Korean. */}
+                <div className="max-w-[21rem] space-y-1.5 border-y border-white/30 py-3 text-[0.8125rem] leading-snug text-balance text-white/90">
+                  {/* Lines break only between address parts, never inside names like "Pangyodaejang-ro". */}
+                  <p>
+                    {["Building 205,", "TH212,", "25, Pangyodaejang-ro 7-gil,", "Bundang-gu,", "Seongnam-si,", "Gyeonggi-do,", "Republic of Korea"].map((part, i) => (
+                      <Fragment key={part}>
+                        {i > 0 && " "}
+                        <span className="whitespace-nowrap">{part}</span>
+                      </Fragment>
+                    ))}
+                  </p>
+                  <p lang="ko">경기도 성남시 분당구 판교대장로7길 25 TH212 205동</p>
+                </div>
                 <p className="text-[1rem] font-medium">About 80 km · 1 h 30 min</p>
               </div>
             }
