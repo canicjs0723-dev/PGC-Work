@@ -152,7 +152,7 @@ function subscribe(onChange: () => void) {
 
 export default function NeighborhoodView() {
   const hash = useSyncExternalStore(subscribe, () => window.location.hash.slice(1), () => "");
-  const active: CategoryKey = categories.some((c) => c.key === hash) ? (hash as CategoryKey) : "dining";
+  const active: CategoryKey = categories.some((c) => c.key === hash) ? (hash as CategoryKey) : categories[0].key;
 
   const choose = (key: CategoryKey) => {
     window.history.replaceState(null, "", `#${key}`);
@@ -190,11 +190,11 @@ export default function NeighborhoodView() {
               <h2 className="mt-5 font-serif text-[40px] font-light leading-none md:text-[56px]">Life Around PGC</h2>
             </div>
             <p className="text-[15px] leading-relaxed text-charcoal/70 md:col-span-5 md:col-start-8">
-              Choose a category to see places near Building 205 — local restaurants, places worth a visit, and everyday essentials a short walk away.
+              Everyday essentials within a short walk, favorite restaurants and cafés a few minutes away by car, and places worth a visit around Seoul — all within easy reach of Building 205.
             </p>
           </div>
 
-          <div className="mt-12 grid gap-4 md:grid-cols-3" role="tablist" aria-label="Neighborhood categories">
+          <div className="mt-12 grid gap-5 md:grid-cols-3" role="tablist" aria-label="Neighborhood categories">
             {categories.map((c, i) => {
               const selected = c.key === active;
               return (
@@ -205,20 +205,40 @@ export default function NeighborhoodView() {
                   aria-selected={selected}
                   aria-controls={c.key}
                   onClick={() => choose(c.key)}
-                  className={`group flex items-center gap-5 border p-6 text-left transition-colors ${
-                    selected ? "border-charcoal bg-charcoal text-white" : "border-line bg-white hover:border-charcoal/50"
+                  className={`group flex flex-col border bg-white text-left transition-[border-color,box-shadow] ${
+                    selected ? "border-charcoal shadow-[0_18px_40px_-24px_rgba(0,0,0,0.45)]" : "border-line hover:border-charcoal/40"
                   }`}
                 >
-                  <span className={`grid size-14 shrink-0 place-items-center rounded-full ${selected ? "bg-white/10 text-white" : "bg-beige/70 text-accent"}`}>
-                    <PlaceIcon icon={c.icon} />
+                  <span className="relative block aspect-[16/10] overflow-hidden bg-beige/70">
+                    {c.cover ? (
+                      <Image
+                        src={c.cover}
+                        alt=""
+                        fill
+                        sizes="(min-width: 768px) 33vw, 100vw"
+                        className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                        style={{ objectPosition: c.coverPosition }}
+                      />
+                    ) : (
+                      <span className="grid size-full place-items-center text-accent">
+                        <PlaceIcon icon={c.icon} className="size-12" />
+                      </span>
+                    )}
+                    <span className="absolute left-3 top-3 bg-charcoal px-2.5 py-1 text-[0.75rem] font-medium text-white">{pad(i + 1)}</span>
                   </span>
-                  <span className="flex-1">
-                    <span className={`block text-[0.75rem] tracking-[0.2em] ${selected ? "text-white/60" : "text-charcoal/45"}`}>{pad(i + 1)}</span>
-                    <span className="mt-1 block font-serif text-[1.5rem] leading-tight">{c.label}</span>
-                    <span className={`mt-1 block text-[0.8125rem] ${selected ? "text-white/70" : "text-charcoal/60"}`}>{c.sub}</span>
-                  </span>
-                  <span aria-hidden className={`text-xl transition-transform group-hover:translate-x-1 ${selected ? "rotate-90" : ""}`}>
-                    →
+                  <span className="flex items-end justify-between gap-4 px-5 py-5">
+                    <span>
+                      <span className="block font-serif text-[1.5rem] leading-tight">{c.label}</span>
+                      <span className="mt-1.5 block text-[0.8125rem] text-charcoal/60">{c.sub}</span>
+                    </span>
+                    <span
+                      aria-hidden
+                      className={`grid size-9 shrink-0 place-items-center rounded-full border transition-colors ${
+                        selected ? "border-charcoal bg-charcoal text-white" : "border-charcoal/25 text-charcoal group-hover:border-charcoal"
+                      }`}
+                    >
+                      {selected ? "↓" : "→"}
+                    </span>
                   </span>
                 </button>
               );

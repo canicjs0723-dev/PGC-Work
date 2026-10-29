@@ -26,6 +26,10 @@ export type Place = {
 export type Category = {
   key: CategoryKey;
   label: string;
+  /** Cover photo on the category card; leave out to show the icon tile. */
+  cover?: string;
+  /** object-position for the cover crop, e.g. "70% 50%". */
+  coverPosition?: string;
   sub: string;
   icon: Icon;
   eyebrow: string;
@@ -38,6 +42,27 @@ export type Category = {
 const near = (q: string) => `${q} 판교 대장동`;
 
 export const categories: Category[] = [
+  {
+    key: "essentials",
+    label: "Everyday Essentials",
+    sub: "Store, pharmacy, mart & more · on foot",
+    cover: "/images/neighborhood/cover-essentials.webp",
+    icon: "store",
+    eyebrow: "Everyday Essentials",
+    title: "On Foot",
+    intro: "Eight everyday places within a ten-minute walk of Building 205 — from morning coffee to a late pharmacy run.",
+    footnote: "Illustrative map, not to scale. Walking times at about 80 m per minute; hours may change.",
+    places: [
+      { name: "CU Daejang", kind: "Convenience store", icon: "store", time: "2 min walk", distance: "180 m", hours: "Open 24 hours", query: near("CU") },
+      { name: "Pascucci Pangyo Daejang", kind: "Café", icon: "coffee", time: "2 min walk", distance: "170 m", hours: "Daily 07:00–22:00", query: near("파스쿠찌") },
+      { name: "Tous les Jours Pangyo Daejang", kind: "Bakery", icon: "bakery", time: "3 min walk", distance: "200 m", hours: "Daily 07:00–22:00", query: near("뚜레쥬르") },
+      { name: "GS THE FRESH Pangyo Daejang", kind: "Supermarket", icon: "cart", time: "8 min walk", distance: "610 m", hours: "Daily 09:00–22:00", query: near("GS더프레시") },
+      { name: "Daejang Pureun Pharmacy", kind: "Pharmacy", icon: "pharmacy", time: "8 min walk", distance: "620 m", hours: "Mon–Fri 09:00–21:00 · Sat 09:00–18:00 · Sun closed", query: near("약국") },
+      { name: "Yonsei Spring Clinic", kind: "Clinic · Internal medicine", icon: "clinic", time: "8 min walk", distance: "600 m", hours: "Mon–Fri 09:00–19:00 · Sat 09:00–13:00 · Sun closed", query: "연세봄의원 판교" },
+      { name: "CleanTopia", kind: "Laundry", icon: "laundry", time: "2 min walk", distance: "150 m", hours: "Mon–Fri 08:00–21:00 · Sat–Sun 09:00–20:00", query: near("크린토피아") },
+      { name: "Daejang Riverside Park", kind: "Park", icon: "park", time: "5 min walk", distance: "400 m", hours: "Open all day", query: near("공원") },
+    ],
+  },
   {
     key: "dining",
     label: "Local Dining",
@@ -68,6 +93,8 @@ export const categories: Category[] = [
     key: "visit",
     label: "Places to Visit",
     sub: "Culture, shopping & nature · by car",
+    cover: "/images/neighborhood/visit-05-gyeongbokgung.webp",
+    coverPosition: "30% 50%",
     icon: "culture",
     eyebrow: "Places to Visit",
     title: "Further Afield",
@@ -81,26 +108,6 @@ export const categories: Category[] = [
       { name: "Gwanghwamun & Gyeongbokgung", kind: "Culture", icon: "culture", time: "~45 min by car", distance: "29 km", note: "Seoul's principal royal palace, at the historic heart of the city.", query: "경복궁", photo: "/images/neighborhood/visit-05-gyeongbokgung.webp", mapUrl: "https://map.naver.com/p/search/%EA%B2%BD%EB%B3%B5%EA%B6%81/place/11571707?c=15.00,0,0,0,dh" },
       { name: "Korean Folk Village, Yongin", kind: "Culture", icon: "culture", time: "~30 min by car", distance: "19 km", note: "Traditional houses, hands-on experiences and seasonal festivals.", query: "한국민속촌", photo: "/images/neighborhood/visit-06-korean-folk-village.webp", mapUrl: "https://map.naver.com/p/search/%ED%95%9C%EA%B5%AD%EB%AF%BC%EC%86%8D%EC%B4%8C/place/11620801?c=15.00,0,0,0,dh" },
       { name: "Myeongdong", kind: "Shopping", icon: "shopping", time: "~40 min by car", distance: "26 km", note: "Seoul's best-known shopping street, with beauty brands and street food.", query: "명동", photo: "/images/neighborhood/visit-07-myeongdong.webp", mapUrl: "https://map.naver.com/p/search/%EB%AA%85%EB%8F%99%208%EB%B2%88%EC%B6%9C%EA%B5%AC/place/21405078?c=15.00,0,0,0,dh" },
-    ],
-  },
-  {
-    key: "essentials",
-    label: "Everyday Essentials",
-    sub: "Convenience, pharmacy, clinic & more · on foot",
-    icon: "store",
-    eyebrow: "Everyday Essentials",
-    title: "On Foot",
-    intro: "Eight everyday places within a ten-minute walk of Building 205 — from morning coffee to a late pharmacy run.",
-    footnote: "Illustrative map, not to scale. Walking times at about 80 m per minute; hours may change.",
-    places: [
-      { name: "CU Daejang", kind: "Convenience store", icon: "store", time: "2 min walk", distance: "180 m", hours: "Open 24 hours", query: near("CU") },
-      { name: "Pascucci Pangyo Daejang", kind: "Café", icon: "coffee", time: "2 min walk", distance: "170 m", hours: "Daily 07:00–22:00", query: near("파스쿠찌") },
-      { name: "Tous les Jours Pangyo Daejang", kind: "Bakery", icon: "bakery", time: "3 min walk", distance: "200 m", hours: "Daily 07:00–22:00", query: near("뚜레쥬르") },
-      { name: "GS THE FRESH Pangyo Daejang", kind: "Supermarket", icon: "cart", time: "8 min walk", distance: "610 m", hours: "Daily 09:00–22:00", query: near("GS더프레시") },
-      { name: "Daejang Pureun Pharmacy", kind: "Pharmacy", icon: "pharmacy", time: "8 min walk", distance: "620 m", hours: "Mon–Fri 09:00–21:00 · Sat 09:00–18:00 · Sun closed", query: near("약국") },
-      { name: "Yonsei Spring Clinic", kind: "Clinic · Internal medicine", icon: "clinic", time: "8 min walk", distance: "600 m", hours: "Mon–Fri 09:00–19:00 · Sat 09:00–13:00 · Sun closed", query: "연세봄의원 판교" },
-      { name: "CleanTopia", kind: "Laundry", icon: "laundry", time: "2 min walk", distance: "150 m", hours: "Mon–Fri 08:00–21:00 · Sat–Sun 09:00–20:00", query: near("크린토피아") },
-      { name: "Daejang Riverside Park", kind: "Park", icon: "park", time: "5 min walk", distance: "400 m", hours: "Open all day", query: near("공원") },
     ],
   },
 ];
