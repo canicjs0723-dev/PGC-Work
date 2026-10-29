@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
-import GuideView from "@/components/GuideView";
+import LocationView from "@/components/LocationView";
 
+// Information now opens on Location (the Guide moved under Rooms at /guide); this URL keeps working.
 export const metadata: Metadata = {
-  title: "Information · Visitor Guide",
-  description: "Reservation information, parking registration, check-in, guest guidelines and FAQ for Pangyo Global Campus.",
+  title: "Information · Location",
+  alternates: { canonical: "/information/location/" },
 };
 
 export default function InformationPage() {
-  return <GuideView />;
+  return <LocationView />;
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useId, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState, type ReactNode } from "react";
 
 export type ArrivalStep = {
   src: string;
@@ -16,7 +16,28 @@ export type ArrivalStep = {
   route?: string;
   /** Destination marker: a diamond with a label, centred at x / y percent of the photo (drawn upright, not tilted). */
   marker?: { x: number; y: number; label: string };
+  /** Place tag in the photo's top-right corner, e.g. "MAIN GATE". */
+  tag?: string;
+  /** Highlight boxes (percent of the photo) with an optional label above each. */
+  boxes?: { x: number; y: number; w: number; h: number; label?: string }[];
 };
+
+const LABEL_FONT = "'Pretendard Variable', Pretendard, sans-serif";
+
+// A dark pill with white bold text, centred on (cx, cy) in photo pixels.
+function Pill({ cx, cy, text, unit, size = 0.05 }: { cx: number; cy: number; text: string; unit: number; size?: number }) {
+  const fontSize = unit * size;
+  const width = text.length * fontSize * 0.62 + fontSize * 1.1;
+  const height = fontSize * 1.55;
+  return (
+    <g>
+      <rect x={cx - width / 2} y={cy - height / 2} width={width} height={height} rx={fontSize * 0.25} fill="#1f1e1c" />
+      <text x={cx} y={cy} textAnchor="middle" dominantBaseline="central" fill="#ffffff" fontSize={fontSize} fontWeight={700} fontFamily={LABEL_FONT}>
+        {text}
+      </text>
+    </g>
+  );
+}
 
 // Converts a percent-based path ("M 40 90 L 40 70") into the photo's pixel space.
 function toPixels(route: string, width: number, height: number) {
@@ -30,7 +51,7 @@ const TILT = 0.55;
 // The photo with its direction arrow drawn on top (white outline + amber stroke), sharing one coordinate box.
 function RouteOverlay({ step }: { step: ArrivalStep }) {
   const id = useId();
-  if (!step.route && !step.marker) return null;
+  if (!step.route && !step.marker && !step.tag && !step.boxes?.length) return null;
   const d = step.route ? toPixels(step.route, step.width, step.height) : "";
   const originY = Number(d.match(/-?\d+(\.\d+)?/g)?.[1] ?? 0);
   const unit = Math.min(step.width, step.height);
@@ -69,36 +90,79 @@ function RouteOverlay({ step }: { step: ArrivalStep }) {
             strokeWidth={unit * 0.008}
             strokeLinejoin="round"
           />
-          <rect x={m.cx - unit * 0.07} y={m.cy - m.ry - unit * 0.095} width={unit * 0.14} height={unit * 0.075} rx={unit * 0.012} fill="#1f1e1c" />
-          <text
-            x={m.cx}
-            y={m.cy - m.ry - unit * 0.057}
-            textAnchor="middle"
-            dominantBaseline="central"
-            fill="#ffffff"
-            fontSize={unit * 0.05}
-            fontWeight={700}
-            fontFamily="'Pretendard Variable', Pretendard, sans-serif"
-          >
-            {step.marker.label}
-          </text>
+          <Pill cx={m.cx} cy={m.cy - m.ry - unit * 0.057} text={step.marker.label} unit={unit} />
         </g>
+      )}
+      {step.boxes?.map((b) => {
+        const x = (step.width * b.x) / 100;
+        const y = (step.height * b.y) / 100;
+        const w = (step.width * b.w) / 100;
+        const h = (step.height * b.h) / 100;
+        return (
+          <g key={`${b.x}-${b.y}`}>
+            <rect x={x} y={y} width={w} height={h} fill="none" stroke="#ffffff" strokeWidth={unit * 0.014} rx={unit * 0.006} />
+            <rect x={x} y={y} width={w} height={h} fill="none" stroke="#e53935" strokeWidth={unit * 0.007} rx={unit * 0.006} />
+            {b.label && <Pill cx={x + w / 2} cy={y - unit * 0.045} text={b.label} unit={unit} size={0.045} />}
+          </g>
+        );
+      })}
+      {step.tag && (
+        <Pill
+          cx={step.width - unit * 0.04 - (step.tag.length * unit * 0.062 * 0.62 + unit * 0.062 * 1.1) / 2}
+          cy={unit * 0.08}
+          text={step.tag}
+          unit={unit}
+          size={0.062}
+        />
       )}
     </svg>
   );
 }
 
-// Positions the photo-sized box inside a square frame the way object-fit: cover would, honouring `focus`.
-function coverBox({ width, height, focus = [50, 50] }: ArrivalStep): React.CSSProperties {
-  const ratio = width / height;
+// Positions the photo-sized box inside a frame of `frameRatio` (width / height) the way object-fit: cover
+// would, honouring `focus`.
+function coverBox({ width, height, focus = [50, 50] }: ArrivalStep, frameRatio: number): React.CSSProperties {
+  const ratio = width / height / frameRatio;
   return ratio >= 1
     ? { top: 0, height: "100%", width: `${ratio * 100}%`, left: `${-(ratio - 1) * focus[0]}%` }
     : { left: 0, width: "100%", height: `${100 / ratio}%`, top: `${-(1 / ratio - 1) * focus[1]}%` };
 }
 
-// Parking route steps: one row on wide screens, a swipeable strip (scrolling inside this block only)
-// on smaller ones. Each photo fills a square frame with its direction arrow; the viewer shows the whole photo.
-export default function ArrivalSteps({ steps }: { steps: ArrivalStep[] }) {
+// "square" crops each photo to a square tile; "landscape" uses a 3:2 tile so landscape photos show almost whole.
+const frames = {
+  square: { ratio: 1, className: "aspect-square" },
+  landscape: { ratio: 3 / 2, className: "aspect-[3/2]" },
+};
+
+// "row": five steps in one row on wide screens, a swipeable strip (scrolling inside this block only) on smaller
+// ones. "grid": a 1 / 2 / 3-column grid with larger photos; `extra` adds one more card at the end.
+const layouts = {
+  row: {
+    list: "no-scrollbar -mx-5 mt-12 flex snap-x snap-mandatory scroll-px-5 gap-5 overflow-x-auto px-5 md:-mx-10 md:scroll-px-10 md:px-10 xl:mx-0 xl:grid xl:grid-cols-5 xl:gap-4 xl:overflow-visible xl:px-0",
+    item: "flex w-[78%] shrink-0 snap-start sm:w-[44%] md:w-[34%] lg:w-[26%] xl:w-auto",
+    sizes: "(min-width: 1024px) 34vw, (min-width: 768px) 50vw, 100vw",
+  },
+  grid: {
+    list: "mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6",
+    item: "flex",
+    sizes: "(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw",
+  },
+};
+
+// Route steps with direction arrows and markers drawn on each photo; the viewer shows the whole photo.
+export default function ArrivalSteps({
+  steps,
+  frame = "square",
+  layout = "row",
+  extra,
+}: {
+  steps: ArrivalStep[];
+  frame?: keyof typeof frames;
+  layout?: keyof typeof layouts;
+  extra?: ReactNode;
+}) {
+  const tile = frames[frame];
+  const list = layouts[layout];
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const triggers = useRef<(HTMLButtonElement | null)[]>([]);
   const lastIndex = useRef(0);
@@ -139,9 +203,9 @@ export default function ArrivalSteps({ steps }: { steps: ArrivalStep[] }) {
 
   return (
     <>
-      <ol className="no-scrollbar -mx-5 mt-12 flex snap-x snap-mandatory scroll-px-5 gap-5 overflow-x-auto px-5 md:-mx-10 md:scroll-px-10 md:px-10 xl:mx-0 xl:grid xl:grid-cols-5 xl:gap-4 xl:overflow-visible xl:px-0">
+      <ol className={list.list}>
         {steps.map((step, i) => (
-          <li key={step.src} className="flex w-[78%] shrink-0 snap-start sm:w-[44%] md:w-[34%] lg:w-[26%] xl:w-auto">
+          <li key={step.src} className={list.item}>
             <figure className="flex w-full flex-col">
               <button
                 ref={(el) => {
@@ -152,9 +216,9 @@ export default function ArrivalSteps({ steps }: { steps: ArrivalStep[] }) {
                 aria-label={`View step ${i + 1} photo larger`}
                 className="group block w-full"
               >
-                <span className="reveal-img relative block aspect-square overflow-hidden bg-beige" style={{ "--delay": `${i * 100}ms` } as React.CSSProperties}>
-                  <span className="absolute block transition-transform duration-700 group-hover:scale-[1.025]" style={coverBox(step)}>
-                    <Image src={step.src} alt={step.alt} fill sizes="(min-width: 1024px) 34vw, (min-width: 768px) 50vw, 100vw" className="object-cover" />
+                <span className={`reveal-img relative block overflow-hidden bg-beige ${tile.className}`} style={{ "--delay": `${i * 100}ms` } as React.CSSProperties}>
+                  <span className="absolute block transition-transform duration-700 group-hover:scale-[1.025]" style={coverBox(step, tile.ratio)}>
+                    <Image src={step.src} alt={step.alt} fill sizes={list.sizes} className="object-cover" />
                     <RouteOverlay step={step} />
                   </span>
                 </span>
@@ -163,6 +227,7 @@ export default function ArrivalSteps({ steps }: { steps: ArrivalStep[] }) {
             </figure>
           </li>
         ))}
+        {extra && <li className={list.item}>{extra}</li>}
       </ol>
 
       {active && activeIndex !== null && (
