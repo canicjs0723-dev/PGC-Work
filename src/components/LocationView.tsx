@@ -35,13 +35,13 @@ const walking = [
   },
   {
     src: "/images/walk-02-building-201-gate.webp", width: 1549, height: 1015,
-    tag: "MAIN GATE", route: "M 52 99 Q 54 82 60 64", boxes: [{ x: 1, y: 36, w: 33, h: 26, label: "201" }],
+    tag: "MAIN GATE", route: "M 30 99 Q 41 56 60 -6", boxes: [{ x: 1, y: 36, w: 33, h: 26, label: "201" }],
     alt: "Building 201 main gate of TH212",
     caption: "02 · Pass the Building 201 main gate and keep going straight",
   },
   {
     src: "/images/walk-03-building-204-left.webp", width: 1524, height: 1032,
-    tag: "BACK GATE", route: "M 63 99 Q 62 72 61 42", marker: { x: 60, y: 55, label: "PGC" }, boxes: [{ x: 78, y: 45, w: 19, h: 17, label: "CU" }],
+    tag: "BACK GATE", route: "M 26 99 Q 40 64 58 30", marker: { x: 60, y: 55, label: "PGC" }, boxes: [{ x: 78, y: 45, w: 19, h: 17, label: "CU" }],
     alt: "Building 204 back gate with the CU convenience store on the right",
     caption: "03 · At the Building 204 back gate, opposite the CU store, continue to PGC (Building 205)",
   },
