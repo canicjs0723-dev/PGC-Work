@@ -56,7 +56,7 @@ function PlaceCard({ place, index, showMap }: { place: Place; index: number; sho
           <p className="mt-1 text-[0.8125rem] leading-relaxed text-charcoal/60">{[place.hours, place.note].filter(Boolean).join(" · ")}</p>
         )}
         <a
-          href={naverMap(place.query)}
+          href={place.mapUrl ?? naverMap(place.query)}
           target="_blank"
           rel="noopener noreferrer"
           className={`mt-5 inline-flex items-center justify-center gap-2 text-[0.8125rem] uppercase tracking-[0.14em] transition-colors ${
