@@ -1,25 +1,47 @@
 import { PlaceIcon } from "@/components/PlaceIcon";
 import type { Icon, Place } from "@/content/neighborhood";
 
-// Illustrated "neighborhood guide" map for Everyday Essentials, in an aerial style. North is up. It is
-// drawn from Naver Map and keeps the real layout: Building 205 in Pangyo TH212, CU just north-east at the
-// corner, the shops past the crossroads, the pharmacy, clinic and GS THE FRESH further south along Pangyo
-// Daejang-ro, and the park at the far south by the stream. The footnote says it is not to scale.
-// Coordinates are in the SVG's 1600 × 1000 view box. Each place has a pin (where it is), a card (where its
-// label sits) and the point on the walking route its dotted spur leaves from, in the same order as the
-// places in neighborhood.ts.
+// Illustrated "neighborhood guide" map for Everyday Essentials, in an aerial style. North is up. The layout is
+// traced from a Naver Map overview of Daejang-dong: a long valley of housing between wooded hills, the
+// Yongin–Seoul Expressway along the west, Pangyo TH212 (Building 205) at the north-west corner with CU beside
+// it, the shops at the first crossroads, the stream and middle school to the east, and the pharmacy, clinic,
+// GS THE FRESH and the park further south. The footnote says it is not to scale.
+//
+// Shapes are written in the overview's pixel coordinates and mapped into the 1600 × 1000 view box by `at`,
+// which stretches west–east a little so the labels have room.
 const W = 1600;
 const H = 1000;
-const HOME: [number, number] = [300, 268];
-const spots: { pin: [number, number]; card: [number, number]; from: [number, number] }[] = [
-  { pin: [628, 196], card: [440, 92], from: [648, 258] }, // CU
-  { pin: [952, 384], card: [960, 222], from: [872, 352] }, // Pascucci
-  { pin: [1034, 392], card: [1330, 372], from: [952, 384] }, // Tous les Jours
-  { pin: [926, 760], card: [650, 850], from: [890, 760] }, // GS THE FRESH
-  { pin: [926, 712], card: [1250, 606], from: [900, 712] }, // Pharmacy
-  { pin: [848, 724], card: [570, 610], from: [898, 724] }, // Clinic
-  { pin: [814, 404], card: [580, 420], from: [872, 380] }, // CleanTopia
-  { pin: [1010, 900], card: [1300, 935], from: [870, 880] }, // Park
+type Pt = [number, number];
+const at = ([ox, oy]: Pt): Pt => [800 + 2.5 * (ox - 250), 30 + 2.3 * (oy - 150)];
+
+// Smooth open path through points (Catmull–Rom as cubic Béziers).
+function smooth(points: Pt[]): string {
+  const p = points.map(at);
+  let d = `M ${p[0][0]} ${p[0][1]}`;
+  for (let i = 0; i < p.length - 1; i++) {
+    const p0 = p[i - 1] ?? p[i];
+    const p3 = p[i + 2] ?? p[i + 1];
+    const c1: Pt = [p[i][0] + (p[i + 1][0] - p0[0]) / 6, p[i][1] + (p[i + 1][1] - p0[1]) / 6];
+    const c2: Pt = [p[i + 1][0] - (p3[0] - p[i][0]) / 6, p[i + 1][1] - (p3[1] - p[i][1]) / 6];
+    d += ` C ${c1[0].toFixed(1)} ${c1[1].toFixed(1)} ${c2[0].toFixed(1)} ${c2[1].toFixed(1)} ${p[i + 1][0].toFixed(1)} ${p[i + 1][1].toFixed(1)}`;
+  }
+  return d;
+}
+const polygon = (points: Pt[]) => `M ${points.map((q) => at(q).map((n) => n.toFixed(1)).join(" ")).join(" L ")} Z`;
+
+const HOME = at([178, 186]);
+
+// Each place: its pin (overview coordinates) and where its label card sits (view-box coordinates), in the
+// same order as the places in neighborhood.ts.
+const spots: { pin: Pt; card: Pt }[] = [
+  { pin: [226, 162], card: [1010, 66] }, // CU
+  { pin: [275, 243], card: [1190, 168] }, // Pascucci
+  { pin: [289, 244], card: [1330, 290] }, // Tous les Jours
+  { pin: [263, 426], card: [600, 740] }, // GS THE FRESH
+  { pin: [263, 411], card: [1170, 680] }, // Pharmacy
+  { pin: [245, 418], card: [560, 590] }, // Clinic (not on the overview; placed beside the pharmacy)
+  { pin: [264, 250], card: [540, 455] }, // CleanTopia
+  { pin: [289, 550], card: [1190, 940] }, // Park
 ];
 
 const tint: Record<Icon, string> = {
@@ -37,60 +59,63 @@ const tint: Record<Icon, string> = {
   nature: "#2f9e44",
 };
 
-const pct = ([x, y]: [number, number]) => ({ left: `${(x / W) * 100}%`, top: `${(y / H) * 100}%` });
+const pct = ([x, y]: Pt) => ({ left: `${(x / W) * 100}%`, top: `${(y / H) * 100}%` });
 
-// Roads as [path, kind]. "main" is Pangyo Daejang-ro and the curved road past TH212.
-const roads: [string, "main" | "minor"][] = [
-  ["M 0 168 C 220 160 450 168 668 172", "minor"],
-  ["M 0 548 C 220 540 400 530 520 500 C 640 470 760 390 860 340", "minor"],
-  ["M 860 340 C 1000 300 1250 250 1600 196", "minor"],
-  ["M 882 432 C 1050 452 1300 520 1600 604", "minor"],
-  ["M 895 548 C 800 552 720 566 620 604", "minor"],
-  ["M 893 690 C 1000 680 1100 640 1600 528", "minor"],
-  ["M 730 0 C 700 80 660 150 662 220 C 665 280 770 300 860 340", "main"],
-  ["M 860 340 C 880 430 900 500 895 600 C 890 700 860 780 860 860 C 860 920 830 960 780 1000", "main"],
+// The built-up valley floor, and the blocks on it ("apt" towers, "town" townhouses, "shop" low buildings).
+const valley = polygon([
+  [135, 148], [232, 140], [236, 60], [300, 28], [372, 68], [388, 150], [420, 190], [372, 225], [335, 250], [325, 290],
+  [395, 295], [470, 325], [472, 425], [415, 440], [465, 465], [465, 535], [395, 545], [395, 590], [300, 598], [250, 612],
+  [198, 590], [192, 520], [200, 460], [212, 350], [225, 300], [205, 252], [135, 222],
+]);
+const blocks: [Pt[], "apt" | "town" | "shop"][] = [
+  [[[140, 152], [232, 150], [236, 215], [205, 236], [140, 218]], "town"], // Pangyo TH212
+  [[[246, 172], [300, 160], [362, 192], [340, 214], [282, 240], [252, 228]], "apt"], // Hillstate Pangyo Elpore
+  [[[238, 140], [240, 62], [300, 32], [368, 72], [380, 140], [350, 132], [325, 118], [268, 118]], "apt"], // north
+  [[[236, 244], [298, 228], [330, 252], [305, 282], [258, 300], [232, 280]], "shop"], // shops at the crossroads
+  [[[208, 300], [248, 300], [248, 462], [206, 462], [198, 390]], "apt"], // west of Pangyo Daejang-ro
+  [[[322, 300], [400, 300], [468, 330], [468, 420], [405, 432], [350, 420], [338, 370]], "apt"], // Harrington Place
+  [[[355, 478], [460, 478], [460, 530], [398, 540], [356, 520]], "apt"], // The Sharp Pangyo Forest
+  [[[298, 482], [348, 482], [392, 540], [392, 585], [312, 590], [298, 540]], "apt"], // south-east
+  [[[202, 480], [248, 480], [248, 598], [206, 588], [196, 520]], "shop"], // south, by GS THE FRESH
 ];
+const school = { a: at([296, 300]), b: at([330, 360]) };
 
-const route = "M 300 268 C 450 264 560 262 645 258 C 700 290 780 308 866 336 C 888 430 908 500 904 600 C 899 700 869 780 869 900";
-const stream = "M 1120 450 C 1060 520 1010 600 1005 680 C 1000 760 1030 820 1010 880 C 995 930 1000 970 1010 1000";
-
-// Blocks (built-up land) drawn over the greenery.
-const blocks = [
-  "M 120 200 L 640 200 C 650 260 640 300 600 360 C 570 410 560 440 540 480 L 120 490 Z", // Pangyo TH212
-  "M 760 0 L 1600 0 L 1600 176 L 880 312 C 790 284 722 252 706 200 C 700 120 734 50 760 0 Z", // Hillstate Pangyo Elpore
-  "M 905 362 C 1100 320 1350 270 1600 222 L 1600 578 C 1350 510 1100 455 905 442 Z", // shops past the crossroads
-  "M 660 470 C 740 430 800 400 850 372 C 870 420 880 480 880 530 L 660 560 Z", // shops by CleanTopia
-  "M 600 610 L 870 580 C 880 700 850 800 850 900 L 600 930 Z", // apartments west of Pangyo Daejang-ro
+// Roads as [points, kind].
+const roads: [Pt[], "highway" | "main" | "minor"][] = [
+  [[[165, 40], [150, 120], [130, 200], [115, 300], [104, 400], [98, 480], [95, 560], [97, 640]], "highway"],
+  [[[138, 160], [190, 158], [232, 163]], "minor"],
+  [[[232, 163], [238, 128], [268, 112], [322, 116], [352, 150], [368, 205]], "minor"],
+  [[[368, 205], [395, 180], [420, 120], [440, 40]], "minor"],
+  [[[252, 262], [300, 240], [340, 222], [368, 205]], "minor"],
+  [[[268, 268], [305, 300], [330, 345], [345, 410], [350, 472]], "minor"],
+  [[[200, 472], [253, 470], [300, 470], [350, 472], [410, 490], [470, 505]], "minor"],
+  [[[232, 163], [236, 205], [252, 245], [258, 290], [256, 380], [253, 460], [252, 540], [255, 600]], "main"],
 ];
+const roadStyle = {
+  highway: { casing: "#c98a2e", fill: "#f2b552", width: 40 },
+  main: { casing: "#a9a293", fill: "#dedbd3", width: 34 },
+  minor: { casing: "#b3ac9d", fill: "#ebe8e1", width: 18 },
+};
 
-// Simplified building footprints: [x, y, width, height, rotation].
-const buildings: [number, number, number, number, number][] = [
-  // Pangyo TH212 (Building 205 and its neighbours)
-  [150, 214, 96, 30, 0], [270, 214, 96, 30, 0], [400, 214, 96, 30, 0], [520, 214, 90, 30, 0],
-  [150, 300, 96, 30, 0], [400, 300, 96, 30, 0], [520, 296, 90, 30, 0],
-  [160, 370, 96, 30, 0], [290, 370, 96, 30, 0], [420, 366, 96, 30, 0],
-  [180, 436, 96, 28, 0], [310, 434, 96, 28, 0],
-  // Hillstate Pangyo Elpore (north-east)
-  [820, 70, 80, 26, -18], [950, 50, 80, 26, -12], [1080, 70, 80, 26, -12], [1210, 46, 80, 26, -8], [1350, 64, 80, 26, -8], [1480, 40, 80, 26, -6],
-  [780, 186, 80, 26, -20], [930, 170, 80, 26, -14], [1060, 196, 80, 26, -12], [1350, 150, 80, 26, -8], [1470, 130, 80, 26, -6],
-  // Shops past the crossroads
-  [930, 404, 40, 26, 8], [985, 412, 40, 26, 8], [1070, 360, 46, 28, -8], [1130, 380, 46, 28, -8], [1200, 330, 46, 28, -8], [1260, 380, 46, 28, -8], [1330, 320, 46, 28, -8], [1400, 380, 46, 28, -8],
-  [720, 440, 44, 26, -20], [780, 450, 40, 24, -20], [690, 500, 44, 26, -20],
-  // Apartments west of Pangyo Daejang-ro
-  [640, 620, 80, 26, -6], [760, 612, 70, 26, -6], [620, 690, 80, 26, -4], [740, 700, 80, 26, -4], [640, 780, 80, 26, -2], [760, 790, 70, 26, -2], [650, 870, 80, 26, 0],
-  // Shops beside the pharmacy
-  [940, 730, 36, 22, 0], [940, 776, 36, 22, 0],
-];
+const routePts: Pt[] = [[178, 186], [210, 184], [234, 182], [240, 215], [254, 250], [258, 290], [256, 380], [254, 460], [253, 540]];
+const stream: Pt[] = [[334, 226], [300, 268], [283, 320], [280, 380], [282, 440], [285, 500], [287, 560], [290, 620]];
 
-// Tree canopy texture: a fixed pseudo-random scatter so every render (and the static export) matches.
-const treeGreens = ["#6f9656", "#7da463", "#8bb070", "#5f874a"];
+// Nearest point on the walking route, where each place's dotted spur leaves it.
+const routeView = routePts.map(at);
+const spurFrom = (pin: Pt): Pt => {
+  const q = at(pin);
+  return routeView.reduce((best, r) => (Math.hypot(r[0] - q[0], r[1] - q[1]) < Math.hypot(best[0] - q[0], best[1] - q[1]) ? r : best));
+};
+
+// Wooded hills: a fixed pseudo-random scatter of tree crowns so every render (and the static export) matches.
+const treeGreens = ["#4f7a3f", "#5d8a49", "#6b9655", "#46703a", "#7aa262"];
 const trees: [number, number, number, string][] = (() => {
   let seed = 205;
   const rand = () => ((seed = (seed * 16807) % 2147483647) - 1) / 2147483646;
-  return Array.from({ length: 900 }, (): [number, number, number, string] => [
+  return Array.from({ length: 1500 }, (): [number, number, number, string] => [
     Math.round(rand() * W),
     Math.round(rand() * H),
-    Math.round(9 + rand() * 11),
+    Math.round(10 + rand() * 12),
     treeGreens[Math.floor(rand() * treeGreens.length)],
   ]);
 })();
@@ -98,89 +123,101 @@ const trees: [number, number, number, string][] = (() => {
 export function WalkingMap({ places }: { places: Place[] }) {
   const shown = places.slice(0, spots.length);
   return (
-    <div className="relative mt-12 hidden aspect-[16/10] overflow-hidden rounded-sm border border-line bg-[#a9bf8b] lg:block">
+    <div className="relative mt-12 hidden aspect-[16/10] overflow-hidden rounded-sm border border-line bg-[#55804a] lg:block">
       <svg viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="none" className="absolute inset-0 size-full" aria-hidden>
         <defs>
-          <filter id="wm-shadow" x="-20%" y="-20%" width="140%" height="140%">
-            <feDropShadow dx="5" dy="7" stdDeviation="3" floodColor="#3b3426" floodOpacity="0.35" />
+          <filter id="wm-shadow" x="-20%" y="-20%" width="160%" height="160%">
+            <feDropShadow dx="3" dy="4" stdDeviation="1.5" floodColor="#3b3426" floodOpacity="0.4" />
           </filter>
-          <radialGradient id="wm-vignette" cx="50%" cy="45%" r="75%">
-            <stop offset="60%" stopColor="#000" stopOpacity="0" />
-            <stop offset="100%" stopColor="#1d2a14" stopOpacity="0.28" />
+          <pattern id="wm-apt" width="78" height="54" patternUnits="userSpaceOnUse" patternTransform="rotate(-12)">
+            <rect width="78" height="54" fill="#e2dbc9" />
+            <rect x="12" y="16" width="50" height="20" rx="2" fill="#f8f5ee" filter="url(#wm-shadow)" />
+          </pattern>
+          <pattern id="wm-town" width="54" height="34" patternUnits="userSpaceOnUse">
+            <rect width="54" height="34" fill="#e6dfcf" />
+            <rect x="6" y="9" width="40" height="15" rx="2" fill="#f8f5ee" filter="url(#wm-shadow)" />
+          </pattern>
+          <pattern id="wm-shop" width="34" height="30" patternUnits="userSpaceOnUse" patternTransform="rotate(-20)">
+            <rect width="34" height="30" fill="#e8e0cf" />
+            <rect x="5" y="6" width="22" height="16" rx="2" fill="#f4eee2" filter="url(#wm-shadow)" />
+          </pattern>
+          <radialGradient id="wm-vignette" cx="55%" cy="45%" r="75%">
+            <stop offset="55%" stopColor="#000" stopOpacity="0" />
+            <stop offset="100%" stopColor="#14210e" stopOpacity="0.35" />
           </radialGradient>
         </defs>
 
-        {/* Greenery */}
+        {/* Wooded hills */}
         {trees.map(([cx, cy, r, fill], i) => (
           <circle key={i} cx={cx} cy={cy} r={r} fill={fill} />
         ))}
 
-        {/* Built-up blocks, school and park */}
-        {blocks.map((d) => (
-          <path key={d} d={d} fill="#e4ddcc" stroke="#cfc6b2" strokeWidth="2" />
-        ))}
-        <rect x="1140" y="720" width="280" height="140" rx="16" fill="#ddd8c8" stroke="#c9c1ac" strokeWidth="2" />
-        <rect x="1170" y="745" width="120" height="90" rx="40" fill="#c4734f" />
-        <rect x="1190" y="765" width="80" height="50" rx="24" fill="#8fb36a" />
-        <rect x="1310" y="750" width="90" height="34" rx="4" fill="#f6f2ea" filter="url(#wm-shadow)" />
-        <rect x="1310" y="800" width="90" height="34" rx="4" fill="#f6f2ea" filter="url(#wm-shadow)" />
-        <path d={stream} fill="none" stroke="#87ab69" strokeWidth="70" strokeLinecap="round" />
-        <ellipse cx="1012" cy="898" rx="100" ry="62" fill="#9cc37a" stroke="#e9e2cf" strokeWidth="6" />
+        {/* Valley floor, the green belt along the stream, and the park */}
+        <path d={valley} fill="#d9d2bf" stroke="#d9d2bf" strokeWidth="40" strokeLinejoin="round" />
+        <path d={smooth(stream)} fill="none" stroke="#93ba76" strokeWidth="64" strokeLinecap="round" />
+        <ellipse cx={at([289, 550])[0]} cy={at([289, 550])[1]} rx="78" ry="48" fill="#a5c985" stroke="#eee7d6" strokeWidth="5" />
 
-        {/* Stream */}
-        <path d={stream} fill="none" stroke="#4f8fbf" strokeWidth="18" strokeLinecap="round" />
-        <path d={stream} fill="none" stroke="#9cc8e6" strokeWidth="5" strokeLinecap="round" strokeOpacity="0.8" />
-
-        {/* Buildings with soft shadows */}
-        {buildings.map(([x, y, w, h, r]) => (
-          <rect
-            key={`${x}-${y}`}
-            x={x}
-            y={y}
-            width={w}
-            height={h}
-            rx="3"
-            fill="#f7f3eb"
-            stroke="#d8cfbd"
-            filter="url(#wm-shadow)"
-            transform={r ? `rotate(${r} ${x + w / 2} ${y + h / 2})` : undefined}
-          />
+        {/* Blocks */}
+        {blocks.map(([pts, kind]) => (
+          <path key={pts.join()} d={polygon(pts)} fill={`url(#wm-${kind})`} stroke="#cdc4af" strokeWidth="2" strokeLinejoin="round" />
         ))}
+        <rect x={school.a[0]} y={school.a[1]} width={school.b[0] - school.a[0]} height={school.b[1] - school.a[1]} rx="12" fill="#ddd7c6" stroke="#c9c1ac" strokeWidth="2" />
+        <rect x={school.a[0] + 14} y={school.a[1] + 18} width="52" height="96" rx="26" fill="#c4734f" />
+        <rect x={school.a[0] + 26} y={school.a[1] + 36} width="28" height="60" rx="14" fill="#8fb36a" />
+
+        {/* Stream and pond */}
+        <path d={smooth(stream)} fill="none" stroke="#4f8fbf" strokeWidth="14" strokeLinecap="round" />
+        <path d={smooth(stream)} fill="none" stroke="#9cc8e6" strokeWidth="4" strokeLinecap="round" strokeOpacity="0.8" />
+        <ellipse cx={at([293, 324])[0]} cy={at([293, 324])[1]} rx="22" ry="34" fill="#4f8fbf" />
 
         {/* Roads: casing, surface, centre line */}
-        {roads.map(([d, kind]) => (
-          <path key={`c-${d}`} d={d} fill="none" stroke="#a9a293" strokeWidth={kind === "main" ? 42 : 24} strokeLinecap="round" strokeLinejoin="round" />
+        {roads.map(([pts, kind]) => (
+          <path key={`c-${pts.join()}`} d={smooth(pts)} fill="none" stroke={roadStyle[kind].casing} strokeWidth={roadStyle[kind].width + 6} strokeLinecap="round" strokeLinejoin="round" />
         ))}
-        {roads.map(([d, kind]) => (
-          <path key={`f-${d}`} d={d} fill="none" stroke={kind === "main" ? "#d9d6cf" : "#e9e6df"} strokeWidth={kind === "main" ? 36 : 19} strokeLinecap="round" strokeLinejoin="round" />
+        {roads.map(([pts, kind]) => (
+          <path key={`f-${pts.join()}`} d={smooth(pts)} fill="none" stroke={roadStyle[kind].fill} strokeWidth={roadStyle[kind].width} strokeLinecap="round" strokeLinejoin="round" />
         ))}
         {roads
-          .filter(([, kind]) => kind === "main")
-          .map(([d]) => (
-            <path key={`l-${d}`} d={d} fill="none" stroke="#ffffff" strokeWidth="2.5" strokeDasharray="18 16" />
+          .filter(([, kind]) => kind !== "minor")
+          .map(([pts]) => (
+            <path key={`l-${pts.join()}`} d={smooth(pts)} fill="none" stroke="#ffffff" strokeOpacity="0.85" strokeWidth="2.5" strokeDasharray="18 16" />
           ))}
 
         {/* Walking route and spurs to each place */}
         <g fill="none" strokeLinecap="round">
-          <path d={route} stroke="#7a5a12" strokeOpacity="0.35" strokeWidth="11" strokeDasharray="0.1 16" />
-          <path d={route} stroke="#f4c542" strokeWidth="8" strokeDasharray="0.1 16" />
-          {shown.map((p, i) => (
-            <path key={p.name} d={`M ${spots[i].from[0]} ${spots[i].from[1]} L ${spots[i].pin[0]} ${spots[i].pin[1]}`} stroke="#f4c542" strokeWidth="6" strokeDasharray="0.1 13" />
-          ))}
+          <path d={smooth(routePts)} stroke="#7a5a12" strokeOpacity="0.35" strokeWidth="11" strokeDasharray="0.1 16" />
+          <path d={smooth(routePts)} stroke="#f4c542" strokeWidth="8" strokeDasharray="0.1 16" />
+          {shown.map((p, i) => {
+            const [x1, y1] = spurFrom(spots[i].pin);
+            const [x2, y2] = at(spots[i].pin);
+            return <path key={p.name} d={`M ${x1} ${y1} L ${x2} ${y2}`} stroke="#f4c542" strokeWidth="6" strokeDasharray="0.1 13" />;
+          })}
         </g>
 
-        {/* Area and road names */}
-        <g fontSize="15" letterSpacing="3" fontWeight="600" fill="#4b4636" stroke="#f7f3eb" strokeWidth="4" paintOrder="stroke" className="font-sans">
-          <text x="330" y="478" textAnchor="middle">PANGYO TH212</text>
-          <text x="1180" y="128" textAnchor="middle">HILLSTATE PANGYO ELPORE</text>
-          <text x="1280" y="704" textAnchor="middle">DAEJANG MIDDLE &amp; ELEMENTARY</text>
-          <text transform="translate(887 650) rotate(-86)" textAnchor="middle" fill="#6d6655">PANGYO DAEJANG-RO</text>
+        {/* Area, road and hill names (all real, from the map) */}
+        <g fontSize="15" letterSpacing="3" fontWeight="600" fill="#3f3a2d" stroke="#f7f3eb" strokeWidth="4" paintOrder="stroke" className="font-sans">
+          <text x={at([196, 230])[0]} y={at([196, 230])[1]} textAnchor="middle">PANGYO TH212</text>
+          <text x={at([313, 374])[0]} y={at([313, 374])[1]} textAnchor="middle">PANGYO DAEJANG</text>
+          <text x={at([313, 374])[0]} y={at([313, 374])[1] + 22} textAnchor="middle">MIDDLE SCHOOL</text>
+          <text x={at([410, 340])[0]} y={at([410, 340])[1]} textAnchor="middle">PANGYO HARRINGTON PLACE</text>
+          <text x={at([410, 512])[0]} y={at([410, 512])[1]} textAnchor="middle">THE SHARP PANGYO FOREST</text>
+          <text transform={`translate(${at([135, 230])[0]} ${at([135, 230])[1]}) rotate(-80)`} textAnchor="middle" fill="#6b4410" stroke="#f9d79b">
+            YONGIN–SEOUL EXPRESSWAY
+          </text>
+          <text transform={`translate(${at([251, 340])[0] - 14} ${at([251, 340])[1]}) rotate(-90)`} textAnchor="middle" fill="#5b5446">
+            PANGYO DAEJANG-RO
+          </text>
+        </g>
+        <g transform={`translate(${at([390, 278])[0]} ${at([390, 278])[1]})`} className="font-sans">
+          <path d="M -14 10 L 0 -14 L 14 10 Z" fill="#2f4a26" stroke="#f7f3eb" strokeWidth="3" />
+          <text y="34" textAnchor="middle" fontSize="15" letterSpacing="2" fontWeight="600" fill="#f7f3eb">DAEJANG-DONG TAEBONG</text>
         </g>
 
         {/* Leader lines from each label to its pin */}
-        {shown.map((p, i) => (
-          <line key={p.name} x1={spots[i].card[0]} y1={spots[i].card[1]} x2={spots[i].pin[0]} y2={spots[i].pin[1]} stroke="#ffffff" strokeOpacity="0.9" strokeWidth="2" />
-        ))}
+        {shown.map((p, i) => {
+          const [x2, y2] = at(spots[i].pin);
+          return <line key={p.name} x1={spots[i].card[0]} y1={spots[i].card[1]} x2={x2} y2={y2} stroke="#ffffff" strokeOpacity="0.9" strokeWidth="2" />;
+        })}
 
         <rect width={W} height={H} fill="url(#wm-vignette)" />
 
@@ -193,7 +230,7 @@ export function WalkingMap({ places }: { places: Place[] }) {
       </svg>
 
       {/* Title */}
-      <div className="absolute bottom-[3%] left-[1.75%] w-[23%] rounded-md bg-[#fbf8f1]/95 px-4 py-3.5 shadow-[0_12px_30px_-12px_rgba(0,0,0,0.45)] xl:px-5 xl:py-4">
+      <div className="absolute left-[1.75%] top-[3%] w-[23%] rounded-md bg-[#fbf8f1]/95 px-4 py-3.5 shadow-[0_12px_30px_-12px_rgba(0,0,0,0.45)] xl:px-5 xl:py-4">
         <p className="font-serif text-[1.375rem] leading-[1.05] text-[#1f3a2a] xl:text-[1.75rem]">
           Pangyo TH212
           <br />
@@ -210,16 +247,16 @@ export function WalkingMap({ places }: { places: Place[] }) {
         <span
           key={p.name}
           className="absolute size-4 -translate-x-1/2 -translate-y-1/2 rounded-full border-[3px] border-white shadow-[0_2px_6px_rgba(0,0,0,0.4)]"
-          style={{ ...pct(spots[i].pin), backgroundColor: tint[p.icon] }}
+          style={{ ...pct(at(spots[i].pin)), backgroundColor: tint[p.icon] }}
         />
       ))}
 
       {/* Building 205 */}
       <div className="absolute -translate-x-1/2 -translate-y-1/2" style={pct(HOME)}>
-        <div className="absolute inset-[-14px] rounded-full bg-white/35" />
-        <div className="relative grid size-20 place-items-center rounded-full border-4 border-white bg-[#1f3a2a] text-white shadow-[0_10px_30px_-8px_rgba(0,0,0,0.6)] xl:size-24">
+        <div className="absolute inset-[-12px] rounded-full bg-white/35" />
+        <div className="relative grid size-[4.5rem] place-items-center rounded-full border-4 border-white bg-[#1f3a2a] text-white shadow-[0_10px_30px_-8px_rgba(0,0,0,0.6)] xl:size-[5.5rem]">
           <span className="text-center">
-            <span className="block font-serif text-[1.75rem] leading-none xl:text-[2rem]">205</span>
+            <span className="block font-serif text-[1.5rem] leading-none xl:text-[1.875rem]">205</span>
             <span className="mt-1 block text-[0.625rem] uppercase tracking-[0.2em] text-white/75">PGC</span>
           </span>
         </div>
