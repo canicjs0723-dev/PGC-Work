@@ -57,7 +57,7 @@ export const categories: Category[] = [
       { name: "Pascucci Pangyo Daejang", kind: "Café", icon: "coffee", time: "2 min walk", distance: "170 m", hours: "Daily 07:00–22:00", query: near("파스쿠찌"), photo: "/images/neighborhood/ess-02-pascucci.webp" },
       { name: "Tous les Jours Pangyo Daejang", kind: "Bakery", icon: "bakery", time: "3 min walk", distance: "200 m", hours: "Daily 07:00–22:00", query: near("뚜레쥬르"), photo: "/images/neighborhood/ess-03-tous-les-jours.webp" },
       { name: "GS THE FRESH Pangyo Daejang", kind: "Supermarket", icon: "cart", time: "8 min walk", distance: "610 m", hours: "Daily 09:00–22:00", query: near("GS더프레시"), photo: "/images/neighborhood/ess-04-gs-the-fresh.webp" },
-      { name: "Daejang Pureun Pharmacy", kind: "Pharmacy", icon: "pharmacy", time: "8 min walk", distance: "620 m", hours: "Mon–Fri 09:00–21:00 · Sat 09:00–18:00 · Sun closed", query: near("약국"), photo: "/images/neighborhood/ess-05-pharmacy.webp" },
+      { name: "Chamyaksa Daejang Pharmacy", kind: "Pharmacy · 참약사 대장약국", icon: "pharmacy", time: "8 min walk", distance: "620 m", hours: "Mon–Fri 09:00–21:00 · Sat 09:00–18:00 · Sun closed", query: "참약사 대장약국", photo: "/images/neighborhood/ess-05-pharmacy.webp" },
       { name: "Yonsei Spring Clinic", kind: "Clinic · Internal medicine", icon: "clinic", time: "8 min walk", distance: "600 m", hours: "Mon–Fri 09:00–19:00 · Sat 09:00–13:00 · Sun closed", query: "연세봄의원 판교" },
       { name: "CleanTopia", kind: "Laundry", icon: "laundry", time: "2 min walk", distance: "150 m", hours: "Mon–Fri 08:00–21:00 · Sat–Sun 09:00–20:00", query: near("크린토피아") },
       { name: "Daejang Riverside Park", kind: "Park", icon: "park", time: "5 min walk", distance: "400 m", hours: "Open all day", query: near("공원") },
