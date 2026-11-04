@@ -71,7 +71,7 @@ export const categories: Category[] = [
     icon: "dining",
     eyebrow: "Local Dining",
     title: "Nearby Favorites",
-    intro: "A selection of popular restaurants and local spots within about ten minutes by car — many deliver to Building 205.",
+    intro: "Twelve local favourites around Daejang-dong — from gimbap and ramen to Korean barbecue and teppanyaki.",
     footnote: "Drive times and distances are approximate and vary with traffic. Hours may change; please check before visiting.",
     places: [
       { name: "Barda Kim Seonsaeng", kind: "Gimbap · 바르다김선생", icon: "dining", time: "Nearby · Daejang-dong", note: "See Naver Map for hours", query: near("바르다김선생"), photo: "/images/neighborhood/dining-01-barda-kim.webp" },
@@ -84,10 +84,8 @@ export const categories: Category[] = [
       { name: "Prantimore", kind: "Pasta · 프랜티모어", icon: "dining", time: "Nearby · Daejang-dong", note: "See Naver Map for hours", query: near("프랜티모어"), photo: "/images/neighborhood/dining-08-prantimore.webp" },
       { name: "Sikkeop", kind: "Grilled pork belly · 식껍", icon: "dining", time: "Nearby · Daejang-dong", note: "See Naver Map for hours", query: near("식껍"), photo: "/images/neighborhood/dining-09-sikkeop.webp" },
       { name: "Oroji Ramen", kind: "Ramen · 오로지라멘", icon: "dining", time: "Nearby · Daejang-dong", note: "See Naver Map for hours", query: near("오로지라멘"), photo: "/images/neighborhood/dining-10-oroji-ramen.webp" },
-      { name: "Starbucks Pangyo Daejang", kind: "Coffee", icon: "coffee", time: "10 min by car", distance: "2.9 km", hours: "07:00–22:00", query: "스타벅스 판교대장점" },
       { name: "Pizza School", kind: "Pizza · 피자스쿨", icon: "dining", time: "Nearby · Daejang-dong", note: "See Naver Map for hours", query: near("피자스쿨"), photo: "/images/neighborhood/dining-12-pizza-school.webp" },
       { name: "Hansot Dosirak", kind: "Lunch boxes · 한솥도시락", icon: "dining", time: "Nearby · Daejang-dong", note: "See Naver Map for hours", query: near("한솥도시락"), photo: "/images/neighborhood/dining-13-hansot.webp" },
-      { name: "Gamjatang", kind: "Pork bone stew", icon: "dining", time: "Nearby · Daejang-dong", note: "See Naver Map", query: near("감자탕") },
     ],
   },
   {
