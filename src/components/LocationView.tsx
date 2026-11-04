@@ -30,25 +30,25 @@ const arrival = [
 const walking = [
   {
     src: "/images/walk-01-main-road.webp", width: 1561, height: 1008,
-    tag: "MAIN ROAD", route: "M 46 99 Q 50 82 58 66", boxes: [{ x: 24, y: 27, w: 31, h: 42, label: "TH212" }],
+    tag: "MAIN ROAD", route: "M 5 84 Q 28 70 50 55.8", arrowScale: 0.6, boxes: [{ x: 24, y: 27, w: 31, h: 42, label: "TH212" }],
     alt: "Main road with the TH212 complex on the left",
     caption: "01 · Follow the main road until the TH212 complex appears on your left",
   },
   {
     src: "/images/walk-02-building-201-gate.webp", width: 1549, height: 1015,
-    tag: "MAIN GATE", route: "M 3 68 Q 20 58 40 50.7", boxes: [{ x: 1, y: 36, w: 33, h: 22, label: "201" }],
+    tag: "MAIN GATE", route: "M 4 68 Q 20 58.5 38 52", arrowScale: 0.6, boxes: [{ x: 1, y: 36, w: 33, h: 22, label: "201" }],
     alt: "Building 201 main gate of TH212",
     caption: "02 · Pass the Building 201 main gate and keep going straight",
   },
   {
     src: "/images/walk-03-building-204-left.webp", width: 1524, height: 1032,
-    tag: "BACK GATE", route: "M 8 70 Q 30 61.8 52 52.7", marker: { x: 58, y: 52, label: "Building 205" }, boxes: [{ x: 78, y: 45, w: 19, h: 17, label: "CU" }],
+    tag: "BACK GATE", route: "M 8 65.5 Q 28 61 49 56.4", arrowScale: 0.45, marker: { x: 58, y: 52, label: "Building 205" }, boxes: [{ x: 78, y: 45, w: 19, h: 17, label: "CU" }],
     alt: "Building 204 back gate with the CU convenience store on the right",
     caption: "03 · At the Building 204 back gate, opposite the CU store, follow the sidewalk to Building 205",
   },
   {
     src: "/images/walk-04-building-205-entrance.webp", width: 1524, height: 1032,
-    tag: "PGC ENTRANCE", route: "M 66 99 Q 65 82.6 64.5 66.3", boxes: [{ x: 60, y: 65, w: 8.5, h: 14 }],
+    tag: "PGC ENTRANCE", route: "M 30 99 Q 48 86.3 61 64.5", arrowScale: 0.7, boxes: [{ x: 60, y: 65, w: 8.5, h: 14 }],
     alt: "Building 205 entrance at TH212 Pangyo",
     caption: "04 · Building 205 entrance: enter 403, then the code, and take the stairs",
   },

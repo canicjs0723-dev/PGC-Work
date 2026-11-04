@@ -14,6 +14,8 @@ export type ArrivalStep = {
   focus?: [number, number];
   /** Route arrow as an SVG path using M / L / Q with coordinates in percent of the photo, before the floor tilt. */
   route?: string;
+  /** Arrow thickness relative to the default (1); use < 1 where the path in the photo is narrow. */
+  arrowScale?: number;
   /** Destination marker: a diamond with a label, centred at x / y percent of the photo (drawn upright, not tilted). */
   marker?: { x: number; y: number; label: string };
   /** Place tag in the photo's top-right corner, e.g. "MAIN GATE". */
@@ -56,7 +58,7 @@ function RouteOverlay({ step }: { step: ArrivalStep }) {
   const originY = Number(d.match(/-?\d+(\.\d+)?/g)?.[1] ?? 0);
   const unit = Math.min(step.width, step.height);
   // Thicker stroke offsets part of the squash so the flattened arrow keeps its weight.
-  const stroke = (unit * 0.032) / Math.sqrt(TILT);
+  const stroke = ((unit * 0.032) / Math.sqrt(TILT)) * (step.arrowScale ?? 1);
   const m = step.marker && { cx: (step.width * step.marker.x) / 100, cy: (step.height * step.marker.y) / 100, rx: unit * 0.045, ry: unit * 0.075 };
   return (
     <svg viewBox={`0 0 ${step.width} ${step.height}`} className="route-overlay pointer-events-none absolute inset-0 size-full" aria-hidden>
