@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
 // Floor plan of both rooms (403, 404 and their lofts), opened from the room overview.
-const plan = { src: "/images/floor-plan-403-404-v4.webp", width: 2000, height: 1587, alt: "Floor plan of rooms 403 and 404, including both lofts" };
+const plan = { src: "/images/floor-plan-403-404-v5.webp", width: 2000, height: 1587, alt: "Floor plan of rooms 403 and 404, including both lofts" };
 
 export default function SpaceOverview() {
   const [open, setOpen] = useState(false);
