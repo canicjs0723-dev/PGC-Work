@@ -5,6 +5,7 @@ import { useSyncExternalStore } from "react";
 import PageHero from "@/components/PageHero";
 import PageTabs from "@/components/PageTabs";
 import { Container, SectionLabel } from "@/components/ui";
+import { WalkingMap } from "@/components/WalkingMap";
 import { categories, naverMap, type Category, type CategoryKey, type Icon, type Place } from "@/content/neighborhood";
 
 // Line icons, drawn on a 24-unit grid.
@@ -84,49 +85,6 @@ function PlaceCard({ place, index, showMap }: { place: Place; index: number; sho
         </a>
       </div>
     </li>
-  );
-}
-
-// Illustrative walking map: Building 205 in the middle, each place on a dashed path with its walk time.
-// Positions are percent of the box and only suggest direction — the footnote says it is not to scale.
-const spots: [number, number][] = [
-  [17, 40], [50, 11], [83, 24], [85, 54], [80, 84], [50, 89], [19, 72], [20, 13],
-];
-
-function WalkingMap({ places }: { places: Place[] }) {
-  return (
-    <div className="relative mt-12 hidden aspect-[16/8] overflow-hidden border border-line bg-[radial-gradient(circle_at_50%_50%,#efe9de_0%,#e6dccb_55%,#ddd1bd_100%)] md:block">
-      <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="absolute inset-0 size-full" aria-hidden>
-        {[16, 30, 44].map((r) => (
-          <ellipse key={r} cx="50" cy="50" rx={r} ry={r * 1.6} fill="none" stroke="#b39264" strokeOpacity="0.25" strokeWidth="0.15" vectorEffect="non-scaling-stroke" />
-        ))}
-        {places.slice(0, spots.length).map((_, i) => (
-          <line key={i} x1="50" y1="50" x2={spots[i][0]} y2={spots[i][1]} stroke="#b39264" strokeWidth="2" strokeDasharray="2 6" strokeLinecap="round" vectorEffect="non-scaling-stroke" />
-        ))}
-      </svg>
-      <div className="absolute left-1/2 top-1/2 grid size-24 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-charcoal text-white shadow-[0_10px_30px_-10px_rgba(0,0,0,0.5)]">
-        <span className="text-center">
-          <span className="block font-serif text-[2rem] leading-none">205</span>
-          <span className="mt-1 block text-[0.625rem] uppercase tracking-[0.2em] text-white/70">PGC</span>
-        </span>
-      </div>
-      {places.slice(0, spots.length).map((p, i) => (
-        <div
-          key={p.name}
-          className="absolute flex -translate-x-1/2 -translate-y-1/2 items-center gap-3 bg-white/95 px-3.5 py-2.5 shadow-[0_8px_24px_-12px_rgba(0,0,0,0.35)]"
-          style={{ left: `${spots[i][0]}%`, top: `${spots[i][1]}%` }}
-        >
-          <span className="grid size-8 shrink-0 place-items-center rounded-full bg-charcoal text-[0.75rem] font-semibold text-white">{i + 1}</span>
-          <span className="leading-tight">
-            <span className="block text-[0.6875rem] uppercase tracking-[0.14em] text-accent">{p.kind.split(" · ")[0]}</span>
-            <span className="block text-[0.875rem] font-semibold">{p.name.replace(/ Pangyo Daejang$/, "")}</span>
-            <span className="mt-0.5 block text-[0.75rem] text-charcoal/60">
-              {p.distance} · {p.time?.replace(" walk", "")}
-            </span>
-          </span>
-        </div>
-      ))}
-    </div>
   );
 }
 
