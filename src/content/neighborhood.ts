@@ -74,24 +74,55 @@ export const categories: Category[] = [
     eyebrow: "Local Dining",
     title: "Nearby Favorites",
     intro: "Twelve local favourites around Daejang-dong — from gimbap and ramen to Korean barbecue and teppanyaki.",
-    footnote: "Drive times and distances are approximate and vary with traffic. Hours may change; please check before visiting.",
+    footnote: "Hours may change; please check before visiting.",
     places: [
       { name: "Barda Kim Seonsaeng", kind: "Gimbap · 바르다김선생", icon: "dining", details: [
         { label: "Hours", lines: ["Mon · Wed · Thu 11:00–20:00", "Fri – Sun 10:00–20:00"] },
         { label: "Break", lines: ["15:00–17:00"] },
         { label: "Closed", lines: ["Every Tuesday"] },
       ], query: near("바르다김선생"), photo: "/images/neighborhood/dining-01-barda-kim.webp" },
-      { name: "Seolle Jokbal", kind: "Braised pork trotters · 설레족발", icon: "dining", query: near("설레족발"), photo: "/images/neighborhood/dining-02-seolle-jokbal.webp" },
-      { name: "Mom's Touch", kind: "Burgers · 맘스터치", icon: "dining", query: near("맘스터치"), photo: "/images/neighborhood/dining-03-moms-touch.webp" },
-      { name: "BBQ Chicken", kind: "Fried chicken · BBQ", icon: "dining", query: near("BBQ"), photo: "/images/neighborhood/dining-04-bbq.webp" },
-      { name: "Daejang Dakbal", kind: "Spicy braised chicken · 대장닭발 닭도리탕", icon: "dining", query: near("대장닭발 닭도리탕"), photo: "/images/neighborhood/dining-05-daejang-dakbal.webp" },
-      { name: "Teppan House", kind: "Teppanyaki & seafood · 태판하우스", icon: "dining", query: near("태판하우스"), photo: "/images/neighborhood/dining-06-teppan-house.webp" },
-      { name: "Uri Hanwoo Gomtang", kind: "Beef bone soup · 우리한우 곰탕", icon: "dining", query: near("우리한우 곰탕"), photo: "/images/neighborhood/dining-07-uri-hanwoo-gomtang.webp" },
-      { name: "Prantimore", kind: "Pasta · 프랜티모어", icon: "dining", query: near("프랜티모어"), photo: "/images/neighborhood/dining-08-prantimore.webp" },
-      { name: "Sikkeop", kind: "Grilled pork belly · 식껍", icon: "dining", query: near("식껍"), photo: "/images/neighborhood/dining-09-sikkeop.webp" },
-      { name: "Oroji Ramen", kind: "Ramen · 오로지라멘", icon: "dining", query: near("오로지라멘"), photo: "/images/neighborhood/dining-10-oroji-ramen.webp" },
-      { name: "Pizza School", kind: "Pizza · 피자스쿨", icon: "dining", query: near("피자스쿨"), photo: "/images/neighborhood/dining-12-pizza-school.webp" },
-      { name: "Hansot Dosirak", kind: "Lunch boxes · 한솥도시락", icon: "dining", query: near("한솥도시락"), photo: "/images/neighborhood/dining-13-hansot.webp" },
+      { name: "Seolle Jokbal", kind: "Braised pork trotters · 설레족발", icon: "dining", details: [
+        { label: "Hours", lines: ["Tue – Sun 17:00–24:00"] },
+        { label: "Closed", lines: ["Every Monday"] },
+      ], query: near("설레족발"), photo: "/images/neighborhood/dining-02-seolle-jokbal.webp" },
+      { name: "Mom's Touch", kind: "Burgers · 맘스터치", icon: "dining", details: [
+        { label: "Hours", lines: ["Mon – Fri 10:50–21:30", "Sat · Sun 10:30–21:30"] },
+      ], query: near("맘스터치"), photo: "/images/neighborhood/dining-03-moms-touch.webp" },
+      { name: "BBQ Chicken", kind: "Fried chicken · BBQ", icon: "dining", details: [
+        { label: "Hours", lines: ["Daily 11:00–23:00"] },
+      ], query: near("BBQ"), photo: "/images/neighborhood/dining-04-bbq.webp" },
+      { name: "Daejang Dakbal", kind: "Spicy braised chicken · 대장닭발 닭도리탕", icon: "dining", details: [
+        { label: "Hours", lines: ["Wed – Sun 17:00–22:00"] },
+        { label: "Closed", lines: ["Every Monday & Tuesday"] },
+      ], query: near("대장닭발 닭도리탕"), photo: "/images/neighborhood/dining-05-daejang-dakbal.webp" },
+      { name: "Teppan House", kind: "Teppanyaki & seafood · 태판하우스", icon: "dining", details: [
+        { label: "Hours", lines: ["Daily 10:00–22:00"] },
+        { label: "Break", lines: ["15:00–16:30"] },
+      ], query: near("태판하우스"), photo: "/images/neighborhood/dining-06-teppan-house.webp" },
+      { name: "Uri Hanwoo Gomtang", kind: "Beef bone soup · 우리한우 곰탕", icon: "dining", details: [
+        { label: "Hours", lines: ["Mon – Sat 11:00–21:00"] },
+        { label: "Break", lines: ["15:00–17:00"] },
+        { label: "Closed", lines: ["Every Sunday"] },
+      ], query: near("우리한우 곰탕"), photo: "/images/neighborhood/dining-07-uri-hanwoo-gomtang.webp" },
+      { name: "Prantimore", kind: "Pasta · 프랜티모어", icon: "dining", details: [
+        { label: "Hours", lines: ["Mon – Fri 09:00–20:00", "Sat 09:00–16:00"] },
+        { label: "Closed", lines: ["Every Sunday"] },
+      ], query: near("프랜티모어"), photo: "/images/neighborhood/dining-08-prantimore.webp" },
+      { name: "Sikkeop", kind: "Grilled pork belly · 식껍", icon: "dining", details: [
+        { label: "Hours", lines: ["Mon · Tue 17:00–22:30", "Thu – Sat 17:00–22:30", "Sun 17:00–21:30"] },
+        { label: "Closed", lines: ["Every Wednesday"] },
+      ], query: near("식껍"), photo: "/images/neighborhood/dining-09-sikkeop.webp" },
+      { name: "Oroji Ramen", kind: "Ramen · 오로지라멘", icon: "dining", details: [
+        { label: "Hours", lines: ["Tue – Fri 11:00–20:30", "Sat 12:00–20:00", "Mon hours vary"] },
+        { label: "Break", lines: ["Tue – Fri 15:00–17:00"] },
+        { label: "Closed", lines: ["Every Sunday"] },
+      ], query: near("오로지라멘"), photo: "/images/neighborhood/dining-10-oroji-ramen.webp" },
+      { name: "Pizza School", kind: "Pizza · 피자스쿨", icon: "dining", details: [
+        { label: "Hours", lines: ["Mon – Sat 11:00–21:00", "Sun 16:30–20:00"] },
+      ], query: near("피자스쿨"), photo: "/images/neighborhood/dining-12-pizza-school.webp" },
+      { name: "Hansot Dosirak", kind: "Lunch boxes · 한솥도시락", icon: "dining", details: [
+        { label: "Hours", lines: ["Mon – Fri 10:00–20:00", "Sat · Sun 09:00–14:00"] },
+      ], query: near("한솥도시락"), photo: "/images/neighborhood/dining-13-hansot.webp" },
     ],
   },
   {
