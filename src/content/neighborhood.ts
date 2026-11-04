@@ -11,11 +11,13 @@ export type Place = {
   name: string;
   kind: string;
   icon: Icon;
-  /** e.g. "2 min walk" or "~8 min by car" */
-  time: string;
+  /** e.g. "2 min walk" or "~8 min by car". Leave out to hide the time line. */
+  time?: string;
   distance?: string;
   hours?: string;
   note?: string;
+  /** Labelled rows shown as a small table on the card, e.g. { label: "Hours", lines: ["Mon 11:00–20:00"] }. */
+  details?: { label: string; lines: string[] }[];
   query: string;
   /** Card photo in public/images/neighborhood/, e.g. "/images/neighborhood/visit-01.jpg". Leave out to show the icon tile. */
   photo?: string;
@@ -50,17 +52,17 @@ export const categories: Category[] = [
     icon: "store",
     eyebrow: "Everyday Essentials",
     title: "On Foot",
-    intro: "Eight everyday places within a ten-minute walk of Building 205 — from morning coffee to a late pharmacy run.",
-    footnote: "Illustrative map, not to scale. Walking times at about 80 m per minute; hours may change.",
+    intro: "Eight everyday places within a twenty-minute walk of Building 205 — from morning coffee to a late pharmacy run.",
+    footnote: "Illustrative map, not to scale. Walking times and distances are approximate; hours may change.",
     places: [
-      { name: "CU Daejang", kind: "Convenience store", icon: "store", time: "2 min walk", distance: "180 m", hours: "Open 24 hours", query: near("CU"), photo: "/images/neighborhood/ess-01-cu.webp" },
-      { name: "Pascucci Pangyo Daejang", kind: "Café", icon: "coffee", time: "2 min walk", distance: "170 m", hours: "Daily 07:00–22:00", query: near("파스쿠찌"), photo: "/images/neighborhood/ess-02-pascucci.webp" },
-      { name: "Tous les Jours Pangyo Daejang", kind: "Bakery", icon: "bakery", time: "3 min walk", distance: "200 m", hours: "Daily 07:00–22:00", query: near("뚜레쥬르"), photo: "/images/neighborhood/ess-03-tous-les-jours.webp" },
-      { name: "GS THE FRESH Pangyo Daejang", kind: "Supermarket", icon: "cart", time: "8 min walk", distance: "610 m", hours: "Daily 09:00–22:00", query: near("GS더프레시"), photo: "/images/neighborhood/ess-04-gs-the-fresh.webp" },
-      { name: "Chamyaksa Daejang Pharmacy", kind: "Pharmacy · 참약사 대장약국", icon: "pharmacy", time: "8 min walk", distance: "620 m", hours: "Mon–Fri 09:00–21:00 · Sat 09:00–18:00 · Sun closed", query: "참약사 대장약국", photo: "/images/neighborhood/ess-05-pharmacy.webp" },
-      { name: "Pangyo Barun Internal Medicine", kind: "Clinic · Internal medicine · 판교바른내과", icon: "clinic", time: "Nearby · Daejang-dong", hours: "Mon–Fri 08:30–18:30 · Sat 08:30–13:00 · Sun & holidays closed", note: "Lunch 13:00–14:00", query: "판교바른내과", photo: "/images/neighborhood/ess-06-pangyo-barun.webp" },
-      { name: "CleanTopia", kind: "Laundry", icon: "laundry", time: "2 min walk", distance: "150 m", hours: "Mon–Fri 08:00–21:00 · Sat–Sun 09:00–20:00", query: near("크린토피아"), photo: "/images/neighborhood/ess-07-cleantopia.webp" },
-      { name: "Daejang Riverside Park", kind: "Park", icon: "park", time: "5 min walk", distance: "400 m", hours: "Open all day", query: near("공원"), photo: "/images/neighborhood/ess-08-park.webp" },
+      { name: "CU Daejang", kind: "Convenience store", icon: "store", time: "3 min walk", distance: "180 m", hours: "Open 24 hours", query: near("CU"), photo: "/images/neighborhood/ess-01-cu.webp" },
+      { name: "Pascucci Pangyo Daejang", kind: "Café", icon: "coffee", time: "8 min walk", distance: "450 m", hours: "Daily 07:00–22:00", query: near("파스쿠찌"), photo: "/images/neighborhood/ess-02-pascucci.webp" },
+      { name: "Tous les Jours Pangyo Daejang", kind: "Bakery", icon: "bakery", time: "5 min walk", distance: "500 m", hours: "Daily 07:00–22:00", query: near("뚜레쥬르"), photo: "/images/neighborhood/ess-03-tous-les-jours.webp" },
+      { name: "GS THE FRESH Pangyo Daejang", kind: "Supermarket", icon: "cart", time: "15 min walk", distance: "950 m", hours: "Daily 09:00–22:00", query: near("GS더프레시"), photo: "/images/neighborhood/ess-04-gs-the-fresh.webp" },
+      { name: "Chamyaksa Daejang Pharmacy", kind: "Pharmacy · 참약사 대장약국", icon: "pharmacy", time: "15 min walk", distance: "900 m", hours: "Mon–Fri 09:00–21:00 · Sat 09:00–18:00 · Sun closed", query: "참약사 대장약국", photo: "/images/neighborhood/ess-05-pharmacy.webp" },
+      { name: "Pangyo Barun Internal Medicine", kind: "Clinic · Internal medicine · 판교바른내과", icon: "clinic", time: "14 min walk", distance: "910 m", hours: "Mon–Fri 08:30–18:30 · Sat 08:30–13:00 · Sun & holidays closed", note: "Lunch 13:00–14:00", query: "판교바른내과", photo: "/images/neighborhood/ess-06-pangyo-barun.webp" },
+      { name: "CleanTopia", kind: "Laundry", icon: "laundry", time: "6 min walk", distance: "420 m", hours: "Mon–Fri 08:00–21:00 · Sat–Sun 09:00–20:00", query: near("크린토피아"), photo: "/images/neighborhood/ess-07-cleantopia.webp" },
+      { name: "Daejang Neighborhood Park", kind: "Park · 대장근린공원", icon: "park", time: "20 min walk", distance: "1.4 km", hours: "Open all day", query: "대장근린공원", photo: "/images/neighborhood/ess-08-park.webp" },
     ],
   },
   {
@@ -74,18 +76,22 @@ export const categories: Category[] = [
     intro: "Twelve local favourites around Daejang-dong — from gimbap and ramen to Korean barbecue and teppanyaki.",
     footnote: "Drive times and distances are approximate and vary with traffic. Hours may change; please check before visiting.",
     places: [
-      { name: "Barda Kim Seonsaeng", kind: "Gimbap · 바르다김선생", icon: "dining", time: "Nearby · Daejang-dong", note: "See Naver Map for hours", query: near("바르다김선생"), photo: "/images/neighborhood/dining-01-barda-kim.webp" },
-      { name: "Seolle Jokbal", kind: "Braised pork trotters · 설레족발", icon: "dining", time: "Nearby · Daejang-dong", note: "See Naver Map for hours", query: near("설레족발"), photo: "/images/neighborhood/dining-02-seolle-jokbal.webp" },
-      { name: "Mom's Touch", kind: "Burgers · 맘스터치", icon: "dining", time: "Nearby · Daejang-dong", note: "See Naver Map for hours", query: near("맘스터치"), photo: "/images/neighborhood/dining-03-moms-touch.webp" },
-      { name: "BBQ Chicken", kind: "Fried chicken · BBQ", icon: "dining", time: "Nearby · Daejang-dong", note: "See Naver Map for hours", query: near("BBQ"), photo: "/images/neighborhood/dining-04-bbq.webp" },
-      { name: "Daejang Dakbal", kind: "Spicy braised chicken · 대장닭발 닭도리탕", icon: "dining", time: "Nearby · Daejang-dong", note: "See Naver Map for hours", query: near("대장닭발 닭도리탕"), photo: "/images/neighborhood/dining-05-daejang-dakbal.webp" },
-      { name: "Teppan House", kind: "Teppanyaki & seafood · 태판하우스", icon: "dining", time: "Nearby · Daejang-dong", note: "See Naver Map for hours", query: near("태판하우스"), photo: "/images/neighborhood/dining-06-teppan-house.webp" },
-      { name: "Uri Hanwoo Gomtang", kind: "Beef bone soup · 우리한우 곰탕", icon: "dining", time: "Nearby · Daejang-dong", note: "See Naver Map for hours", query: near("우리한우 곰탕"), photo: "/images/neighborhood/dining-07-uri-hanwoo-gomtang.webp" },
-      { name: "Prantimore", kind: "Pasta · 프랜티모어", icon: "dining", time: "Nearby · Daejang-dong", note: "See Naver Map for hours", query: near("프랜티모어"), photo: "/images/neighborhood/dining-08-prantimore.webp" },
-      { name: "Sikkeop", kind: "Grilled pork belly · 식껍", icon: "dining", time: "Nearby · Daejang-dong", note: "See Naver Map for hours", query: near("식껍"), photo: "/images/neighborhood/dining-09-sikkeop.webp" },
-      { name: "Oroji Ramen", kind: "Ramen · 오로지라멘", icon: "dining", time: "Nearby · Daejang-dong", note: "See Naver Map for hours", query: near("오로지라멘"), photo: "/images/neighborhood/dining-10-oroji-ramen.webp" },
-      { name: "Pizza School", kind: "Pizza · 피자스쿨", icon: "dining", time: "Nearby · Daejang-dong", note: "See Naver Map for hours", query: near("피자스쿨"), photo: "/images/neighborhood/dining-12-pizza-school.webp" },
-      { name: "Hansot Dosirak", kind: "Lunch boxes · 한솥도시락", icon: "dining", time: "Nearby · Daejang-dong", note: "See Naver Map for hours", query: near("한솥도시락"), photo: "/images/neighborhood/dining-13-hansot.webp" },
+      { name: "Barda Kim Seonsaeng", kind: "Gimbap · 바르다김선생", icon: "dining", details: [
+        { label: "Hours", lines: ["Mon · Wed · Thu 11:00–20:00", "Fri – Sun 10:00–20:00"] },
+        { label: "Break", lines: ["15:00–17:00"] },
+        { label: "Closed", lines: ["Every Tuesday"] },
+      ], query: near("바르다김선생"), photo: "/images/neighborhood/dining-01-barda-kim.webp" },
+      { name: "Seolle Jokbal", kind: "Braised pork trotters · 설레족발", icon: "dining", query: near("설레족발"), photo: "/images/neighborhood/dining-02-seolle-jokbal.webp" },
+      { name: "Mom's Touch", kind: "Burgers · 맘스터치", icon: "dining", query: near("맘스터치"), photo: "/images/neighborhood/dining-03-moms-touch.webp" },
+      { name: "BBQ Chicken", kind: "Fried chicken · BBQ", icon: "dining", query: near("BBQ"), photo: "/images/neighborhood/dining-04-bbq.webp" },
+      { name: "Daejang Dakbal", kind: "Spicy braised chicken · 대장닭발 닭도리탕", icon: "dining", query: near("대장닭발 닭도리탕"), photo: "/images/neighborhood/dining-05-daejang-dakbal.webp" },
+      { name: "Teppan House", kind: "Teppanyaki & seafood · 태판하우스", icon: "dining", query: near("태판하우스"), photo: "/images/neighborhood/dining-06-teppan-house.webp" },
+      { name: "Uri Hanwoo Gomtang", kind: "Beef bone soup · 우리한우 곰탕", icon: "dining", query: near("우리한우 곰탕"), photo: "/images/neighborhood/dining-07-uri-hanwoo-gomtang.webp" },
+      { name: "Prantimore", kind: "Pasta · 프랜티모어", icon: "dining", query: near("프랜티모어"), photo: "/images/neighborhood/dining-08-prantimore.webp" },
+      { name: "Sikkeop", kind: "Grilled pork belly · 식껍", icon: "dining", query: near("식껍"), photo: "/images/neighborhood/dining-09-sikkeop.webp" },
+      { name: "Oroji Ramen", kind: "Ramen · 오로지라멘", icon: "dining", query: near("오로지라멘"), photo: "/images/neighborhood/dining-10-oroji-ramen.webp" },
+      { name: "Pizza School", kind: "Pizza · 피자스쿨", icon: "dining", query: near("피자스쿨"), photo: "/images/neighborhood/dining-12-pizza-school.webp" },
+      { name: "Hansot Dosirak", kind: "Lunch boxes · 한솥도시락", icon: "dining", query: near("한솥도시락"), photo: "/images/neighborhood/dining-13-hansot.webp" },
     ],
   },
   {
