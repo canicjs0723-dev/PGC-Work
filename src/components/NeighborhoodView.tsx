@@ -5,31 +5,9 @@ import { useSyncExternalStore } from "react";
 import PageHero from "@/components/PageHero";
 import PageTabs from "@/components/PageTabs";
 import { Container, SectionLabel } from "@/components/ui";
-import { categories, naverMap, type Category, type CategoryKey, type Icon, type Place } from "@/content/neighborhood";
-
-// Line icons, drawn on a 24-unit grid.
-const iconPaths: Record<Icon, string> = {
-  dining: "M7 3v8m-2-8v5a2 2 0 0 0 4 0V3m-2 8v10M17 3c-2 1.5-3 4-3 7h3v11",
-  coffee: "M4 9h12v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5zM16 10h1.5a2.5 2.5 0 0 1 0 5H16M8 3c0 1.5 1 1.5 1 3M12 3c0 1.5 1 1.5 1 3",
-  bakery: "M4 14c0-5 3.5-8 8-8s8 3 8 8v2H4zM8 10l1 4M12 9v5M16 10l-1 4M4 19h16",
-  store: "M4 9l1.5-5h13L20 9M4 9h16v11H4zM4 9a2.7 2.7 0 0 0 5.3 0 2.7 2.7 0 0 0 5.4 0 2.7 2.7 0 0 0 5.3 0M10 20v-5h4v5",
-  cart: "M3 4h2.5l2 11h10.5l2-8H7M9 20a1 1 0 1 0 0-.01M17 20a1 1 0 1 0 0-.01",
-  pharmacy: "M6 4h12v16H6zM12 8v8M8 12h8",
-  clinic: "M12 21s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.5-7 10-7 10zM12 10v5M9.5 12.5h5",
-  laundry: "M5 3h14v18H5zM5 7h14M8 5h.01M12 14a3 3 0 1 0 0 .01",
-  park: "M12 3l5 7h-3l4 6H6l4-6H7zM12 16v5",
-  shopping: "M5 8h14l-1 13H6zM9 8V6a3 3 0 0 1 6 0v2",
-  culture: "M3 9l9-5 9 5M5 9v9M9.5 9v9M14.5 9v9M19 9v9M3 21h18",
-  nature: "M3 20l6-10 4 6 3-4 5 8zM16 7a2 2 0 1 0 0-.01",
-};
-
-function PlaceIcon({ icon, className = "size-7" }: { icon: Icon; className?: string }) {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" className={className} aria-hidden>
-      <path d={iconPaths[icon]} />
-    </svg>
-  );
-}
+import { PlaceIcon } from "@/components/PlaceIcon";
+import { WalkingMap } from "@/components/WalkingMap";
+import { categories, naverMap, type Category, type CategoryKey, type Place } from "@/content/neighborhood";
 
 const pad = (n: number) => String(n).padStart(2, "0");
 
@@ -84,49 +62,6 @@ function PlaceCard({ place, index, showMap }: { place: Place; index: number; sho
         </a>
       </div>
     </li>
-  );
-}
-
-// Illustrative walking map: Building 205 in the middle, each place on a dashed path with its walk time.
-// Positions are percent of the box and only suggest direction — the footnote says it is not to scale.
-const spots: [number, number][] = [
-  [17, 40], [50, 11], [83, 24], [85, 54], [80, 84], [50, 89], [19, 72], [20, 13],
-];
-
-function WalkingMap({ places }: { places: Place[] }) {
-  return (
-    <div className="relative mt-12 hidden aspect-[16/8] overflow-hidden border border-line bg-[radial-gradient(circle_at_50%_50%,#efe9de_0%,#e6dccb_55%,#ddd1bd_100%)] md:block">
-      <svg viewBox="0 0 100 100" preserveAspectRatio="none" className="absolute inset-0 size-full" aria-hidden>
-        {[16, 30, 44].map((r) => (
-          <ellipse key={r} cx="50" cy="50" rx={r} ry={r * 1.6} fill="none" stroke="#b39264" strokeOpacity="0.25" strokeWidth="0.15" vectorEffect="non-scaling-stroke" />
-        ))}
-        {places.slice(0, spots.length).map((_, i) => (
-          <line key={i} x1="50" y1="50" x2={spots[i][0]} y2={spots[i][1]} stroke="#b39264" strokeWidth="2" strokeDasharray="2 6" strokeLinecap="round" vectorEffect="non-scaling-stroke" />
-        ))}
-      </svg>
-      <div className="absolute left-1/2 top-1/2 grid size-24 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-charcoal text-white shadow-[0_10px_30px_-10px_rgba(0,0,0,0.5)]">
-        <span className="text-center">
-          <span className="block font-serif text-[2rem] leading-none">205</span>
-          <span className="mt-1 block text-[0.625rem] uppercase tracking-[0.2em] text-white/70">PGC</span>
-        </span>
-      </div>
-      {places.slice(0, spots.length).map((p, i) => (
-        <div
-          key={p.name}
-          className="absolute flex -translate-x-1/2 -translate-y-1/2 items-center gap-3 bg-white/95 px-3.5 py-2.5 shadow-[0_8px_24px_-12px_rgba(0,0,0,0.35)]"
-          style={{ left: `${spots[i][0]}%`, top: `${spots[i][1]}%` }}
-        >
-          <span className="grid size-8 shrink-0 place-items-center rounded-full bg-charcoal text-[0.75rem] font-semibold text-white">{i + 1}</span>
-          <span className="leading-tight">
-            <span className="block text-[0.6875rem] uppercase tracking-[0.14em] text-accent">{p.kind.split(" · ")[0]}</span>
-            <span className="block text-[0.875rem] font-semibold">{p.name.replace(/ Pangyo Daejang$/, "")}</span>
-            <span className="mt-0.5 block text-[0.75rem] text-charcoal/60">
-              {p.distance} · {p.time?.replace(" walk", "")}
-            </span>
-          </span>
-        </div>
-      ))}
-    </div>
   );
 }
 

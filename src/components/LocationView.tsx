@@ -30,31 +30,31 @@ const arrival = [
 const walking = [
   {
     src: "/images/walk-01-main-road.webp", width: 1561, height: 1008,
-    tag: "MAIN ROAD", route: "M 5 84 Q 28 70 50 55.8", arrowScale: 0.6, boxes: [{ x: 24, y: 27, w: 31, h: 42, label: "TH212" }],
+    tag: "MAIN ROAD", route: "M 8.4 92.4 Q 31.6 74.3 54.8 56.2", arrowScale: 0.85, boxes: [{ x: 20.8, y: 26.8, w: 52.7, h: 40.4, label: "TH212" }],
     alt: "Main road with the TH212 complex on the left",
     caption: "01 · Follow the main road until the TH212 complex appears on your left",
   },
   {
     src: "/images/walk-02-building-201-gate.webp", width: 1549, height: 1015,
-    tag: "MAIN GATE", route: "M 4 68 Q 20 58.5 38 52", arrowScale: 0.6, boxes: [{ x: 1, y: 36, w: 33, h: 22, label: "201" }],
+    tag: "MAIN GATE", route: "M 10.8 83.8 Q 30 57.2 49.3 30.5", arrowScale: 0.85, boxes: [{ x: 0.9, y: 34.3, w: 33.3, h: 24.3, label: "201" }],
     alt: "Building 201 main gate of TH212",
     caption: "02 · Pass the Building 201 main gate and keep going straight",
   },
   {
     src: "/images/walk-03-building-204-left.webp", width: 1524, height: 1032,
-    tag: "BACK GATE", route: "M 6 66 Q 24 62.4 38 59.6 Q 48 56.9 54 49.6", arrowScale: 0.45, marker: { x: 58, y: 52, label: "Building 205" }, boxes: [{ x: 78, y: 45, w: 19, h: 17, label: "CU" }],
+    tag: "BACK GATE", route: "M 3 69.4 Q 34 66 46 61.8", arrowScale: 0.75, boxes: [{ x: 53.4, y: 43.5, w: 12.7, h: 18.4, label: "Building 205" }, { x: 76.2, y: 43.5, w: 21.8, h: 18.4, label: "CU" }],
     alt: "Building 204 back gate with the CU convenience store on the right",
     caption: "03 · At the Building 204 back gate, opposite the CU store, follow the sidewalk to Building 205",
   },
   {
     src: "/images/walk-04-building-205-entrance.webp", width: 1524, height: 1032,
-    tag: "PGC ENTRANCE", route: "M 30 99 Q 48 86.3 61 64.5", arrowScale: 0.7, boxes: [{ x: 60, y: 65, w: 8.5, h: 14 }],
+    tag: "PGC ENTRANCE", route: "M 28 98.2 Q 39.5 82 48 66", arrowScale: 0.85, boxes: [{ x: 54, y: 54.4, w: 19.5, h: 30.5 }],
     alt: "Building 205 entrance at TH212 Pangyo",
     caption: "04 · Building 205 entrance: enter 403, then the code, and take the stairs",
   },
   {
     src: "/images/walk-05-entrance-panel.webp", width: 1559, height: 1009,
-    tag: "ENTRY", route: "M 79 99 Q 76 80 72 57", boxes: [{ x: 66, y: 50, w: 10, h: 21, label: "Lines 3–4" }],
+    tag: "ENTRY", route: "M 85 98 Q 82.5 70 76.2 65.3", arrowScale: 0.9, boxes: [{ x: 63.4, y: 48, w: 14, h: 25.2, label: "Lines 3–4" }],
     alt: "Walkway to the Building 205 lines 3–4 entrance with its entry panel",
     caption: "05 · At the lines 3–4 entrance panel, enter unit 403 and the code",
   },
