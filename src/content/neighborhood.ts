@@ -95,19 +95,19 @@ export const categories: Category[] = [
         { label: "Hours", lines: ["Wed – Sun 17:00–22:00"] },
         { label: "Closed", lines: ["Every Monday & Tuesday"] },
       ], query: near("대장닭발 닭도리탕"), photo: "/images/neighborhood/dining-05-daejang-dakbal.webp" },
-      { name: "Teppan House", kind: "Teppanyaki & seafood · 태판하우스", icon: "dining", details: [
+      { name: "Teppan House", kind: "Teppanyaki & seafood · 테판하우스", icon: "dining", details: [
         { label: "Hours", lines: ["Daily 10:00–22:00"] },
         { label: "Break", lines: ["15:00–16:30"] },
-      ], query: near("태판하우스"), photo: "/images/neighborhood/dining-06-teppan-house.webp" },
+      ], query: near("테판하우스"), photo: "/images/neighborhood/dining-06-teppan-house.webp" },
       { name: "Uri Hanwoo Gomtang", kind: "Beef bone soup · 우리한우 곰탕", icon: "dining", details: [
         { label: "Hours", lines: ["Mon – Sat 11:00–21:00"] },
         { label: "Break", lines: ["15:00–17:00"] },
         { label: "Closed", lines: ["Every Sunday"] },
       ], query: near("우리한우 곰탕"), photo: "/images/neighborhood/dining-07-uri-hanwoo-gomtang.webp" },
-      { name: "Prantimore", kind: "Pasta · 프랜티모어", icon: "dining", details: [
+      { name: "Plantimore", kind: "Pasta · 플랜티모어", icon: "dining", details: [
         { label: "Hours", lines: ["Mon – Fri 09:00–20:00", "Sat 09:00–16:00"] },
         { label: "Closed", lines: ["Every Sunday"] },
-      ], query: near("프랜티모어"), photo: "/images/neighborhood/dining-08-prantimore.webp" },
+      ], query: near("플랜티모어"), photo: "/images/neighborhood/dining-08-prantimore.webp" },
       { name: "Sikkeop", kind: "Grilled pork belly · 식껍", icon: "dining", details: [
         { label: "Hours", lines: ["Mon · Tue 17:00–22:30", "Thu – Sat 17:00–22:30", "Sun 17:00–21:30"] },
         { label: "Closed", lines: ["Every Wednesday"] },
