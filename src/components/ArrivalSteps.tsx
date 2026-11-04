@@ -64,7 +64,7 @@ function RouteOverlay({ step }: { step: ArrivalStep }) {
     <svg viewBox={`0 0 ${step.width} ${step.height}`} className="route-overlay pointer-events-none absolute inset-0 size-full" aria-hidden>
       <defs>
         <marker id={`${id}-head`} viewBox="0 0 4 4" refX="1.4" refY="2" markerWidth="2.6" markerHeight="2.6" orient="auto">
-          <path d="M0 0 L4 2 L0 4 Z" fill="#f5a800" />
+          <path d="M0 0 L4 2 L0 4 Z" fill="#ffc400" />
         </marker>
         <marker id={`${id}-edge`} viewBox="0 0 4 4" refX="1.4" refY="2" markerWidth="2.6" markerHeight="2.6" orient="auto">
           <path d="M0 0 L4 2 L0 4 Z" fill="#ffffff" />
@@ -73,7 +73,7 @@ function RouteOverlay({ step }: { step: ArrivalStep }) {
       {d && (
         <g transform={`translate(0 ${originY}) scale(1 ${TILT}) translate(0 ${-originY})`}>
           <path d={d} fill="none" stroke="#ffffff" strokeWidth={stroke * 1.6} strokeLinecap="round" strokeLinejoin="round" markerEnd={`url(#${id}-edge)`} />
-          <path d={d} fill="none" stroke="#f5a800" strokeWidth={stroke} strokeLinecap="round" strokeLinejoin="round" markerEnd={`url(#${id}-head)`} />
+          <path d={d} fill="none" stroke="#ffc400" strokeWidth={stroke} strokeLinecap="round" strokeLinejoin="round" markerEnd={`url(#${id}-head)`} />
         </g>
       )}
       {m && step.marker && (
@@ -88,7 +88,7 @@ function RouteOverlay({ step }: { step: ArrivalStep }) {
           <path
             d={`M ${m.cx} ${m.cy - m.ry} L ${m.cx + m.rx} ${m.cy} L ${m.cx} ${m.cy + m.ry} L ${m.cx - m.rx} ${m.cy} Z`}
             fill="none"
-            stroke="#f5a800"
+            stroke="#ffc400"
             strokeWidth={unit * 0.008}
             strokeLinejoin="round"
           />
@@ -102,8 +102,8 @@ function RouteOverlay({ step }: { step: ArrivalStep }) {
         const h = (step.height * b.h) / 100;
         return (
           <g key={`${b.x}-${b.y}`}>
-            <rect x={x} y={y} width={w} height={h} fill="none" stroke="#ffffff" strokeWidth={unit * 0.014} rx={unit * 0.006} />
-            <rect x={x} y={y} width={w} height={h} fill="none" stroke="#e53935" strokeWidth={unit * 0.007} rx={unit * 0.006} />
+            <rect x={x} y={y} width={w} height={h} fill="none" stroke="#ffffff" strokeWidth={unit * 0.024} rx={unit * 0.006} />
+            <rect x={x} y={y} width={w} height={h} fill="none" stroke="#e53935" strokeWidth={unit * 0.014} rx={unit * 0.006} />
             {b.label && <Pill cx={x + w / 2} cy={y - unit * 0.045} text={b.label} unit={unit} size={0.045} />}
           </g>
         );
