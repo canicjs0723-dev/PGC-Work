@@ -46,7 +46,7 @@ export const categories: Category[] = [
     key: "essentials",
     label: "Everyday Essentials",
     sub: "Store, pharmacy, mart & more · on foot",
-    cover: "/images/neighborhood/cover-essentials.webp",
+    cover: "/images/neighborhood/cover-essentials-v2.webp",
     icon: "store",
     eyebrow: "Everyday Essentials",
     title: "On Foot",
@@ -66,6 +66,7 @@ export const categories: Category[] = [
   {
     key: "dining",
     label: "Local Dining",
+    cover: "/images/neighborhood/cover-dining.webp",
     sub: "Restaurants & cafés · by car",
     icon: "dining",
     eyebrow: "Local Dining",
