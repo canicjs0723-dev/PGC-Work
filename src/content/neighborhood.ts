@@ -80,49 +80,49 @@ export const categories: Category[] = [
         { label: "Hours", lines: ["Mon · Wed · Thu 11:00–20:00", "Fri – Sun 10:00–20:00"] },
         { label: "Break", lines: ["15:00–17:00"] },
         { label: "Closed", lines: ["Every Tuesday"] },
-      ], query: near("바르다김선생"), photo: "/images/neighborhood/dining-01-barda-kim.webp", mapUrl: "https://map.naver.com/p/search/%EB%B0%94%EB%A5%B4%EB%8B%A4%EA%B9%80%EC%84%A0%EC%83%9D%20%ED%8C%90%EA%B5%90%20%EB%8C%80%EC%9E%A5%EB%8F%99/place/1828654732?c=15.00,0,0,0,dh" },
+      ], query: near("바르다김선생"), photo: "/images/neighborhood/dining-01-barda-kim.webp", mapUrl: "https://map.naver.com/p/search/%EB%B0%94%EB%A5%B4%EB%8B%A4%EA%B9%80%EC%84%A0%EC%83%9D%20%ED%8C%90%EA%B5%90%EB%8C%80%EC%9E%A5%EC%A0%90/place/1828654732?c=15.00,0,0,0,dh" },
       { name: "Seolle Jokbal", kind: "Braised pork trotters · 설레족발", icon: "dining", details: [
         { label: "Hours", lines: ["Tue – Sun 17:00–24:00"] },
         { label: "Closed", lines: ["Every Monday"] },
-      ], query: near("설레족발"), photo: "/images/neighborhood/dining-02-seolle-jokbal.webp", mapUrl: "https://map.naver.com/p/search/%EC%84%A4%EB%A0%88%EC%A1%B1%EB%B0%9C%20%ED%8C%90%EA%B5%90%20%EB%8C%80%EC%9E%A5%EB%8F%99?c=15.00,0,0,0,dh" },
+      ], query: near("설레족발"), photo: "/images/neighborhood/dining-02-seolle-jokbal.webp", mapUrl: "https://map.naver.com/p/search/%EC%84%A4%EB%A0%88%EC%A1%B1%EB%B0%9C%20%EB%8C%80%EC%9E%A5%EB%8F%99%EC%A0%90?c=15.00,0,0,0,dh" },
       { name: "Mom's Touch", kind: "Burgers · 맘스터치", icon: "dining", details: [
         { label: "Hours", lines: ["Mon – Fri 10:50–21:30", "Sat · Sun 10:30–21:30"] },
-      ], query: near("맘스터치"), photo: "/images/neighborhood/dining-03-moms-touch.webp", mapUrl: "https://map.naver.com/p/search/%EB%A7%98%EC%8A%A4%ED%84%B0%EC%B9%98%20%ED%8C%90%EA%B5%90%20%EB%8C%80%EC%9E%A5%EB%8F%99/place/1806014800?c=15.00,0,0,0,dh" },
+      ], query: near("맘스터치"), photo: "/images/neighborhood/dining-03-moms-touch.webp", mapUrl: "https://map.naver.com/p/search/%EB%A7%98%EC%8A%A4%ED%84%B0%EC%B9%98%20%ED%8C%90%EA%B5%90%EB%8C%80%EC%9E%A5%EC%A0%90/place/1806014800?c=15.00,0,0,0,dh" },
       { name: "BBQ Chicken", kind: "Fried chicken · BBQ", icon: "dining", details: [
         { label: "Hours", lines: ["Daily 11:00–23:00"] },
-      ], query: near("BBQ"), photo: "/images/neighborhood/dining-04-bbq.webp", mapUrl: "https://map.naver.com/p/search/BBQ%20%ED%8C%90%EA%B5%90%20%EB%8C%80%EC%9E%A5%EB%8F%99/place/1975696630?c=15.00,0,0,0,dh" },
+      ], query: near("BBQ"), photo: "/images/neighborhood/dining-04-bbq.webp", mapUrl: "https://map.naver.com/p/search/BBQ%EC%B9%98%ED%82%A8%20%ED%8C%90%EA%B5%90%EB%8C%80%EC%9E%A5%EC%A7%80%EA%B5%AC%EC%A0%90/place/1975696630?c=15.00,0,0,0,dh" },
       { name: "Daejang Dakbal", kind: "Spicy braised chicken · 대장닭발 닭도리탕", icon: "dining", details: [
         { label: "Hours", lines: ["Wed – Sun 17:00–22:00"] },
         { label: "Closed", lines: ["Every Monday & Tuesday"] },
-      ], query: near("대장닭발 닭도리탕"), photo: "/images/neighborhood/dining-05-daejang-dakbal.webp", mapUrl: "https://map.naver.com/p/search/%EB%8C%80%EC%9E%A5%EB%8B%AD%EB%B0%9C%20%EB%8B%AD%EB%8F%84%EB%A6%AC%ED%83%95%20%ED%8C%90%EA%B5%90%20%EB%8C%80%EC%9E%A5%EB%8F%99?c=15.00,0,0,0,dh" },
+      ], query: near("대장닭발 닭도리탕"), photo: "/images/neighborhood/dining-05-daejang-dakbal.webp", mapUrl: "https://map.naver.com/p/search/%EB%8C%80%EC%9E%A5%EB%8B%AD%EB%B0%9C%26%EB%8B%AD%EB%8F%84%EB%A6%AC%ED%83%95%20%EB%B3%B8%EC%A0%90?c=15.00,0,0,0,dh" },
       { name: "Teppan House", kind: "Teppanyaki & seafood · 테판하우스", icon: "dining", details: [
         { label: "Hours", lines: ["Daily 10:00–22:00"] },
         { label: "Break", lines: ["15:00–16:30"] },
-      ], query: near("테판하우스"), photo: "/images/neighborhood/dining-06-teppan-house.webp", mapUrl: "https://map.naver.com/p/search/%ED%83%9C%ED%8C%90%ED%95%98%EC%9A%B0%EC%8A%A4%20%ED%8C%90%EA%B5%90%20%EB%8C%80%EC%9E%A5%EB%8F%99?c=15.00,0,0,0,dh" },
+      ], query: near("테판하우스"), photo: "/images/neighborhood/dining-06-teppan-house.webp", mapUrl: "https://map.naver.com/p/search/%ED%85%8C%ED%8C%90%ED%95%98%EC%9A%B0%EC%8A%A4?c=15.00,0,0,0,dh" },
       { name: "Uri Hanwoo Gomtang", kind: "Beef bone soup · 우리한우 곰탕", icon: "dining", details: [
         { label: "Hours", lines: ["Mon – Sat 11:00–21:00"] },
         { label: "Break", lines: ["15:00–17:00"] },
         { label: "Closed", lines: ["Every Sunday"] },
-      ], query: near("우리한우 곰탕"), photo: "/images/neighborhood/dining-07-uri-hanwoo-gomtang.webp", mapUrl: "https://map.naver.com/p/search/%EC%9A%B0%EB%A6%AC%ED%95%9C%EC%9A%B0%20%EA%B3%B0%ED%83%95%20%ED%8C%90%EA%B5%90%20%EB%8C%80%EC%9E%A5%EB%8F%99?c=15.00,0,0,0,dh" },
+      ], query: near("우리한우 곰탕"), photo: "/images/neighborhood/dining-07-uri-hanwoo-gomtang.webp", mapUrl: "https://map.naver.com/p/search/%EC%9A%B0%EB%A6%AC%ED%95%9C%EC%9A%B0%EA%B3%B0%ED%83%95?c=15.00,0,0,0,dh" },
       { name: "Plantimore", kind: "Pasta · 플랜티모어", icon: "dining", details: [
         { label: "Hours", lines: ["Mon – Fri 09:00–20:00", "Sat 09:00–16:00"] },
         { label: "Closed", lines: ["Every Sunday"] },
-      ], query: near("플랜티모어"), photo: "/images/neighborhood/dining-08-prantimore.webp", mapUrl: "https://map.naver.com/p/search/%ED%94%84%EB%9E%9C%ED%8B%B0%EB%AA%A8%EC%96%B4/place/1522423823?c=15.00,0,0,0,dh" },
+      ], query: near("플랜티모어"), photo: "/images/neighborhood/dining-08-prantimore.webp", mapUrl: "https://map.naver.com/p/search/%ED%94%8C%EB%9E%9C%ED%8B%B0%EB%AA%A8%EC%96%B4/place/1522423823?c=15.00,0,0,0,dh" },
       { name: "Sikkeop", kind: "Grilled pork belly · 식껍", icon: "dining", details: [
         { label: "Hours", lines: ["Mon · Tue 17:00–22:30", "Thu – Sat 17:00–22:30", "Sun 17:00–21:30"] },
         { label: "Closed", lines: ["Every Wednesday"] },
-      ], query: near("식껍"), photo: "/images/neighborhood/dining-09-sikkeop.webp", mapUrl: "https://map.naver.com/p/search/%EC%8B%9D%EA%BB%8D%20%ED%8C%90%EA%B5%90%20%EB%8C%80%EC%9E%A5%EB%8F%99/place/1749624502?c=15.00,0,0,0,dh" },
+      ], query: near("식껍"), photo: "/images/neighborhood/dining-09-sikkeop.webp", mapUrl: "https://map.naver.com/p/search/%EC%8B%9D%EA%BB%8D%20%EB%8C%80%EC%9E%A5%EC%A0%90/place/1749624502?c=15.00,0,0,0,dh" },
       { name: "Oroji Ramen", kind: "Ramen · 오로지라멘", icon: "dining", details: [
         { label: "Hours", lines: ["Tue – Fri 11:00–20:30", "Sat 12:00–20:00", "Mon hours vary"] },
         { label: "Break", lines: ["Tue – Fri 15:00–17:00"] },
         { label: "Closed", lines: ["Every Sunday"] },
-      ], query: near("오로지라멘"), photo: "/images/neighborhood/dining-10-oroji-ramen.webp", mapUrl: "https://map.naver.com/p/search/%EC%98%A4%EB%A1%9C%EC%A7%80%EB%9D%BC%EB%A9%98%20%ED%8C%90%EA%B5%90%20%EB%8C%80%EC%9E%A5%EB%8F%99/place/1851346244?c=15.00,0,0,0,dh" },
+      ], query: near("오로지라멘"), photo: "/images/neighborhood/dining-10-oroji-ramen.webp", mapUrl: "https://map.naver.com/p/search/%EC%98%A4%EB%A1%9C%EC%A7%80%EB%9D%BC%EB%A9%98%20%ED%8C%90%EA%B5%90%EB%8C%80%EC%9E%A5%EC%A0%90/place/1851346244?c=15.00,0,0,0,dh" },
       { name: "Pizza School", kind: "Pizza · 피자스쿨", icon: "dining", details: [
         { label: "Hours", lines: ["Mon – Sat 11:00–21:00", "Sun 16:30–20:00"] },
-      ], query: near("피자스쿨"), photo: "/images/neighborhood/dining-12-pizza-school.webp", mapUrl: "https://map.naver.com/p/search/%ED%94%BC%EC%9E%90%EC%8A%A4%EC%BF%A8%20%ED%8C%90%EA%B5%90%20%EB%8C%80%EC%9E%A5%EB%8F%99/place/1381590885?c=15.00,0,0,0,dh" },
+      ], query: near("피자스쿨"), photo: "/images/neighborhood/dining-12-pizza-school.webp", mapUrl: "https://map.naver.com/p/search/%ED%94%BC%EC%9E%90%EC%8A%A4%EC%BF%A8%20%ED%8C%90%EA%B5%90%EB%8C%80%EC%9E%A5%EC%A0%90/place/1381590885?c=15.00,0,0,0,dh" },
       { name: "Hansot Dosirak", kind: "Lunch boxes · 한솥도시락", icon: "dining", details: [
         { label: "Hours", lines: ["Mon – Fri 10:00–20:00", "Sat · Sun 09:00–14:00"] },
-      ], query: near("한솥도시락"), photo: "/images/neighborhood/dining-13-hansot.webp", mapUrl: "https://map.naver.com/p/search/%ED%95%9C%EC%86%A5%EB%8F%84%EC%8B%9C%EB%9D%BD%20%ED%8C%90%EA%B5%90%20%EB%8C%80%EC%9E%A5%EB%8F%99/place/1045030790?c=15.00,0,0,0,dh" },
+      ], query: near("한솥도시락"), photo: "/images/neighborhood/dining-13-hansot.webp", mapUrl: "https://map.naver.com/p/search/%ED%95%9C%EC%86%A5%EB%8F%84%EC%8B%9C%EB%9D%BD%20%ED%8C%90%EA%B5%90%EB%8C%80%EC%9E%A5%EC%A0%90/place/1045030790?c=15.00,0,0,0,dh" },
     ],
   },
   {
