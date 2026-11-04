@@ -42,7 +42,7 @@ const walking = [
   },
   {
     src: "/images/walk-03-building-204-left.webp", width: 1524, height: 1032,
-    tag: "BACK GATE", route: "M 8 65.5 Q 28 61 49 56.4", arrowScale: 0.45, marker: { x: 58, y: 52, label: "Building 205" }, boxes: [{ x: 78, y: 45, w: 19, h: 17, label: "CU" }],
+    tag: "BACK GATE", route: "M 6 66 Q 24 62.4 38 59.6 Q 48 56.9 54 49.6", arrowScale: 0.45, marker: { x: 58, y: 52, label: "Building 205" }, boxes: [{ x: 78, y: 45, w: 19, h: 17, label: "CU" }],
     alt: "Building 204 back gate with the CU convenience store on the right",
     caption: "03 · At the Building 204 back gate, opposite the CU store, follow the sidewalk to Building 205",
   },
