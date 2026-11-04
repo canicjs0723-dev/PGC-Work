@@ -11,11 +11,13 @@ export type Place = {
   name: string;
   kind: string;
   icon: Icon;
-  /** e.g. "2 min walk" or "~8 min by car" */
-  time: string;
+  /** e.g. "2 min walk" or "~8 min by car". Leave out to hide the time line. */
+  time?: string;
   distance?: string;
   hours?: string;
   note?: string;
+  /** Labelled rows shown as a small table on the card, e.g. { label: "Hours", lines: ["Mon 11:00–20:00"] }. */
+  details?: { label: string; lines: string[] }[];
   query: string;
   /** Card photo in public/images/neighborhood/, e.g. "/images/neighborhood/visit-01.jpg". Leave out to show the icon tile. */
   photo?: string;
@@ -74,18 +76,22 @@ export const categories: Category[] = [
     intro: "Twelve local favourites around Daejang-dong — from gimbap and ramen to Korean barbecue and teppanyaki.",
     footnote: "Drive times and distances are approximate and vary with traffic. Hours may change; please check before visiting.",
     places: [
-      { name: "Barda Kim Seonsaeng", kind: "Gimbap · 바르다김선생", icon: "dining", time: "Nearby · Daejang-dong", note: "See Naver Map for hours", query: near("바르다김선생"), photo: "/images/neighborhood/dining-01-barda-kim.webp" },
-      { name: "Seolle Jokbal", kind: "Braised pork trotters · 설레족발", icon: "dining", time: "Nearby · Daejang-dong", note: "See Naver Map for hours", query: near("설레족발"), photo: "/images/neighborhood/dining-02-seolle-jokbal.webp" },
-      { name: "Mom's Touch", kind: "Burgers · 맘스터치", icon: "dining", time: "Nearby · Daejang-dong", note: "See Naver Map for hours", query: near("맘스터치"), photo: "/images/neighborhood/dining-03-moms-touch.webp" },
-      { name: "BBQ Chicken", kind: "Fried chicken · BBQ", icon: "dining", time: "Nearby · Daejang-dong", note: "See Naver Map for hours", query: near("BBQ"), photo: "/images/neighborhood/dining-04-bbq.webp" },
-      { name: "Daejang Dakbal", kind: "Spicy braised chicken · 대장닭발 닭도리탕", icon: "dining", time: "Nearby · Daejang-dong", note: "See Naver Map for hours", query: near("대장닭발 닭도리탕"), photo: "/images/neighborhood/dining-05-daejang-dakbal.webp" },
-      { name: "Teppan House", kind: "Teppanyaki & seafood · 태판하우스", icon: "dining", time: "Nearby · Daejang-dong", note: "See Naver Map for hours", query: near("태판하우스"), photo: "/images/neighborhood/dining-06-teppan-house.webp" },
-      { name: "Uri Hanwoo Gomtang", kind: "Beef bone soup · 우리한우 곰탕", icon: "dining", time: "Nearby · Daejang-dong", note: "See Naver Map for hours", query: near("우리한우 곰탕"), photo: "/images/neighborhood/dining-07-uri-hanwoo-gomtang.webp" },
-      { name: "Prantimore", kind: "Pasta · 프랜티모어", icon: "dining", time: "Nearby · Daejang-dong", note: "See Naver Map for hours", query: near("프랜티모어"), photo: "/images/neighborhood/dining-08-prantimore.webp" },
-      { name: "Sikkeop", kind: "Grilled pork belly · 식껍", icon: "dining", time: "Nearby · Daejang-dong", note: "See Naver Map for hours", query: near("식껍"), photo: "/images/neighborhood/dining-09-sikkeop.webp" },
-      { name: "Oroji Ramen", kind: "Ramen · 오로지라멘", icon: "dining", time: "Nearby · Daejang-dong", note: "See Naver Map for hours", query: near("오로지라멘"), photo: "/images/neighborhood/dining-10-oroji-ramen.webp" },
-      { name: "Pizza School", kind: "Pizza · 피자스쿨", icon: "dining", time: "Nearby · Daejang-dong", note: "See Naver Map for hours", query: near("피자스쿨"), photo: "/images/neighborhood/dining-12-pizza-school.webp" },
-      { name: "Hansot Dosirak", kind: "Lunch boxes · 한솥도시락", icon: "dining", time: "Nearby · Daejang-dong", note: "See Naver Map for hours", query: near("한솥도시락"), photo: "/images/neighborhood/dining-13-hansot.webp" },
+      { name: "Barda Kim Seonsaeng", kind: "Gimbap · 바르다김선생", icon: "dining", details: [
+        { label: "Hours", lines: ["Mon · Wed · Thu 11:00–20:00", "Fri – Sun 10:00–20:00"] },
+        { label: "Break", lines: ["15:00–17:00"] },
+        { label: "Closed", lines: ["Every Tuesday"] },
+      ], query: near("바르다김선생"), photo: "/images/neighborhood/dining-01-barda-kim.webp" },
+      { name: "Seolle Jokbal", kind: "Braised pork trotters · 설레족발", icon: "dining", query: near("설레족발"), photo: "/images/neighborhood/dining-02-seolle-jokbal.webp" },
+      { name: "Mom's Touch", kind: "Burgers · 맘스터치", icon: "dining", query: near("맘스터치"), photo: "/images/neighborhood/dining-03-moms-touch.webp" },
+      { name: "BBQ Chicken", kind: "Fried chicken · BBQ", icon: "dining", query: near("BBQ"), photo: "/images/neighborhood/dining-04-bbq.webp" },
+      { name: "Daejang Dakbal", kind: "Spicy braised chicken · 대장닭발 닭도리탕", icon: "dining", query: near("대장닭발 닭도리탕"), photo: "/images/neighborhood/dining-05-daejang-dakbal.webp" },
+      { name: "Teppan House", kind: "Teppanyaki & seafood · 태판하우스", icon: "dining", query: near("태판하우스"), photo: "/images/neighborhood/dining-06-teppan-house.webp" },
+      { name: "Uri Hanwoo Gomtang", kind: "Beef bone soup · 우리한우 곰탕", icon: "dining", query: near("우리한우 곰탕"), photo: "/images/neighborhood/dining-07-uri-hanwoo-gomtang.webp" },
+      { name: "Prantimore", kind: "Pasta · 프랜티모어", icon: "dining", query: near("프랜티모어"), photo: "/images/neighborhood/dining-08-prantimore.webp" },
+      { name: "Sikkeop", kind: "Grilled pork belly · 식껍", icon: "dining", query: near("식껍"), photo: "/images/neighborhood/dining-09-sikkeop.webp" },
+      { name: "Oroji Ramen", kind: "Ramen · 오로지라멘", icon: "dining", query: near("오로지라멘"), photo: "/images/neighborhood/dining-10-oroji-ramen.webp" },
+      { name: "Pizza School", kind: "Pizza · 피자스쿨", icon: "dining", query: near("피자스쿨"), photo: "/images/neighborhood/dining-12-pizza-school.webp" },
+      { name: "Hansot Dosirak", kind: "Lunch boxes · 한솥도시락", icon: "dining", query: near("한솥도시락"), photo: "/images/neighborhood/dining-13-hansot.webp" },
     ],
   },
   {

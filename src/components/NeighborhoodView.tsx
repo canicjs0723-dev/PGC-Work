@@ -48,18 +48,35 @@ function PlaceCard({ place, index, showMap }: { place: Place; index: number; sho
       <div className="flex flex-1 flex-col p-5">
         <h3 className="font-serif text-[1.375rem] leading-tight">{place.name}</h3>
         <p className="mt-1.5 text-[0.6875rem] uppercase tracking-[0.18em] text-accent">{place.kind}</p>
-        <p className="mt-4 text-[0.875rem] text-charcoal">
-          <span className="font-semibold">{place.time}</span>
-          {place.distance && <span className="text-charcoal/60"> · {place.distance}</span>}
-        </p>
+        {place.time && (
+          <p className="mt-4 text-[0.875rem] text-charcoal">
+            <span className="font-semibold">{place.time}</span>
+            {place.distance && <span className="text-charcoal/60"> · {place.distance}</span>}
+          </p>
+        )}
         {(place.hours || place.note) && (
           <p className="mt-1 text-[0.8125rem] leading-relaxed text-charcoal/60">{[place.hours, place.note].filter(Boolean).join(" · ")}</p>
         )}
+        {place.details && (
+          <dl className="mt-4 grid grid-cols-[auto_1fr] gap-x-4 gap-y-2 border-t border-charcoal/10 pt-4 text-[0.8125rem] leading-snug">
+            {place.details.map((d) => (
+              <div key={d.label} className="contents">
+                <dt className="text-[0.6875rem] uppercase leading-[1.6] tracking-[0.14em] text-charcoal/50">{d.label}</dt>
+                <dd className="text-charcoal">
+                  {d.lines.map((line) => (
+                    <span key={line} className="block">{line}</span>
+                  ))}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        )}
+        <div className="min-h-5 flex-1" />
         <a
           href={place.mapUrl ?? naverMap(place.query)}
           target="_blank"
           rel="noopener noreferrer"
-          className={`mt-5 inline-flex items-center justify-center gap-2 text-[0.8125rem] uppercase tracking-[0.14em] transition-colors ${
+          className={`inline-flex items-center justify-center gap-2 text-[0.8125rem] uppercase tracking-[0.14em] transition-colors ${
             showMap ? "bg-charcoal py-3 text-white hover:bg-navy" : "self-start border-b border-charcoal/40 pb-0.5 hover:border-charcoal"
           }`}
         >
@@ -104,7 +121,7 @@ function WalkingMap({ places }: { places: Place[] }) {
             <span className="block text-[0.6875rem] uppercase tracking-[0.14em] text-accent">{p.kind.split(" · ")[0]}</span>
             <span className="block text-[0.875rem] font-semibold">{p.name.replace(/ Pangyo Daejang$/, "")}</span>
             <span className="mt-0.5 block text-[0.75rem] text-charcoal/60">
-              {p.distance} · {p.time.replace(" walk", "")}
+              {p.distance} · {p.time?.replace(" walk", "")}
             </span>
           </span>
         </div>
