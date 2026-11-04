@@ -155,9 +155,9 @@ export default function LocationView() {
             <p className="mt-8 text-[15px] leading-relaxed text-charcoal/70">{parking.entrance}</p>
           </div>
           <figure className="reveal md:col-span-7">
-            <div className="relative aspect-[928/652] overflow-hidden border border-line bg-white">
+            <div className="relative aspect-[1496/1051] overflow-hidden border border-line bg-white">
               <Image
-                src="/images/site-map.png"
+                src="/images/site-map-en.webp"
                 alt="TH212 site plan showing the secondary entrance near Building 204 and Building 205"
                 fill
                 sizes="(min-width: 768px) 58vw, 100vw"
