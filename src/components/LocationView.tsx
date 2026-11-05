@@ -42,13 +42,13 @@ const walking = [
   },
   {
     src: "/images/walk-03-building-204-left.webp", width: 1524, height: 1032,
-    tag: "BACK GATE", route: "M 3 69.4 Q 34 66 46 61.8", arrowScale: 0.75, boxes: [{ x: 53.4, y: 43.5, w: 12.7, h: 18.4, label: "Building 205" }, { x: 76.2, y: 43.5, w: 21.8, h: 18.4, label: "CU" }],
+    tag: "BACK GATE", route: "M 5 79.5 Q 42 79.5 48 58", arrowScale: 0.8, boxes: [{ x: 53.4, y: 43.5, w: 12.7, h: 18.4, label: "Building 205" }, { x: 76.2, y: 43.5, w: 21.8, h: 18.4, label: "CU" }],
     alt: "Building 204 back gate with the CU convenience store on the right",
     caption: "03 · At the Building 204 back gate, opposite the CU store, follow the sidewalk to Building 205",
   },
   {
     src: "/images/walk-04-building-205-entrance.webp", width: 1524, height: 1032,
-    tag: "PGC ENTRANCE", route: "M 28 98.2 Q 39.5 82 48 66", arrowScale: 0.85, boxes: [{ x: 54, y: 54.4, w: 19.5, h: 30.5 }],
+    tag: "PGC ENTRANCE", route: "M 18 98.2 Q 34 84 44 68", arrowScale: 1.1, boxes: [{ x: 54, y: 54.4, w: 19.5, h: 30.5 }],
     alt: "Building 205 entrance at TH212 Pangyo",
     caption: "04 · Building 205 entrance: enter 403, then the code, and take the stairs",
   },
