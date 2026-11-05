@@ -12,6 +12,8 @@ type FieldErrors = Partial<Record<"name" | "email" | "message" | "consent", stri
 // The first submission sends FormSubmit's one-time activation email to that inbox; once it is activated,
 // every inquiry arrives there directly.
 const endpoint = `https://formsubmit.co/ajax/${site.inquiryEmail}`;
+// Web3Forms takes over once its access key is set in site.ts; it delivers to the inbox the key was made for.
+const web3forms = site.web3formsAccessKey ? "https://api.web3forms.com/submit" : "";
 
 const field =
   "w-full border-0 border-b border-charcoal/25 bg-transparent px-0 py-3 text-[16px] outline-none transition-colors placeholder:text-charcoal/35 focus:border-charcoal";
@@ -51,14 +53,36 @@ export default function ContactForm() {
     setStatus("sending");
     setMessage("");
     try {
-      formData.set("_subject", `[PGC Inquiry] ${name}`);
-      formData.set("_replyto", email);
-      formData.set("_template", "table");
-      const res = await fetch(endpoint, {
-        method: "POST",
-        headers: { Accept: "application/json", "content-type": "application/json" },
-        body: JSON.stringify(Object.fromEntries(formData)),
-      });
+      let res: Response;
+      if (web3forms) {
+        const fields = Object.fromEntries(formData);
+        res = await fetch(web3forms, {
+          method: "POST",
+          headers: { Accept: "application/json", "content-type": "application/json" },
+          body: JSON.stringify({
+            access_key: site.web3formsAccessKey,
+            subject: `[PGC Inquiry] ${name}`,
+            from_name: "PGC Website",
+            replyto: email,
+            botcheck: Boolean(fields._honey),
+            Name: name,
+            Company: fields.company,
+            Email: email,
+            Phone: fields.phone,
+            Message: inquiry,
+            Consent: "Agreed",
+          }),
+        });
+      } else {
+        formData.set("_subject", `[PGC Inquiry] ${name}`);
+        formData.set("_replyto", email);
+        formData.set("_template", "table");
+        res = await fetch(endpoint, {
+          method: "POST",
+          headers: { Accept: "application/json", "content-type": "application/json" },
+          body: JSON.stringify(Object.fromEntries(formData)),
+        });
+      }
       const data = (await res.json().catch(() => ({}))) as { success?: string | boolean; message?: string };
       if (!res.ok || String(data.success) !== "true") {
         throw new Error(data.message || "We could not send your inquiry.");
