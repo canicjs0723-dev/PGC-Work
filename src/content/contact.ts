@@ -1,4 +1,4 @@
-// Contact form content. Submissions are delivered through FormSubmit.
+// Contact form content. Submissions open in the visitor's email app (see ContactForm.tsx).
 // TODO(operator): confirm the retention period before launch.
 
 export const inquiryTypes = [

@@ -30,7 +30,7 @@ export default function PrivacyPage() {
           </div>
           <div>
             <h2 className="text-[13px] font-semibold uppercase tracking-[0.2em] text-charcoal">Operator</h2>
-            <p className="mt-2">{`${site.name} is operated by ${site.operator}. Inquiry details are processed by FormSubmit to deliver the information to ${site.operator} for the purpose above.`}</p>
+            <p className="mt-2">{`${site.name} is operated by ${site.operator}. The inquiry form prepares an email that you send from your own email app directly to ${site.operator}; no third-party form service receives it.`}</p>
           </div>
         </div>
       </Container>

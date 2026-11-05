@@ -35,6 +35,10 @@ export const site = {
   inquiryPhone: "031-613-2360",
   inquiryPhoneTel: "+82316132360",
   inquiryEmail: "evan.kim@rondakorea.com",
+  // Web3Forms access key for the contact form (from web3forms.com, created for inquiryEmail). Web3Forms
+  // designs this key to sit in public page code: it can only send to the inbox it was created for.
+  // Empty = the form opens the visitor's email app instead.
+  web3formsAccessKey: "",
   managementPhone: "031-711-7691",
   managementPhoneTel: "+82317117691",
   // Search term for the external map links and the embedded map: the complex's registered name.

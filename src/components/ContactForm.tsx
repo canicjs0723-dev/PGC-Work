@@ -5,13 +5,14 @@ import { useState } from "react";
 import { privacyConsent } from "@/content/contact";
 import { site } from "@/content/site";
 
-type Status = "idle" | "sending" | "sent" | "error";
+type Status = "idle" | "sending" | "sent" | "mailed" | "error";
 type FieldErrors = Partial<Record<"name" | "email" | "message" | "consent", string>>;
 
-// Submissions are emailed to the inquiry inbox through FormSubmit (GitHub Pages has no server to send mail).
-// The first submission sends FormSubmit's one-time activation email to that inbox; once it is activated,
-// every inquiry arrives there directly.
-const endpoint = `https://formsubmit.co/ajax/${site.inquiryEmail}`;
+// GitHub Pages has no server to send mail, and the free form relays (FormSubmit, then Web3Forms) proved
+// unreliable or could not be set up. So by default the inquiry opens in the visitor's own email app,
+// addressed to the inquiry inbox and already filled in; they press Send there. If a Web3Forms access key is
+// ever set in site.ts, the form posts to Web3Forms instead.
+const web3forms = site.web3formsAccessKey ? "https://api.web3forms.com/submit" : "";
 
 const field =
   "w-full border-0 border-b border-charcoal/25 bg-transparent px-0 py-3 text-[16px] outline-none transition-colors placeholder:text-charcoal/35 focus:border-charcoal";
@@ -20,6 +21,7 @@ export default function ContactForm() {
   const [status, setStatus] = useState<Status>("idle");
   const [message, setMessage] = useState("");
   const [errors, setErrors] = useState<FieldErrors>({});
+  const [mailto, setMailto] = useState("");
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -48,16 +50,50 @@ export default function ContactForm() {
     formData.set("email", email);
     formData.set("message", inquiry);
 
+    const subject = `[PGC Inquiry] ${name}`;
+    const company = String(formData.get("company") ?? "").trim();
+    const phone = String(formData.get("phone") ?? "").trim();
+
+    if (!web3forms) {
+      const body = [
+        `Name: ${name}`,
+        company ? `Company: ${company}` : null,
+        `Email: ${email}`,
+        phone ? `Phone: ${phone}` : null,
+        "",
+        inquiry,
+        "",
+        "(I agree to the collection and use of my personal information for this inquiry.)",
+      ]
+        .filter((line) => line !== null)
+        .join("\n");
+      const href = `mailto:${site.inquiryEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      setMailto(href);
+      setStatus("mailed");
+      setMessage("");
+      window.location.href = href;
+      return;
+    }
+
     setStatus("sending");
     setMessage("");
     try {
-      formData.set("_subject", `[PGC Inquiry] ${name}`);
-      formData.set("_replyto", email);
-      formData.set("_template", "table");
-      const res = await fetch(endpoint, {
+      const res = await fetch(web3forms, {
         method: "POST",
         headers: { Accept: "application/json", "content-type": "application/json" },
-        body: JSON.stringify(Object.fromEntries(formData)),
+        body: JSON.stringify({
+          access_key: site.web3formsAccessKey,
+          subject,
+          from_name: "PGC Website",
+          replyto: email,
+          botcheck: Boolean(formData.get("_honey")),
+          Name: name,
+          Company: company,
+          Email: email,
+          Phone: phone,
+          Message: inquiry,
+          Consent: "Agreed",
+        }),
       });
       const data = (await res.json().catch(() => ({}))) as { success?: string | boolean; message?: string };
       if (!res.ok || String(data.success) !== "true") {
@@ -70,6 +106,32 @@ export default function ContactForm() {
       const reason = err instanceof Error ? err.message : "We could not send your inquiry.";
       setMessage(`${reason.replace(/[.!?]?\s*$/, ".")} Please try again in a moment.`);
     }
+  }
+
+  if (status === "mailed") {
+    return (
+      <div className="border-t border-charcoal/20 pt-10" role="status">
+        <p className="font-serif text-[36px] font-light">Almost done.</p>
+        <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-charcoal/70">
+          Your email app should now be open with your inquiry filled in. Please press <strong className="font-semibold text-charcoal">Send</strong> there to
+          reach us.
+        </p>
+        <p className="mt-4 max-w-xl text-[14px] leading-relaxed text-charcoal/60">
+          Nothing opened?{" "}
+          <a href={mailto} className="underline underline-offset-2">
+            Try again
+          </a>{" "}
+          or write to us directly at{" "}
+          <a href={`mailto:${site.inquiryEmail}`} className="underline underline-offset-2">
+            {site.inquiryEmail}
+          </a>
+          .
+        </p>
+        <button type="button" onClick={() => setStatus("idle")} className="mt-8 border-b border-charcoal/40 pb-0.5 text-[0.8125rem] uppercase tracking-[0.14em] hover:border-charcoal">
+          Back to the form
+        </button>
+      </div>
+    );
   }
 
   if (status === "sent") {
@@ -108,7 +170,7 @@ export default function ContactForm() {
 
       <label className="block">
         <span className="text-[11px] uppercase tracking-[0.24em] text-warm-gray">Message *</span>
-        <textarea name="message" required rows={5} maxLength={3000} aria-invalid={Boolean(errors.message)} aria-describedby={errors.message ? "message-error" : undefined} className={`${field} resize-y`} />
+        <textarea name="message" required rows={5} maxLength={1500} aria-invalid={Boolean(errors.message)} aria-describedby={errors.message ? "message-error" : undefined} className={`${field} resize-y`} />
         {errors.message && <span id="message-error" className="mt-2 block text-[13px] text-red-700">{errors.message}</span>}
       </label>
 
