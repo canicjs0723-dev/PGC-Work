@@ -1,7 +1,7 @@
 "use client";
 
 import SiteLink from "@/components/SiteLink";
-import { useState, useSyncExternalStore } from "react";
+import { useState } from "react";
 import { privacyConsent } from "@/content/contact";
 import { site } from "@/content/site";
 
@@ -12,15 +12,11 @@ type FieldErrors = Partial<Record<"name" | "email" | "message" | "attachment" | 
 // The first submission sends FormSubmit's one-time activation email to that inbox; once it is activated,
 // every inquiry arrives there directly.
 const endpoint = `https://formsubmit.co/ajax/${site.inquiryEmail}`;
-// FormSubmit takes file attachments only through a normal form post (multipart), not its AJAX endpoint. When a
-// file is attached the form is posted there and FormSubmit sends the visitor back here with ?sent=1.
-const postEndpoint = `https://formsubmit.co/${site.inquiryEmail}`;
+// With a file attached the same endpoint gets a multipart body, so the visitor stays on this page and any
+// failure is shown here, with the option to email the file instead.
 const maxAttachmentBytes = 10 * 1024 * 1024;
 const acceptedFiles = ".doc,.docx,.pdf,.hwp,.hwpx,.jpg,.jpeg,.png";
 const reservationForm = `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/files/PGC_Reservation_Form.docx`;
-
-const noop = () => () => {};
-const returnedAfterPost = () => new URLSearchParams(window.location.search).get("sent") === "1";
 
 const field =
   "w-full border-0 border-b border-charcoal/25 bg-transparent px-0 py-3 text-[16px] outline-none transition-colors placeholder:text-charcoal/35 focus:border-charcoal";
@@ -29,7 +25,7 @@ export default function ContactForm() {
   const [status, setStatus] = useState<Status>("idle");
   const [message, setMessage] = useState("");
   const [errors, setErrors] = useState<FieldErrors>({});
-  const posted = useSyncExternalStore(noop, returnedAfterPost, () => false);
+  const [fileFailed, setFileFailed] = useState(false);
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -61,39 +57,23 @@ export default function ContactForm() {
     formData.set("email", email);
     formData.set("message", inquiry);
 
-    if (hasFile) {
-      // Normal form post so the file goes along; FormSubmit redirects back to this page afterwards.
-      setStatus("sending");
-      setMessage("");
-      (form.elements.namedItem("name") as HTMLInputElement).value = name;
-      (form.elements.namedItem("email") as HTMLInputElement).value = email;
-      (form.elements.namedItem("message") as HTMLTextAreaElement).value = inquiry;
-      const hidden = { _subject: `[PGC Inquiry] ${name}`, _replyto: email, _template: "table", _captcha: "false", _next: `${window.location.origin}${window.location.pathname}?sent=1` };
-      for (const [key, value] of Object.entries(hidden)) {
-        const input = document.createElement("input");
-        input.type = "hidden";
-        input.name = key;
-        input.value = value;
-        form.appendChild(input);
-      }
-      form.action = postEndpoint;
-      form.method = "POST";
-      form.enctype = "multipart/form-data";
-      HTMLFormElement.prototype.submit.call(form);
-      return;
-    }
-    formData.delete("attachment");
-
     setStatus("sending");
     setMessage("");
+    setFileFailed(false);
+    formData.set("_subject", `[PGC Inquiry] ${name}`);
+    formData.set("_replyto", email);
+    formData.set("_template", "table");
+    if (!hasFile) formData.delete("attachment");
+    // Give up after a while rather than leave the button spinning if FormSubmit stalls.
+    const controller = new AbortController();
+    const timer = window.setTimeout(() => controller.abort(), hasFile ? 60000 : 30000);
     try {
-      formData.set("_subject", `[PGC Inquiry] ${name}`);
-      formData.set("_replyto", email);
-      formData.set("_template", "table");
       const res = await fetch(endpoint, {
         method: "POST",
-        headers: { Accept: "application/json", "content-type": "application/json" },
-        body: JSON.stringify(Object.fromEntries(formData)),
+        // With a file the body is multipart (the browser sets its content type); otherwise JSON as before.
+        headers: hasFile ? { Accept: "application/json" } : { Accept: "application/json", "content-type": "application/json" },
+        body: hasFile ? formData : JSON.stringify(Object.fromEntries(formData)),
+        signal: controller.signal,
       });
       const data = (await res.json().catch(() => ({}))) as { success?: string | boolean; message?: string };
       if (!res.ok || String(data.success) !== "true") {
@@ -103,12 +83,15 @@ export default function ContactForm() {
       form.reset();
     } catch (err) {
       setStatus("error");
-      const reason = err instanceof Error ? err.message : "We could not send your inquiry.";
+      setFileFailed(hasFile);
+      const reason = err instanceof Error && err.name !== "AbortError" && !/fetch/i.test(err.message) ? err.message : "We could not send your inquiry.";
       setMessage(`${reason.replace(/[.!?]?\s*$/, ".")} Please try again in a moment.`);
+    } finally {
+      window.clearTimeout(timer);
     }
   }
 
-  if (status === "sent" || posted) {
+  if (status === "sent") {
     return (
       <div className="border-t border-charcoal/20 pt-10" role="status">
         <p className="font-serif text-[36px] font-light">Thank you.</p>
@@ -186,9 +169,18 @@ export default function ContactForm() {
       </div>
 
       {status === "error" && (
-        <p className="text-[14px] text-red-700" role="alert">
-          {message}
-        </p>
+        <div className="space-y-2 text-[14px] text-red-700" role="alert">
+          <p>{message}</p>
+          {fileFailed && (
+            <p className="text-charcoal/75">
+              If it keeps failing, remove the attachment and send your message, then email the file to{" "}
+              <a href={`mailto:${site.inquiryEmail}?subject=${encodeURIComponent("[PGC Inquiry] Attachment")}`} className="underline underline-offset-2">
+                {site.inquiryEmail}
+              </a>
+              .
+            </p>
+          )}
+        </div>
       )}
 
       <button
