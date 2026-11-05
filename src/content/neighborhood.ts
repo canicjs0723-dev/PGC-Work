@@ -134,10 +134,11 @@ export const categories: Category[] = [
     icon: "culture",
     eyebrow: "Places to Visit",
     title: "Further Afield",
-    intro: "For a free afternoon between meetings, or a weekend in and around Seoul — seven places within about forty-five minutes by car.",
+    intro: "For a free afternoon between meetings, or a weekend in and around Seoul — eight places within about forty-five minutes by car.",
     footnote: "Travel times are approximate and vary with traffic. Hours may change; please check before visiting.",
     places: [
-      { name: "Pangyo Station Area", kind: "Shopping", icon: "shopping", time: "~15 min by car", distance: "7.2 km", note: "Cafés, dining and shopping around Pangyo's business district.", query: "판교역", photo: "/images/neighborhood/visit-01-pangyo-station.webp", mapUrl: "https://map.naver.com/p/search/%ED%8C%90%EA%B5%90%EC%97%AD/subway-station/1914?c=15.00,0,0,0,dh" },
+      { name: "Lotte World", kind: "Theme park", icon: "culture", note: "Indoor and outdoor theme park in Jamsil, beside Lotte World Tower.", query: "롯데월드", photo: "/images/neighborhood/visit-lotte-world.webp", mapUrl: "https://map.naver.com/p/entry/place/11583235?c=12.00,0,0,0,dh" },
+      { name: "COEX, Gangnam", kind: "Shopping", icon: "shopping", note: "Convention centre and underground mall in Gangnam, home to the Starfield Library.", query: "코엑스", photo: "/images/neighborhood/visit-coex.webp", mapUrl: "https://map.naver.com/p/search/%EC%BD%94%EC%97%91%EC%8A%A4/place/11576171?c=15.00,0,0,0,dh" },
       { name: "The Hyundai Pangyo", kind: "Shopping", icon: "shopping", time: "~12 min by car", distance: "7.4 km", note: "Shopping, dining and culture under one roof.", query: "현대백화점 판교점", photo: "/images/neighborhood/visit-02-the-hyundai-pangyo.webp", mapUrl: "https://map.naver.com/p/search/%ED%98%84%EB%8C%80%EB%B0%B1%ED%99%94%EC%A0%90%20%ED%8C%90%EA%B5%90%EC%A0%90/place/31564929?c=15.00,0,0,0,dh" },
       { name: "Gogi Valley, Yongin", kind: "Nature", icon: "nature", time: "~10 min by car", distance: "4.1 km", note: "Relaxed meals and cafés along a wooded valley stream.", query: "용인 고기리계곡", photo: "/images/neighborhood/visit-03-gogi-valley.webp", mapUrl: "https://map.naver.com/p/search/%EC%9A%A9%EC%9D%B8%20%EA%B3%A0%EA%B8%B0%EB%A6%AC%EA%B3%84%EA%B3%A1/place/13491741?c=15.00,0,0,0,dh" },
       { name: "Starfield Suwon", kind: "Shopping", icon: "shopping", time: "~25 min by car", distance: "17 km", note: "Shopping, dining and a cinema in one large complex.", query: "스타필드 수원", photo: "/images/neighborhood/visit-04-starfield-suwon.webp", mapUrl: "https://map.naver.com/p/search/%EC%8A%A4%ED%83%80%ED%95%84%EB%93%9C%20%EC%88%98%EC%9B%90/place/1045275610?c=15.00,0,0,0,dh" },
