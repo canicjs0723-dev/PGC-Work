@@ -9,10 +9,21 @@
  *   1. script.google.com → New project → paste this file → Save.
  *   2. Deploy → New deployment → type "Web app"; Execute as "Me"; Who has access "Anyone" → Deploy,
  *      allow the permissions it asks for (send email as you).
+ *   2b. Select testSend → Run once to grant the mail permission (a test email arrives at TO).
  *   3. Copy the Web app URL (https://script.google.com/macros/s/…/exec) into
  *      src/content/site.ts → contactFormUrl.
  */
 const TO = "evan.kim@rondakorea.com";
+
+// Opening the web-app URL in a browser shows this line, which confirms the deployment runs this code.
+function doGet() {
+  return ContentService.createTextOutput("PGC contact form mailer is running.");
+}
+
+// Run once from the editor (select testSend → Run) to grant the mail permission and send a test email.
+function testSend() {
+  MailApp.sendEmail({ to: TO, subject: "[PGC Inquiry] Test", body: "Test from the PGC contact form mailer." });
+}
 
 function doPost(e) {
   try {
