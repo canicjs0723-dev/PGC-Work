@@ -103,7 +103,7 @@ export const categories: Category[] = [
         { label: "Hours", lines: ["Mon – Sat 11:00–21:00"] },
         { label: "Break", lines: ["15:00–17:00"] },
         { label: "Closed", lines: ["Every Sunday"] },
-      ], query: near("우리한우 곰탕"), photo: "/images/neighborhood/dining-07-uri-hanwoo-gomtang.webp", mapUrl: "https://map.naver.com/p/search/%EC%9A%B0%EB%A6%AC%ED%95%9C%EC%9A%B0%EA%B3%B0%ED%83%95?c=15.00,0,0,0,dh" },
+      ], query: near("우리한우 곰탕"), photo: "/images/neighborhood/dining-07-uri-hanwoo-gomtang.webp", mapUrl: "https://map.naver.com/p/search/%EC%9A%B0%EB%A6%AC%ED%95%9C%EC%9A%B0%EA%B3%B0%ED%83%95/place/1098691608?c=15.00,0,0,0,dh" },
       { name: "Plantimore", kind: "Pasta · 플랜티모어", icon: "dining", details: [
         { label: "Hours", lines: ["Mon – Fri 09:00–20:00", "Sat 09:00–16:00"] },
         { label: "Closed", lines: ["Every Sunday"] },
