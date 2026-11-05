@@ -37,7 +37,7 @@ export const site = {
   inquiryEmail: "evan.kim@rondakorea.com",
   // Contact form mailer: the Web app URL of docs/contact-form-apps-script.gs deployed from the operator's Google
   // account (https://script.google.com/macros/s/…/exec). It emails each inquiry to inquiryEmail. Empty = not set up.
-  contactFormUrl: "",
+  contactFormUrl: "https://script.google.com/macros/s/AKfycbxpR-3_bFYw2pt8llZ-nQEhOFh-DuUPrCDB34EwNEDxFi8Mc27U6Vvwv1Uya234rxU/exec",
   // Web3Forms access key for the contact form (from web3forms.com, created for inquiryEmail). Web3Forms
   // designs this key to sit in public page code: it can only send to the inbox it was created for.
   // Empty = the form opens the visitor's email app instead.
