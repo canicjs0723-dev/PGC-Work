@@ -150,7 +150,10 @@ npm run build -- --webpack
    - 실행 사용자: **나**
    - 액세스 권한이 있는 사용자: **모든 사용자**
 4. **배포** → 권한 검토 → 계정 선택 → (경고가 나오면) 고급 → 이동 → **허용**
-5. 나오는 **웹 앱 URL**(`https://script.google.com/macros/s/…/exec`)을 복사해 개발 담당에게 전달
+5. 편집기 위 함수 선택에서 **testSend** → **▶︎ 실행** → 권한 허용 → 테스트 메일이 오는지 확인
+6. 웹 앱 URL을 브라우저로 열어 "PGC contact form mailer is running." 이 보이면 정상
+   (코드를 고친 뒤에는 **배포 → 배포 관리 → ✏️ → 버전: 새 버전 → 배포**로 다시 배포해야 반영됩니다)
+7. 나오는 **웹 앱 URL**(`https://script.google.com/macros/s/…/exec`)을 복사해 개발 담당에게 전달
    → `src/content/site.ts`의 `contactFormUrl`에 넣고 배포하면 자동 전송이 켜집니다.
 
 메일은 이 Google 계정에서 발송되고, 답장 주소는 문의한 손님의 이메일로 설정됩니다. Google 무료 계정 기준 하루 약 100통까지 보낼 수 있습니다.
