@@ -34,14 +34,14 @@ const HOME = at([178, 186]);
 // Each place: its pin (overview coordinates) and where its label card sits (view-box coordinates), in the
 // same order as the places in neighborhood.ts.
 const spots: { pin: Pt; card: Pt }[] = [
-  { pin: [226, 162], card: [1010, 66] }, // CU
-  { pin: [275, 243], card: [1190, 168] }, // Pascucci
-  { pin: [289, 244], card: [1330, 290] }, // Tous les Jours
-  { pin: [263, 426], card: [600, 740] }, // GS THE FRESH
-  { pin: [263, 411], card: [1170, 680] }, // Pharmacy
-  { pin: [245, 418], card: [560, 590] }, // Clinic (not on the overview; placed beside the pharmacy)
-  { pin: [264, 250], card: [540, 455] }, // CleanTopia
-  { pin: [289, 550], card: [1190, 940] }, // Park
+  { pin: [226, 162], card: [1220, 56] }, // CU
+  { pin: [275, 243], card: [960, 170] }, // Pascucci
+  { pin: [289, 244], card: [1330, 250] }, // Tous les Jours
+  { pin: [263, 426], card: [520, 790] }, // GS THE FRESH
+  { pin: [263, 411], card: [1170, 630] }, // Pharmacy
+  { pin: [245, 418], card: [500, 648] }, // Clinic (not on the overview; placed beside the pharmacy)
+  { pin: [264, 250], card: [590, 262] }, // CleanTopia
+  { pin: [289, 550], card: [1180, 945] }, // Park
 ];
 
 const tint: Record<Icon, string> = {
@@ -196,7 +196,6 @@ export function WalkingMap({ places }: { places: Place[] }) {
 
         {/* Area, road and hill names (all real, from the map) */}
         <g fontSize="15" letterSpacing="3" fontWeight="600" fill="#3f3a2d" stroke="#f7f3eb" strokeWidth="4" paintOrder="stroke" className="font-sans">
-          <text x={at([196, 230])[0]} y={at([196, 230])[1]} textAnchor="middle">PANGYO TH212</text>
           <text x={at([313, 374])[0]} y={at([313, 374])[1]} textAnchor="middle">PANGYO DAEJANG</text>
           <text x={at([313, 374])[0]} y={at([313, 374])[1] + 22} textAnchor="middle">MIDDLE SCHOOL</text>
           <text x={at([410, 340])[0]} y={at([410, 340])[1]} textAnchor="middle">PANGYO HARRINGTON PLACE</text>
@@ -213,10 +212,13 @@ export function WalkingMap({ places }: { places: Place[] }) {
           <text y="34" textAnchor="middle" fontSize="15" letterSpacing="2" fontWeight="600" fill="#f7f3eb">DAEJANG-DONG TAEBONG</text>
         </g>
 
-        {/* Leader lines from each label to its pin */}
+        {/* Leader lines: straight across when the label sits level with its pin, otherwise straight up or down
+            from the pin and then across, so every line runs horizontal or vertical. */}
         {shown.map((p, i) => {
-          const [x2, y2] = at(spots[i].pin);
-          return <line key={p.name} x1={spots[i].card[0]} y1={spots[i].card[1]} x2={x2} y2={y2} stroke="#ffffff" strokeOpacity="0.9" strokeWidth="2" />;
+          const [px, py] = at(spots[i].pin);
+          const [cx, cy] = spots[i].card;
+          const d = Math.abs(py - cy) < 40 ? `M ${px} ${py} H ${cx}` : `M ${px} ${py} V ${cy} H ${cx}`;
+          return <path key={p.name} d={d} fill="none" stroke="#ffffff" strokeOpacity="0.95" strokeWidth="2.5" />;
         })}
 
         <rect width={W} height={H} fill="url(#wm-vignette)" />
