@@ -8,11 +8,13 @@ import { site } from "@/content/site";
 type Status = "idle" | "sending" | "sent" | "mailed" | "error";
 type FieldErrors = Partial<Record<"name" | "email" | "message" | "consent", string>>;
 
-// GitHub Pages has no server to send mail, and the free form relays (FormSubmit, then Web3Forms) proved
-// unreliable or could not be set up. So by default the inquiry opens in the visitor's own email app,
-// addressed to the inquiry inbox and already filled in; they press Send there. If a Web3Forms access key is
-// ever set in site.ts, the form posts to Web3Forms instead.
-const web3forms = site.web3formsAccessKey ? "https://api.web3forms.com/submit" : "";
+// GitHub Pages has no server to send mail. Inquiries go, in order of preference, to:
+// 1. the operator's Google Apps Script mailer (site.contactFormUrl, docs/contact-form-apps-script.gs), which
+//    emails them straight to the inquiry inbox;
+// 2. Web3Forms, if an access key is set (site.web3formsAccessKey);
+// 3. otherwise the visitor's own email app, opened with the inquiry filled in.
+// The free FormSubmit relay used before proved unreliable and has been dropped.
+const relay = site.contactFormUrl ? "apps-script" : site.web3formsAccessKey ? "web3forms" : "";
 
 const field =
   "w-full border-0 border-b border-charcoal/25 bg-transparent px-0 py-3 text-[16px] outline-none transition-colors placeholder:text-charcoal/35 focus:border-charcoal";
@@ -54,7 +56,7 @@ export default function ContactForm() {
     const company = String(formData.get("company") ?? "").trim();
     const phone = String(formData.get("phone") ?? "").trim();
 
-    if (!web3forms) {
+    if (!relay) {
       const body = [
         `Name: ${name}`,
         company ? `Company: ${company}` : null,
@@ -78,23 +80,28 @@ export default function ContactForm() {
     setStatus("sending");
     setMessage("");
     try {
-      const res = await fetch(web3forms, {
-        method: "POST",
-        headers: { Accept: "application/json", "content-type": "application/json" },
-        body: JSON.stringify({
-          access_key: site.web3formsAccessKey,
-          subject,
-          from_name: "PGC Website",
-          replyto: email,
-          botcheck: Boolean(formData.get("_honey")),
-          Name: name,
-          Company: company,
-          Email: email,
-          Phone: phone,
-          Message: inquiry,
-          Consent: "Agreed",
-        }),
-      });
+      const fields = { name, company, email, phone, message: inquiry, consent: "yes", botcheck: Boolean(formData.get("_honey")) };
+      const res =
+        relay === "apps-script"
+          ? // text/plain keeps this a "simple" request (no CORS preflight), which Apps Script web apps require.
+            await fetch(site.contactFormUrl, { method: "POST", headers: { "content-type": "text/plain;charset=utf-8" }, body: JSON.stringify(fields) })
+          : await fetch("https://api.web3forms.com/submit", {
+              method: "POST",
+              headers: { Accept: "application/json", "content-type": "application/json" },
+              body: JSON.stringify({
+                access_key: site.web3formsAccessKey,
+                subject,
+                from_name: "PGC Website",
+                replyto: email,
+                botcheck: fields.botcheck,
+                Name: name,
+                Company: company,
+                Email: email,
+                Phone: phone,
+                Message: inquiry,
+                Consent: "Agreed",
+              }),
+            });
       const data = (await res.json().catch(() => ({}))) as { success?: string | boolean; message?: string };
       if (!res.ok || String(data.success) !== "true") {
         throw new Error(data.message || "We could not send your inquiry.");
@@ -170,7 +177,7 @@ export default function ContactForm() {
 
       <label className="block">
         <span className="text-[11px] uppercase tracking-[0.24em] text-warm-gray">Message *</span>
-        <textarea name="message" required rows={5} maxLength={1500} aria-invalid={Boolean(errors.message)} aria-describedby={errors.message ? "message-error" : undefined} className={`${field} resize-y`} />
+        <textarea name="message" required rows={5} maxLength={relay ? 3000 : 1500} aria-invalid={Boolean(errors.message)} aria-describedby={errors.message ? "message-error" : undefined} className={`${field} resize-y`} />
         {errors.message && <span id="message-error" className="mt-2 block text-[13px] text-red-700">{errors.message}</span>}
       </label>
 
